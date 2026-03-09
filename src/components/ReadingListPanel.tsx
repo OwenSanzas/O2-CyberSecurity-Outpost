@@ -44,6 +44,24 @@ export default function ReadingListPanel({ papers, lang, readingListIds, onPaper
               <div className="flex gap-2">
                 {items.length > 0 && (
                   <button
+                    onClick={() => {
+                      const bibtex = items.filter(p => p.bibtex).map(p => p.bibtex).join('\n\n')
+                      if (!bibtex) return
+                      const blob = new Blob([bibtex], { type: 'text/plain' })
+                      const url = URL.createObjectURL(blob)
+                      const a = document.createElement('a')
+                      a.href = url
+                      a.download = `reading-list-${items.length}.bib`
+                      a.click()
+                      URL.revokeObjectURL(url)
+                    }}
+                    className="text-xs text-[var(--color-accent)] bg-transparent border-none cursor-pointer hover:underline"
+                  >
+                    Export BibTeX
+                  </button>
+                )}
+                {items.length > 0 && (
+                  <button
                     onClick={onClear}
                     className="text-xs text-[var(--color-red)] bg-transparent border-none cursor-pointer hover:underline"
                   >

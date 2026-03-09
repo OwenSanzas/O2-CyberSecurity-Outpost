@@ -109,9 +109,15 @@ function App() {
     return () => window.removeEventListener('keydown', handler)
   }, [selectedPaper])
 
-  // Back to top visibility
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  // Back to top visibility + scroll progress
   useEffect(() => {
-    const handler = () => setShowBackToTop(window.scrollY > 600)
+    const handler = () => {
+      setShowBackToTop(window.scrollY > 600)
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(scrollHeight > 0 ? (window.scrollY / scrollHeight) * 100 : 0)
+    }
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -227,6 +233,9 @@ function App() {
 
   return (
     <div className="min-h-screen relative">
+      {/* Scroll progress bar */}
+      <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
+
       <MatrixRain />
 
       <div className="relative z-1">

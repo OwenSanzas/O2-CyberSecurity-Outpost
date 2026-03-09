@@ -177,6 +177,17 @@ input[type="checkbox"] {
   animation: spin 0.8s linear infinite;
 }
 
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-accent), var(--color-blue));
+  z-index: 9998;
+  transition: width 0.1s;
+}
+
 /* Print styles */
 @media print {
   body::after { display: none; }
