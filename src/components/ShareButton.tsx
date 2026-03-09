@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { showToast } from './Toast'
 
 export default function ShareButton() {
   const [copied, setCopied] = useState(false)
@@ -8,9 +9,9 @@ export default function ShareButton() {
     try {
       await navigator.clipboard.writeText(url)
       setCopied(true)
+      showToast('URL copied!')
       setTimeout(() => setCopied(false), 2000)
     } catch {
-      // Fallback for non-HTTPS
       const input = document.createElement('input')
       input.value = url
       document.body.appendChild(input)
@@ -18,6 +19,7 @@ export default function ShareButton() {
       document.execCommand('copy')
       document.body.removeChild(input)
       setCopied(true)
+      showToast('URL copied!')
       setTimeout(() => setCopied(false), 2000)
     }
   }

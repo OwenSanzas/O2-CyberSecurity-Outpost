@@ -1,5 +1,6 @@
 import type { Paper, Language } from '../types'
 import ReadingListButton from './ReadingListButton'
+import { showToast } from './Toast'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -96,6 +97,7 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
               e.stopPropagation()
               const url = `${window.location.origin}${window.location.pathname}#paper=${encodeURIComponent(paper.id)}`
               navigator.clipboard.writeText(url)
+              showToast('Link copied!')
             }}
             className="text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity bg-transparent border-none cursor-pointer hover:text-[var(--color-accent)]"
             title="Copy link to paper"

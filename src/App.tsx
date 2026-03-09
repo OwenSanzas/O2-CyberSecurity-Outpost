@@ -26,6 +26,7 @@ import PaperOfTheDay from './components/PaperOfTheDay'
 import FilterSummary from './components/FilterSummary'
 import AuthorNetwork from './components/AuthorNetwork'
 import ResearchGaps from './components/ResearchGaps'
+import ToastContainer, { showToast } from './components/Toast'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -37,6 +38,7 @@ import { useDebounce } from './hooks/useDebounce'
 import { useRecentlyViewed } from './hooks/useRecentlyViewed'
 import { useSearchHistory } from './hooks/useSearchHistory'
 import { useNotes } from './hooks/useNotes'
+import { usePreferences } from './hooks/usePreferences'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -47,14 +49,14 @@ function App() {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CategoryFilter>('all')
   const [yearFilter, setYearFilter] = useState('all')
-  const [sortBy, setSortBy] = useState<SortBy>('year-desc')
+  const [sortBy, setSortByState] = useState<SortBy>(() => (prefs.sortBy as SortBy) || 'year-desc')
   const [recommendationFilter, setRecommendationFilter] = useState('all')
   const [lang, setLang] = useState<Language>('en')
   const [facetFilters, setFacetFilters] = useState<Record<string, string[]>>({})
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
-  const [viewMode, setViewMode] = useState<'card' | 'table' | 'timeline'>('card')
+  const [viewMode, setViewModeState] = useState<'card' | 'table' | 'timeline'>(prefs.viewMode)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [compareIds, setCompareIds] = useState<string[]>([])
   const [showComparison, setShowComparison] = useState(false)
@@ -75,6 +77,17 @@ function App() {
   const recentlyViewed = useRecentlyViewed()
   const searchHistory = useSearchHistory()
   const paperNotes = useNotes()
+  const { prefs, update: updatePref } = usePreferences()
+
+  const setSortBy = useCallback((s: SortBy) => {
+    setSortByState(s)
+    updatePref('sortBy', s)
+  }, [updatePref])
+
+  const setViewMode = useCallback((m: 'card' | 'table' | 'timeline') => {
+    setViewModeState(m)
+    updatePref('viewMode', m)
+  }, [updatePref])
 
   // Deep link: open paper from URL hash
   useEffect(() => {
@@ -440,7 +453,7 @@ function App() {
               )}
               {compareIds.length > 0 && (
                 <button
-                  onClick={() => compareIds.forEach(id => { if (!readingList.has(id)) readingList.toggle(id) })}
+                  onClick={() => { compareIds.forEach(id => { if (!readingList.has(id)) readingList.toggle(id) }); showToast(`${compareIds.length} papers bookmarked`) }}
                   className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] cursor-pointer hover:border-[var(--color-accent)]/30 hover:text-[var(--color-accent)] transition-all bg-transparent"
                   title="Bookmark all selected papers"
                 >
@@ -451,7 +464,7 @@ function App() {
                 <button
                   onClick={() => {
                     const bibtex = comparisonPapers.filter(p => p.bibtex).map(p => p.bibtex).join('\n\n')
-                    if (bibtex) navigator.clipboard.writeText(bibtex)
+                    if (bibtex) { navigator.clipboard.writeText(bibtex); showToast('BibTeX copied!') }
                   }}
                   className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] cursor-pointer hover:border-[var(--color-accent)]/30 hover:text-[var(--color-accent)] transition-all bg-transparent"
                   title="Copy BibTeX for selected papers"
@@ -643,6 +656,9 @@ function App() {
           ↑
         </button>
       )}
+
+      {/* Toast notifications */}
+      <ToastContainer />
 
       {/* Keyboard help */}
       {showKeyboardHelp && (

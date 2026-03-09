@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import type { Paper, Language } from '../types'
 import ReadingListButton from './ReadingListButton'
 import PaperNotes from './PaperNotes'
+import { showToast } from './Toast'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -77,6 +78,7 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
     if (paper.bibtex) {
       navigator.clipboard.writeText(paper.bibtex)
       setCopiedBib(true)
+      showToast('BibTeX copied!')
       setTimeout(() => setCopiedBib(false), 2000)
     }
   }
