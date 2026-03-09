@@ -26,9 +26,20 @@ interface Props {
   onSelect?: () => void
   onTagClick?: (query: string) => void
   hasNote?: boolean
+  searchQuery?: string
 }
 
-export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote }: Props) {
+function highlightText(text: string, query: string): React.ReactNode {
+  if (!query || query.length < 2) return text
+  const parts = text.split(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'))
+  return parts.map((part, i) =>
+    part.toLowerCase() === query.toLowerCase()
+      ? <mark key={i} className="bg-[var(--color-accent)]/20 text-[var(--color-accent)] rounded-sm px-0.5">{part}</mark>
+      : part
+  )
+}
+
+export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote, searchQuery }: Props) {
   const mainCategory = paper.categories[0] || 'vulnerability-detection'
   const color = categoryColors[mainCategory] || '#888'
   const rec = paper.recommendation ?? 1
@@ -115,7 +126,7 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
           </span>
         )}
         <h3 className="text-base font-semibold leading-snug text-[var(--color-text-primary)] inline group-hover:text-white transition-colors">
-          {paper.title}
+          {searchQuery ? highlightText(paper.title, searchQuery) : paper.title}
         </h3>
       </div>
 

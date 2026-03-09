@@ -438,6 +438,16 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
                 {copiedBib ? 'Copied!' : 'Copy BibTeX'}
               </button>
             )}
+            <button
+              onClick={() => {
+                const url = `${window.location.origin}${window.location.pathname}#paper=${encodeURIComponent(paper.id)}`
+                navigator.clipboard.writeText(url)
+                showToast('Paper link copied!')
+              }}
+              className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all border-none cursor-pointer"
+            >
+              Share Link
+            </button>
             <a
               href={`https://github.com/OwenSanzas/O2-CyberSecurity-Outpost/issues/new?title=${encodeURIComponent(`[Paper] ${paper.title}`)}&body=${encodeURIComponent(`Paper: ${paper.title}\nID: ${paper.id}\n\nIssue description:\n`)}`}
               target="_blank"

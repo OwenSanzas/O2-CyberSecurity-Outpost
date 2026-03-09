@@ -612,6 +612,7 @@ function App() {
                           onSelect={() => toggleCompare(paper.id)}
                           onTagClick={handleTagClick}
                           hasNote={paperNotes.hasNote(paper.id)}
+                          searchQuery={query !== '__reading_list__' ? query : ''}
                         />
                       </div>
                     ))}
