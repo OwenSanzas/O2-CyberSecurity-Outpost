@@ -14,6 +14,7 @@ import PaperTable from './components/PaperTable'
 import TimelineView from './components/TimelineView'
 import PaperComparison from './components/PaperComparison'
 import ReadingListPanel from './components/ReadingListPanel'
+import ShareButton from './components/ShareButton'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
@@ -165,7 +166,7 @@ function App() {
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8">
           <Stats papers={papers} />
           <FeaturedPapers papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
-          <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} />
+          <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
           <QuickFilters onSearch={setQuery} />
           <Filters
             category={category}
@@ -233,6 +234,7 @@ function App() {
               <span className="text-xs text-[var(--color-text-muted)]">
                 {filtered.length} paper{filtered.length !== 1 ? 's' : ''}
               </span>
+              <ShareButton />
               <ExportButton papers={filtered} />
             </div>
           </div>
