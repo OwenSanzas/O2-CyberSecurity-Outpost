@@ -64,6 +64,7 @@ function App() {
   const [showGraph, setShowGraph] = useState(false)
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false)
   const [venueFilter, setVenueFilter] = useState('all')
+  const [focusMode, setFocusMode] = useState(false)
 
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearch = useDebounce(searchInput, 200)
@@ -161,6 +162,11 @@ function App() {
       if (e.key === 'g' && !e.ctrlKey && !e.metaKey && !isInput && !selectedPaper) {
         e.preventDefault()
         setShowGraph(prev => !prev)
+      }
+      // F for focus mode
+      if (e.key === 'f' && !e.ctrlKey && !e.metaKey && !isInput && !selectedPaper) {
+        e.preventDefault()
+        setFocusMode(prev => !prev)
       }
       // 1/2/3 for view modes
       if (['1', '2', '3'].includes(e.key) && !isInput && !selectedPaper) {
@@ -317,7 +323,7 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen relative">
+    <div className={`min-h-screen relative ${focusMode ? 'focus-mode' : ''}`}>
       {/* Skip navigation for accessibility */}
       <a href="#papers" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[var(--color-accent)] focus:text-[var(--color-bg-primary)] focus:rounded-lg focus:font-semibold focus:text-sm">
         Skip to papers
@@ -446,6 +452,20 @@ function App() {
                 title="Open a random paper (R)"
               >
                 Discover
+              </button>
+
+              {/* Focus mode */}
+              <button
+                onClick={() => setFocusMode(prev => !prev)}
+                className="text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer"
+                style={{
+                  background: focusMode ? 'rgba(0,255,136,0.1)' : 'var(--color-bg-card)',
+                  borderColor: focusMode ? 'var(--color-accent)' : 'var(--color-border)',
+                  color: focusMode ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                }}
+                title="Toggle focus mode (F)"
+              >
+                Focus
               </button>
 
               {/* Compare toggle */}

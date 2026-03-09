@@ -8,6 +8,7 @@ const shortcuts = [
   { key: '/', description: 'Focus search bar' },
   { key: 'R', description: 'Open random paper' },
   { key: 'G', description: 'Toggle knowledge graph' },
+  { key: 'F', description: 'Toggle focus mode' },
   { key: '1/2/3', description: 'Switch view (card/table/timeline)' },
   { key: '←', description: 'Previous paper (in modal)' },
   { key: '→', description: 'Next paper (in modal)' },

@@ -207,8 +207,36 @@ input[type="checkbox"] {
   body::after { display: none; }
   canvas { display: none !important; }
   .fixed { display: none !important; }
+  .sticky-search { position: static !important; background: transparent !important; backdrop-filter: none !important; }
   body { background: #fff; color: #000; }
-  * { border-color: #ccc !important; }
+  * { border-color: #ccc !important; color: #000 !important; }
+  .bg-\[var\(--color-bg-card\)\] { background: #f5f5f5 !important; }
+  [class*="text-\[var(--color-accent)\]"] { color: #006644 !important; }
+  button, select { border: 1px solid #ccc !important; }
+}
+
+/* Focus mode */
+.focus-mode header,
+.focus-mode .sticky-search,
+.focus-mode aside,
+.focus-mode footer,
+.focus-mode canvas {
+  display: none !important;
+}
+
+.focus-mode main {
+  max-width: 900px !important;
+  padding-top: 1rem !important;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .scroll-progress { transition: none !important; }
 }
 
 /* Screen reader only */
