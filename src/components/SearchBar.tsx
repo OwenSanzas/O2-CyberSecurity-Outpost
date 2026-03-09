@@ -117,7 +117,7 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
       </div>
 
       {/* Suggestions dropdown */}
-      {showSuggestions && (suggestions.length > 0 || (!query.trim() && searchHistory && searchHistory.length > 0)) && (
+      {showSuggestions && (suggestions.length > 0 || !query.trim()) && (
         <div
           ref={suggestionsRef}
           className="absolute top-full left-0 right-0 mt-1 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg overflow-hidden z-20 shadow-xl shadow-black/30"
@@ -142,7 +142,7 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
                 <span className="text-xs text-[var(--color-text-muted)]">{s.count}</span>
               </button>
             ))
-          ) : (
+          ) : searchHistory && searchHistory.length > 0 ? (
             /* Search history when no query */
             <>
               <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--color-border)]">
@@ -156,7 +156,7 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
                   </button>
                 )}
               </div>
-              {searchHistory!.map(q => (
+              {searchHistory.map(q => (
                 <div key={q} className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/[0.02] transition-colors">
                   <button
                     onClick={() => { onChange(q); setShowSuggestions(false) }}
@@ -175,6 +175,22 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
                 </div>
               ))}
             </>
+          ) : (
+            /* Search tips when no query and no history */
+            <div className="px-4 py-3">
+              <span className="text-xs text-[var(--color-text-muted)] font-mono">Search tips:</span>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {['GPT-4', 'fuzzing', 'smart contract', 'privacy', 'fine-tuning'].map(tip => (
+                  <button
+                    key={tip}
+                    onClick={() => { onChange(tip); setShowSuggestions(false) }}
+                    className="text-xs px-2.5 py-1 rounded-full bg-white/5 text-[var(--color-text-secondary)] hover:bg-[rgba(0,255,136,0.08)] hover:text-[var(--color-accent)] border border-[var(--color-border)] cursor-pointer transition-colors font-mono"
+                  >
+                    {tip}
+                  </button>
+                ))}
+              </div>
+            </div>
           )}
         </div>
       )}

@@ -73,7 +73,7 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
         )}
         <span className="text-xs font-mono font-bold text-[var(--color-accent)]">{paper.year}</span>
         {paper.year >= new Date().getFullYear() - 1 && (
-          <span className="text-xs px-1.5 py-0.5 rounded bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-bold uppercase" style={{ fontSize: '9px', letterSpacing: '0.5px' }}>NEW</span>
+          <span className="badge-new text-xs px-1.5 py-0.5 rounded bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-bold uppercase" style={{ fontSize: '9px', letterSpacing: '0.5px' }}>NEW</span>
         )}
         <span className="text-xs" title={`Recommendation Level ${rec}`}>{recStars(rec)}</span>
         {paper.venue && (

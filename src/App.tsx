@@ -389,9 +389,9 @@ function App() {
           <div className="max-w-5xl mx-auto mb-8">
             <button
               onClick={() => setShowGraph(!showGraph)}
-              className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"
+              className="knowledge-graph-btn flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"
             >
-              <span style={{ transform: showGraph ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▶</span>
+              <span className="graph-icon" style={{ transform: showGraph ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▶</span>
               Knowledge Graph
               <span className="text-[var(--color-text-muted)] normal-case tracking-normal font-normal">— interactive paper relationship map</span>
             </button>

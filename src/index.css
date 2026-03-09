@@ -286,3 +286,125 @@ input[type="checkbox"] {
     display: none;
   }
 }
+
+/* ===== Micro-interaction Animations ===== */
+
+/* 1. Glow pulse for "NEW" badge on paper cards */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 4px rgba(0, 255, 136, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.4), 0 0 16px rgba(0, 255, 136, 0.1);
+  }
+}
+
+.badge-new {
+  animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+/* 2. Smooth gradient animation for header title */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-title {
+  background: linear-gradient(
+    270deg,
+    var(--color-accent),
+    var(--color-blue),
+    var(--color-accent)
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+/* 3. Enhanced hover state for knowledge graph button */
+@keyframes graphIconPulse {
+  0%, 100% {
+    text-shadow: 0 0 0 transparent;
+  }
+  50% {
+    text-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
+  }
+}
+
+.knowledge-graph-btn {
+  position: relative;
+  transition: color 0.25s, transform 0.2s;
+}
+
+.knowledge-graph-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.knowledge-graph-btn:hover {
+  color: var(--color-accent) !important;
+  transform: translateX(2px);
+}
+
+.knowledge-graph-btn:hover::after {
+  width: 100%;
+}
+
+.knowledge-graph-btn:hover .graph-icon {
+  animation: graphIconPulse 1.5s ease-in-out infinite;
+  color: var(--color-accent);
+}
+
+/* 4. Shimmer effect for loading states */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-card) 0%,
+    var(--color-bg-hover) 20%,
+    rgba(0, 255, 136, 0.04) 40%,
+    var(--color-bg-hover) 60%,
+    var(--color-bg-card) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--color-text-muted) 0%,
+    var(--color-text-secondary) 40%,
+    var(--color-accent-dim) 50%,
+    var(--color-text-secondary) 60%,
+    var(--color-text-muted) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s linear infinite;
+}

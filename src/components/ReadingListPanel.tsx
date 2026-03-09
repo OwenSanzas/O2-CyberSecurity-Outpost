@@ -1,5 +1,17 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import type { Paper, Language } from '../types'
+
+const categoryColors: Record<string, string> = {
+  'vulnerability-detection': '#ff4444',
+  'fuzzing': '#44aaff',
+  'privacy': '#44ff88',
+}
+
+const categoryLabels: Record<string, string> = {
+  'vulnerability-detection': 'Vulnerability Detection',
+  'fuzzing': 'LLM Fuzzing',
+  'privacy': 'Data Privacy',
+}
 
 interface Props {
   papers: Paper[]
@@ -14,6 +26,22 @@ interface Props {
 export default function ReadingListPanel({ papers, lang, readingListIds, onPaperClick, onRemove, onClear, notes }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const items = papers.filter(p => readingListIds.includes(p.id))
+
+  const groupedItems = useMemo(() => {
+    const groups: Record<string, Paper[]> = {}
+    for (const paper of items) {
+      const cat = paper.categories[0] || 'other'
+      if (!groups[cat]) groups[cat] = []
+      groups[cat].push(paper)
+    }
+    // Sort groups: known categories first (by label), then unknown ones
+    const sortedKeys = Object.keys(groups).sort((a, b) => {
+      const la = categoryLabels[a] || a
+      const lb = categoryLabels[b] || b
+      return la.localeCompare(lb)
+    })
+    return sortedKeys.map(key => ({ category: key, papers: groups[key] }))
+  }, [items])
 
   if (readingListIds.length === 0) return null
 
@@ -105,38 +133,66 @@ export default function ReadingListPanel({ papers, lang, readingListIds, onPaper
                   Your reading list is empty. Click the bookmark icon on papers to add them.
                 </p>
               ) : (
-                items.map(paper => {
-                  const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
+                groupedItems.map(({ category, papers: groupPapers }) => {
+                  const color = categoryColors[category] || '#888'
+                  const label = categoryLabels[category] || category
                   return (
-                    <div
-                      key={paper.id}
-                      className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg p-3 cursor-pointer hover:border-[var(--color-border-hover)] transition-all group"
-                    >
-                      <div className="flex justify-between items-start gap-2">
-                        <div className="flex-1 min-w-0" onClick={() => { onPaperClick(paper); setIsOpen(false) }}>
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-mono text-[var(--color-accent)]">{paper.year}</span>
-                            {paper.system_name && (
-                              <span className="text-xs font-mono font-bold text-[var(--color-accent)]">[{paper.system_name}]</span>
-                            )}
-                          </div>
-                          <p className="text-sm text-[var(--color-text-primary)] font-medium truncate group-hover:text-white transition-colors">
-                            {paper.title}
-                          </p>
-                          {summary && (
-                            <p className="text-xs text-[var(--color-text-secondary)] mt-1 line-clamp-2">{summary}</p>
-                          )}
-                          {notes?.[paper.id] && (
-                            <p className="text-xs text-[var(--color-orange)] mt-1 line-clamp-1">Note: {notes[paper.id]}</p>
-                          )}
-                        </div>
-                        <button
-                          onClick={() => onRemove(paper.id)}
-                          className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-red)] bg-transparent border-none cursor-pointer shrink-0 p-1"
-                          title="Remove"
+                    <div key={category} className="mb-4">
+                      {/* Category group header */}
+                      <div className="flex items-center gap-2 mb-2 px-1">
+                        <span
+                          className="w-2.5 h-2.5 rounded-full shrink-0"
+                          style={{ background: color }}
+                        />
+                        <span className="text-xs font-semibold uppercase tracking-wide text-[var(--color-text-secondary)]">
+                          {label}
+                        </span>
+                        <span
+                          className="text-[10px] font-bold leading-none px-1.5 py-0.5 rounded-full"
+                          style={{ background: `${color}20`, color }}
                         >
-                          ✕
-                        </button>
+                          {groupPapers.length}
+                        </span>
+                      </div>
+                      {/* Papers in this category */}
+                      <div className="space-y-2">
+                        {groupPapers.map(paper => {
+                          const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
+                          return (
+                            <div
+                              key={paper.id}
+                              className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg p-3 cursor-pointer hover:border-[var(--color-border-hover)] transition-all group"
+                              style={{ borderLeftColor: color, borderLeftWidth: '3px' }}
+                            >
+                              <div className="flex justify-between items-start gap-2">
+                                <div className="flex-1 min-w-0" onClick={() => { onPaperClick(paper); setIsOpen(false) }}>
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <span className="text-xs font-mono text-[var(--color-accent)]">{paper.year}</span>
+                                    {paper.system_name && (
+                                      <span className="text-xs font-mono font-bold text-[var(--color-accent)]">[{paper.system_name}]</span>
+                                    )}
+                                  </div>
+                                  <p className="text-sm text-[var(--color-text-primary)] font-medium truncate group-hover:text-white transition-colors">
+                                    {paper.title}
+                                  </p>
+                                  {summary && (
+                                    <p className="text-xs text-[var(--color-text-secondary)] mt-1 line-clamp-2">{summary}</p>
+                                  )}
+                                  {notes?.[paper.id] && (
+                                    <p className="text-xs text-[var(--color-orange)] mt-1 line-clamp-1">Note: {notes[paper.id]}</p>
+                                  )}
+                                </div>
+                                <button
+                                  onClick={() => onRemove(paper.id)}
+                                  className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-red)] bg-transparent border-none cursor-pointer shrink-0 p-1"
+                                  title="Remove"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            </div>
+                          )
+                        })}
                       </div>
                     </div>
                   )
