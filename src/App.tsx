@@ -43,6 +43,7 @@ function App() {
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [compareIds, setCompareIds] = useState<string[]>([])
   const [showComparison, setShowComparison] = useState(false)
+  const [showGraph, setShowGraph] = useState(false)
 
   const readingList = useReadingList()
 
@@ -53,20 +54,26 @@ function App() {
 
   const miniSearch = useSearch(papers)
 
-  // Keyboard shortcut: / to focus search, Escape to clear
+  // Keyboard shortcuts
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
-        const active = document.activeElement
-        if (active?.tagName !== 'INPUT' && active?.tagName !== 'TEXTAREA') {
-          e.preventDefault()
-          document.querySelector<HTMLInputElement>('#search-input')?.focus()
-        }
+      const active = document.activeElement
+      const isInput = active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA'
+
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !isInput) {
+        e.preventDefault()
+        document.querySelector<HTMLInputElement>('#search-input')?.focus()
+      }
+      // R for random paper
+      if (e.key === 'r' && !e.ctrlKey && !e.metaKey && !isInput && !selectedPaper) {
+        e.preventDefault()
+        const randomPaper = papers[Math.floor(Math.random() * papers.length)]
+        setSelectedPaper(randomPaper)
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [])
+  }, [selectedPaper])
 
   // Back to top visibility
   useEffect(() => {
@@ -147,7 +154,7 @@ function App() {
   const toggleCompare = useCallback((id: string) => {
     setCompareIds(prev => {
       if (prev.includes(id)) return prev.filter(i => i !== id)
-      if (prev.length >= 4) return prev // max 4
+      if (prev.length >= 4) return prev
       return [...prev, id]
     })
   }, [])
@@ -156,6 +163,11 @@ function App() {
     () => papers.filter(p => compareIds.includes(p.id)),
     [compareIds]
   )
+
+  const openRandomPaper = useCallback(() => {
+    const randomPaper = papers[Math.floor(Math.random() * papers.length)]
+    setSelectedPaper(randomPaper)
+  }, [])
 
   return (
     <div className="min-h-screen relative">
@@ -167,11 +179,26 @@ function App() {
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8">
           <Stats papers={papers} />
           <FeaturedPapers papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
-          <div className="mb-8">
-            <KnowledgeGraph papers={papers} onPaperClick={setSelectedPaper} />
+
+          {/* Knowledge Graph (collapsible) */}
+          <div className="max-w-5xl mx-auto mb-8">
+            <button
+              onClick={() => setShowGraph(!showGraph)}
+              className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"
+            >
+              <span style={{ transform: showGraph ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▶</span>
+              Knowledge Graph
+              <span className="text-[var(--color-text-muted)] normal-case tracking-normal font-normal">— interactive paper relationship map</span>
+            </button>
+            {showGraph && (
+              <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
+                <KnowledgeGraph papers={papers} onPaperClick={setSelectedPaper} />
+              </div>
+            )}
           </div>
+
           <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
-          <QuickFilters onSearch={setQuery} />
+          <QuickFilters onSearch={setQuery} currentQuery={query} />
           <Filters
             category={category}
             onCategoryChange={setCategory}
@@ -214,6 +241,15 @@ function App() {
                   </button>
                 ))}
               </div>
+
+              {/* Random paper */}
+              <button
+                onClick={openRandomPaper}
+                className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)] transition-all cursor-pointer"
+                title="Open a random paper (R)"
+              >
+                Discover
+              </button>
 
               {/* Compare toggle */}
               {compareIds.length > 0 && (
@@ -356,7 +392,9 @@ function App() {
 
       {/* Keyboard shortcut hint */}
       <div className="fixed bottom-6 left-6 text-xs text-[var(--color-text-muted)] hidden lg:block z-40">
-        Press <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">/</kbd> to search
+        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">/</kbd> search
+        <span className="mx-1.5 text-[var(--color-border)]">|</span>
+        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">R</kbd> random
       </div>
 
       <style>{`
