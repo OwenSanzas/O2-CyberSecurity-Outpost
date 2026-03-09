@@ -69,11 +69,33 @@ export default function CommandPalette({ papers, onClose, onPaperClick, onComman
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
-  // Focus input on mount and lock body scroll
+  const dialogRef = useRef<HTMLDivElement>(null)
+
+  // Focus input on mount, lock body scroll, and set up focus trap
   useEffect(() => {
     inputRef.current?.focus()
     document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
+
+    const handleFocusTrap = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || !dialogRef.current) return
+      const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus() }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus() }
+      }
+    }
+    document.addEventListener('keydown', handleFocusTrap)
+
+    return () => {
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', handleFocusTrap)
+    }
   }, [])
 
   const results = useMemo<ResultItem[]>(() => {
@@ -150,9 +172,13 @@ export default function CommandPalette({ papers, onClose, onPaperClick, onComman
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
 
       <div
+        ref={dialogRef}
         className="relative w-full max-w-lg bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-2xl shadow-2xl overflow-hidden"
         onClick={e => e.stopPropagation()}
         style={{ animation: 'cmdPaletteIn 0.15s ease-out' }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Command palette"
       >
         {/* Search input */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--color-border)]">
@@ -165,14 +191,24 @@ export default function CommandPalette({ papers, onClose, onPaperClick, onComman
             onKeyDown={handleKeyDown}
             placeholder="Search papers or type a command..."
             className="flex-1 bg-transparent border-none outline-none text-sm text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] font-mono"
+            role="combobox"
+            aria-expanded={results.length > 0}
+            aria-controls="command-palette-listbox"
+            aria-activedescendant={results[selectedIdx] ? `cmd-option-${selectedIdx}` : undefined}
+            aria-autocomplete="list"
           />
           <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[10px] text-[var(--color-text-muted)] font-mono shrink-0">
             Esc
           </kbd>
         </div>
 
+        {/* Live region for screen readers */}
+        <div aria-live="polite" className="sr-only" style={{ position: 'absolute', width: '1px', height: '1px', padding: 0, margin: '-1px', overflow: 'hidden', clip: 'rect(0,0,0,0)', border: 0 }}>
+          {query.trim() ? `${results.length} result${results.length !== 1 ? 's' : ''} found` : `${results.length} commands available`}
+        </div>
+
         {/* Results list */}
-        <div ref={listRef} className="max-h-[360px] overflow-y-auto py-1">
+        <div ref={listRef} className="max-h-[360px] overflow-y-auto py-1" role="listbox" id="command-palette-listbox" aria-label="Search results">
           {results.length === 0 && query.trim() && (
             <div className="px-4 py-8 text-center text-sm text-[var(--color-text-muted)]">
               No results found
@@ -182,6 +218,9 @@ export default function CommandPalette({ papers, onClose, onPaperClick, onComman
           {results.map((item, i) => (
             <button
               key={item.type === 'command' ? item.id : item.paper.id}
+              id={`cmd-option-${i}`}
+              role="option"
+              aria-selected={selectedIdx === i}
               onClick={() => handleSelect(item)}
               onMouseEnter={() => setSelectedIdx(i)}
               className="w-full flex items-center gap-3 px-4 py-2.5 text-left border-none cursor-pointer transition-colors"

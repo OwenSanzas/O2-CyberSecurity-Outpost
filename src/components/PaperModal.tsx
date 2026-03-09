@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback } from 'react'
 import type { Paper, Language } from '../types'
 import type { ReadingStatus } from '../hooks/useReadingProgress'
 import type { RelatedPaper } from '../hooks/useRelatedPapers'
@@ -47,11 +47,37 @@ interface Props {
 export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave, onAuthorClick, readingStatus, onReadingStatusChange }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
+  const dialogRef = useRef<HTMLDivElement | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   const swipeRef = useSwipe<HTMLDivElement>({
     onSwipeLeft: onNext,
     onSwipeRight: onPrev,
   })
+
+  // Callback ref to merge swipeRef and dialogRef
+  const mergedRef = useCallback((el: HTMLDivElement | null) => {
+    dialogRef.current = el
+    // Assign to swipeRef (internally a RefObject from useRef)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(swipeRef as any).current = el
+  }, [swipeRef])
+
+  // Focus trap: keep focus inside the modal
+  const handleFocusTrap = useCallback((e: KeyboardEvent) => {
+    if (e.key !== 'Tab' || !dialogRef.current) return
+    const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    if (focusable.length === 0) return
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus() }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+  }, [])
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -60,12 +86,16 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
       if (e.key === 'ArrowRight' && onNext) onNext()
     }
     document.addEventListener('keydown', handler)
+    document.addEventListener('keydown', handleFocusTrap)
     document.body.style.overflow = 'hidden'
+    // Auto-focus the close button when modal opens
+    closeButtonRef.current?.focus()
     return () => {
       document.removeEventListener('keydown', handler)
+      document.removeEventListener('keydown', handleFocusTrap)
       document.body.style.overflow = ''
     }
-  }, [onClose])
+  }, [onClose, handleFocusTrap])
 
   useEffect(() => {
     setActiveTab('overview')
@@ -100,10 +130,13 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
 
   return (
     <div
-      ref={swipeRef}
+      ref={mergedRef}
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
       onClick={onClose}
       data-modal-content
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="paper-modal-title"
     >
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
 
@@ -155,7 +188,9 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
             />
           )}
           <button
+            ref={closeButtonRef}
             onClick={onClose}
+            aria-label="Close paper modal"
             className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all border-none cursor-pointer text-lg"
           >
             ✕
@@ -192,7 +227,7 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
                 [{paper.system_name}]
               </span>
             )}
-            <h2 className="text-xl font-bold text-[var(--color-text-primary)] inline leading-snug">
+            <h2 id="paper-modal-title" className="text-xl font-bold text-[var(--color-text-primary)] inline leading-snug">
               {paper.title}
             </h2>
           </div>

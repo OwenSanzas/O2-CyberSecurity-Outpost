@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 
 interface Props {
   onClose: () => void
@@ -18,23 +18,52 @@ const shortcuts = [
 ]
 
 export default function KeyboardHelp({ onClose }: Props) {
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  // Focus trap: keep focus inside the dialog
+  const handleFocusTrap = useCallback((e: KeyboardEvent) => {
+    if (e.key !== 'Tab' || !dialogRef.current) return
+    const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    if (focusable.length === 0) return
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus() }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus() }
+    }
+  }, [])
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     document.addEventListener('keydown', handler)
-    return () => document.removeEventListener('keydown', handler)
-  }, [onClose])
+    document.addEventListener('keydown', handleFocusTrap)
+    // Auto-focus close button on mount
+    closeButtonRef.current?.focus()
+    return () => {
+      document.removeEventListener('keydown', handler)
+      document.removeEventListener('keydown', handleFocusTrap)
+    }
+  }, [onClose, handleFocusTrap])
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4" onClick={onClose}>
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" />
       <div
+        ref={dialogRef}
         className="relative bg-[var(--color-bg-primary)] border border-[var(--color-border)] rounded-2xl shadow-2xl p-6 max-w-sm w-full"
         onClick={e => e.stopPropagation()}
         style={{ animation: 'modalIn 0.2s ease-out' }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="keyboard-help-title"
       >
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-sm font-semibold text-[var(--color-text-primary)]">Keyboard Shortcuts</h3>
-          <button onClick={onClose} className="text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] bg-transparent border-none cursor-pointer">✕</button>
+          <h3 id="keyboard-help-title" className="text-sm font-semibold text-[var(--color-text-primary)]">Keyboard Shortcuts</h3>
+          <button ref={closeButtonRef} onClick={onClose} aria-label="Close keyboard shortcuts" className="text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] bg-transparent border-none cursor-pointer">✕</button>
         </div>
         <div className="space-y-3">
           {shortcuts.map(s => (
