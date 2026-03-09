@@ -42,6 +42,27 @@ export default function ExportButton({ papers }: { papers: Paper[] }) {
     download([headers.join(','), ...rows].join('\n'), `o2-outpost-${papers.length}.csv`, 'text/csv')
   }
 
+  const exportMarkdown = () => {
+    const lines = papers.map(p => {
+      const rec = '⭐'.repeat(p.recommendation ?? 1)
+      const sys = p.system_name ? ` [${p.system_name}]` : ''
+      const llms = p.experiment?.llm?.join(', ') || ''
+      return [
+        `### ${p.title}${sys}`,
+        `**${p.authors}** | ${p.year} | ${p.venue || 'N/A'} | ${rec}`,
+        p.summary ? `\n> ${p.summary}` : '',
+        llms ? `\nLLMs: ${llms}` : '',
+        p.paperUrl ? `\n[Paper](${p.paperUrl})` + (p.codeUrl ? ` | [Code](${p.codeUrl})` : '') : '',
+        '\n---\n',
+      ].filter(Boolean).join('\n')
+    })
+    download(
+      `# O2 CyberSecurity Outpost — ${papers.length} Papers\n\n` + lines.join('\n'),
+      `o2-outpost-${papers.length}.md`,
+      'text/markdown'
+    )
+  }
+
   return (
     <div className="relative">
       <button
@@ -64,6 +85,9 @@ export default function ExportButton({ papers }: { papers: Paper[] }) {
             </button>
             <button onClick={exportCSV} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
               CSV (.csv)
+            </button>
+            <button onClick={exportMarkdown} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
+              Markdown (.md)
             </button>
           </div>
         </>

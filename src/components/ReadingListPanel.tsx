@@ -8,9 +8,10 @@ interface Props {
   onPaperClick: (p: Paper) => void
   onRemove: (id: string) => void
   onClear: () => void
+  notes?: Record<string, string>
 }
 
-export default function ReadingListPanel({ papers, lang, readingListIds, onPaperClick, onRemove, onClear }: Props) {
+export default function ReadingListPanel({ papers, lang, readingListIds, onPaperClick, onRemove, onClear, notes }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const items = papers.filter(p => readingListIds.includes(p.id))
 
@@ -60,6 +61,27 @@ export default function ReadingListPanel({ papers, lang, readingListIds, onPaper
                     Export BibTeX
                   </button>
                 )}
+                {items.length > 0 && notes && Object.keys(notes).some(id => readingListIds.includes(id)) && (
+                  <button
+                    onClick={() => {
+                      const lines = items.map(p => {
+                        const note = notes[p.id]
+                        return `## ${p.title}\n${p.authors} (${p.year})\n${p.paperUrl ? p.paperUrl : ''}${note ? `\n\n**My Notes:** ${note}` : ''}\n\n---\n`
+                      })
+                      const md = `# Reading List with Notes\n\n${lines.join('\n')}`
+                      const blob = new Blob([md], { type: 'text/markdown' })
+                      const url = URL.createObjectURL(blob)
+                      const a = document.createElement('a')
+                      a.href = url
+                      a.download = `reading-list-notes-${items.length}.md`
+                      a.click()
+                      URL.revokeObjectURL(url)
+                    }}
+                    className="text-xs text-[var(--color-orange)] bg-transparent border-none cursor-pointer hover:underline"
+                  >
+                    Export Notes
+                  </button>
+                )}
                 {items.length > 0 && (
                   <button
                     onClick={onClear}
@@ -103,6 +125,9 @@ export default function ReadingListPanel({ papers, lang, readingListIds, onPaper
                           </p>
                           {summary && (
                             <p className="text-xs text-[var(--color-text-secondary)] mt-1 line-clamp-2">{summary}</p>
+                          )}
+                          {notes?.[paper.id] && (
+                            <p className="text-xs text-[var(--color-orange)] mt-1 line-clamp-1">Note: {notes[paper.id]}</p>
                           )}
                         </div>
                         <button

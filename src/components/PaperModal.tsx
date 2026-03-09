@@ -35,9 +35,10 @@ interface Props {
   totalCount?: number
   note?: string
   onNoteSave?: (paperId: string, text: string) => void
+  onAuthorClick?: (author: string) => void
 }
 
-export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave }: Props) {
+export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave, onAuthorClick }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
   const touchStartRef = useRef<number>(0)
@@ -178,8 +179,21 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
             </h2>
           </div>
 
-          {/* Authors */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4">{paper.authors}</p>
+          {/* Authors (clickable) */}
+          <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+            {paper.authors.split(/, | and /).map((author, i, arr) => (
+              <span key={i}>
+                <span
+                  className="hover:text-[var(--color-accent)] cursor-pointer transition-colors"
+                  onClick={() => onAuthorClick?.(author.trim())}
+                  title={`Search for "${author.trim()}"`}
+                >
+                  {author.trim()}
+                </span>
+                {i < arr.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+          </p>
 
           {/* Tab navigation */}
           <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)] mb-5 w-fit">

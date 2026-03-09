@@ -120,6 +120,17 @@ function App() {
         const randomPaper = papers[Math.floor(Math.random() * papers.length)]
         setSelectedPaper(randomPaper)
       }
+      // G for knowledge graph
+      if (e.key === 'g' && !e.ctrlKey && !e.metaKey && !isInput && !selectedPaper) {
+        e.preventDefault()
+        setShowGraph(prev => !prev)
+      }
+      // 1/2/3 for view modes
+      if (['1', '2', '3'].includes(e.key) && !isInput && !selectedPaper) {
+        e.preventDefault()
+        const modes: ('card' | 'table' | 'timeline')[] = ['card', 'table', 'timeline']
+        setViewMode(modes[Number(e.key) - 1])
+      }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
@@ -510,6 +521,7 @@ function App() {
             totalCount={filtered.length}
             note={paperNotes.getNote(selectedPaper.id)}
             onNoteSave={paperNotes.setNote}
+            onAuthorClick={(author) => { setSelectedPaper(null); handleTagClick(author) }}
           />
         )
       })()}
@@ -531,6 +543,7 @@ function App() {
         onPaperClick={(p) => setSelectedPaper(p)}
         onRemove={(id) => readingList.toggle(id)}
         onClear={readingList.clear}
+        notes={paperNotes.notes}
       />
 
       {/* Back to top */}
