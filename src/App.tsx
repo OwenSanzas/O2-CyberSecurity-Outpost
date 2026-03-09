@@ -44,6 +44,13 @@ const papers: Paper[] = papersData as Paper[]
 const PAGE_SIZE = 20
 
 function App() {
+  // Hooks that provide initial values must be called first
+  const { prefs, update: updatePref } = usePreferences()
+  const readingList = useReadingList()
+  const recentlyViewed = useRecentlyViewed()
+  const searchHistory = useSearchHistory()
+  const paperNotes = useNotes()
+
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CategoryFilter>('all')
   const [yearFilter, setYearFilter] = useState('all')
@@ -71,12 +78,6 @@ function App() {
     setQuery(debouncedSearch)
     if (debouncedSearch.trim()) searchHistory.add(debouncedSearch.trim())
   }, [debouncedSearch])
-
-  const readingList = useReadingList()
-  const recentlyViewed = useRecentlyViewed()
-  const searchHistory = useSearchHistory()
-  const paperNotes = useNotes()
-  const { prefs, update: updatePref } = usePreferences()
 
   const setSortBy = useCallback((s: SortBy) => {
     setSortByState(s)
