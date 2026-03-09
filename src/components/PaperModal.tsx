@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import type { Paper, Language } from '../types'
 import ReadingListButton from './ReadingListButton'
 
@@ -37,6 +37,7 @@ interface Props {
 export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
+  const touchStartRef = useRef<number>(0)
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -87,6 +88,14 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
       onClick={onClose}
       data-modal-content
+      onTouchStart={e => { touchStartRef.current = e.touches[0].clientX }}
+      onTouchEnd={e => {
+        const diff = e.changedTouches[0].clientX - touchStartRef.current
+        if (Math.abs(diff) > 80) {
+          if (diff > 0 && onPrev) onPrev()
+          if (diff < 0 && onNext) onNext()
+        }
+      }}
     >
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
 

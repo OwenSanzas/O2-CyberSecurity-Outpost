@@ -5,17 +5,19 @@ interface Props {
 
 const quickFilters = [
   { label: 'GPT-4', query: 'GPT-4' },
-  { label: 'Fine-tuning', query: 'fine-tuning' },
-  { label: 'Solidity', query: 'solidity' },
+  { label: 'ChatGPT', query: 'ChatGPT' },
   { label: 'CodeLlama', query: 'CodeLlama' },
+  { label: 'Fine-tuning', query: 'fine-tuning' },
   { label: 'Smart Contract', query: 'smart contract' },
+  { label: 'Solidity', query: 'solidity' },
   { label: 'Zero-day', query: 'zero-day' },
   { label: 'Protocol Fuzzing', query: 'protocol fuzzing' },
   { label: 'RAG', query: 'retrieval augmented' },
   { label: 'Static Analysis', query: 'static analysis' },
-  { label: 'ChatGPT', query: 'ChatGPT' },
   { label: 'IoT', query: 'IoT' },
   { label: 'Privacy', query: 'privacy' },
+  { label: 'C/C++', query: 'C/C++' },
+  { label: 'Java', query: 'Java' },
 ]
 
 export default function QuickFilters({ onSearch, currentQuery }: Props) {
