@@ -133,7 +133,9 @@ function App() {
 
   const filtered = useMemo(() => {
     let result: Paper[]
-    if (query.trim()) {
+    if (query === '__reading_list__') {
+      result = papers.filter(p => readingList.ids.includes(p.id))
+    } else if (query.trim()) {
       const searchResults = miniSearch.search(query.trim())
       const idSet = new Set(searchResults.map(r => r.id))
       result = papers.filter(p => idSet.has(p.id))
@@ -178,7 +180,7 @@ function App() {
       if (sortBy === 'recommendation') return (b.recommendation ?? 1) - (a.recommendation ?? 1) || b.year - a.year
       return a.title.localeCompare(b.title)
     })
-  }, [query, category, yearFilter, sortBy, recommendationFilter, facetFilters, miniSearch])
+  }, [query, category, yearFilter, sortBy, recommendationFilter, facetFilters, miniSearch, readingList.ids])
 
   // Reset pagination when filters change
   useEffect(() => {
@@ -312,6 +314,27 @@ function App() {
                   </button>
                 ))}
               </div>
+
+              {/* Reading list filter */}
+              {readingList.count > 0 && (
+                <button
+                  onClick={() => {
+                    if (query === '__reading_list__') {
+                      setSearchInput(''); setQuery('')
+                    } else {
+                      setSearchInput(''); setQuery('__reading_list__')
+                    }
+                  }}
+                  className="text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer"
+                  style={{
+                    background: query === '__reading_list__' ? 'rgba(0,255,136,0.1)' : 'var(--color-bg-card)',
+                    borderColor: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-border)',
+                    color: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                  }}
+                >
+                  Bookmarked ({readingList.count})
+                </button>
+              )}
 
               {/* Random paper */}
               <button
