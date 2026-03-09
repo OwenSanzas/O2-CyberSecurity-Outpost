@@ -23,9 +23,11 @@ interface Props {
   onToggleReadingList?: () => void
   isSelected?: boolean
   onSelect?: () => void
+  onTagClick?: (query: string) => void
+  hasNote?: boolean
 }
 
-export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect }: Props) {
+export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote }: Props) {
   const mainCategory = paper.categories[0] || 'vulnerability-detection'
   const color = categoryColors[mainCategory] || '#888'
   const rec = paper.recommendation ?? 1
@@ -78,15 +80,28 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
         )}
         {/* Actions */}
         <span className="ml-auto flex items-center gap-1">
+          {hasNote && (
+            <span className="text-xs text-[var(--color-orange)]" title="Has personal note">
+              notes
+            </span>
+          )}
           {onToggleReadingList && (
             <ReadingListButton
               isInList={isInReadingList ?? false}
               onToggle={onToggleReadingList}
             />
           )}
-          <span className="text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity">
-            Click to expand
-          </span>
+          <button
+            onClick={e => {
+              e.stopPropagation()
+              const url = `${window.location.origin}${window.location.pathname}#paper=${encodeURIComponent(paper.id)}`
+              navigator.clipboard.writeText(url)
+            }}
+            className="text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity bg-transparent border-none cursor-pointer hover:text-[var(--color-accent)]"
+            title="Copy link to paper"
+          >
+            link
+          </button>
         </span>
       </div>
 
@@ -116,16 +131,20 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
         </p>
       )}
 
-      {/* Experiment tags (compact) */}
+      {/* Experiment tags (compact, clickable) */}
       {exp && (
         <div className="flex flex-wrap gap-1.5 mb-2">
           {exp.llm?.map(l => (
-            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)]">
+            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)] hover:bg-[var(--color-purple)]/20 transition-colors cursor-pointer"
+              onClick={e => { e.stopPropagation(); onTagClick?.(l) }}
+              title={`Search for "${l}"`}>
               {l}
             </span>
           ))}
           {exp.language?.map(l => (
-            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-blue)]/10 text-[var(--color-blue)]">
+            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-blue)]/10 text-[var(--color-blue)] hover:bg-[var(--color-blue)]/20 transition-colors cursor-pointer"
+              onClick={e => { e.stopPropagation(); onTagClick?.(l) }}
+              title={`Search for "${l}"`}>
               {l}
             </span>
           ))}
@@ -135,7 +154,9 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
             </span>
           )}
           {exp.dataset?.slice(0, 3).map(d => (
-            <span key={d} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-green)]/10 text-[var(--color-green)]">
+            <span key={d} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-green)]/10 text-[var(--color-green)] hover:bg-[var(--color-green)]/20 transition-colors cursor-pointer"
+              onClick={e => { e.stopPropagation(); onTagClick?.(d) }}
+              title={`Search for "${d}"`}>
               {d}
             </span>
           ))}

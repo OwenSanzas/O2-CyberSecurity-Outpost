@@ -7,9 +7,12 @@ interface Props {
   resultCount: number
   totalCount: number
   papers?: Paper[]
+  searchHistory?: string[]
+  onHistoryRemove?: (q: string) => void
+  onHistoryClear?: () => void
 }
 
-export default function SearchBar({ query, onChange, resultCount, totalCount, papers }: Props) {
+export default function SearchBar({ query, onChange, resultCount, totalCount, papers, searchHistory, onHistoryRemove, onHistoryClear }: Props) {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [focusedIdx, setFocusedIdx] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -114,30 +117,65 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
       </div>
 
       {/* Suggestions dropdown */}
-      {showSuggestions && suggestions.length > 0 && (
+      {showSuggestions && (suggestions.length > 0 || (!query.trim() && searchHistory && searchHistory.length > 0)) && (
         <div
           ref={suggestionsRef}
           className="absolute top-full left-0 right-0 mt-1 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg overflow-hidden z-20 shadow-xl shadow-black/30"
           style={{ animation: 'fadeIn 0.15s ease-out' }}
         >
-          {suggestions.map((s, i) => (
-            <button
-              key={`${s.type}-${s.value}`}
-              onClick={() => { onChange(s.value); setShowSuggestions(false) }}
-              className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left border-none cursor-pointer transition-colors"
-              style={{
-                background: focusedIdx === i ? 'rgba(0,255,136,0.05)' : 'transparent',
-                color: 'var(--color-text-secondary)',
-              }}
-              onMouseEnter={() => setFocusedIdx(i)}
-            >
-              <span className="text-xs px-1.5 py-0.5 rounded bg-white/5 text-[var(--color-text-muted)] font-mono shrink-0 w-14 text-center">
-                {s.type}
-              </span>
-              <span className="flex-1 truncate">{s.value}</span>
-              <span className="text-xs text-[var(--color-text-muted)]">{s.count}</span>
-            </button>
-          ))}
+          {suggestions.length > 0 ? (
+            suggestions.map((s, i) => (
+              <button
+                key={`${s.type}-${s.value}`}
+                onClick={() => { onChange(s.value); setShowSuggestions(false) }}
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-left border-none cursor-pointer transition-colors"
+                style={{
+                  background: focusedIdx === i ? 'rgba(0,255,136,0.05)' : 'transparent',
+                  color: 'var(--color-text-secondary)',
+                }}
+                onMouseEnter={() => setFocusedIdx(i)}
+              >
+                <span className="text-xs px-1.5 py-0.5 rounded bg-white/5 text-[var(--color-text-muted)] font-mono shrink-0 w-14 text-center">
+                  {s.type}
+                </span>
+                <span className="flex-1 truncate">{s.value}</span>
+                <span className="text-xs text-[var(--color-text-muted)]">{s.count}</span>
+              </button>
+            ))
+          ) : (
+            /* Search history when no query */
+            <>
+              <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--color-border)]">
+                <span className="text-xs text-[var(--color-text-muted)]">Recent Searches</span>
+                {onHistoryClear && (
+                  <button
+                    onClick={() => { onHistoryClear(); setShowSuggestions(false) }}
+                    className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] bg-transparent border-none cursor-pointer"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+              {searchHistory!.map(q => (
+                <div key={q} className="flex items-center gap-3 px-4 py-2.5 hover:bg-white/[0.02] transition-colors">
+                  <button
+                    onClick={() => { onChange(q); setShowSuggestions(false) }}
+                    className="flex-1 text-sm text-left text-[var(--color-text-secondary)] truncate bg-transparent border-none cursor-pointer"
+                  >
+                    {q}
+                  </button>
+                  {onHistoryRemove && (
+                    <button
+                      onClick={() => onHistoryRemove(q)}
+                      className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] bg-transparent border-none cursor-pointer shrink-0"
+                    >
+                      remove
+                    </button>
+                  )}
+                </div>
+              ))}
+            </>
+          )}
         </div>
       )}
 

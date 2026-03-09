@@ -30,6 +30,8 @@ import { useReadingList } from './hooks/useReadingList'
 import { useRelatedPapers } from './hooks/useRelatedPapers'
 import { useDebounce } from './hooks/useDebounce'
 import { useRecentlyViewed } from './hooks/useRecentlyViewed'
+import { useSearchHistory } from './hooks/useSearchHistory'
+import { useNotes } from './hooks/useNotes'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -57,13 +59,16 @@ function App() {
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearch = useDebounce(searchInput, 200)
 
-  // Sync debounced search to query state
+  // Sync debounced search to query state + track history
   useEffect(() => {
     setQuery(debouncedSearch)
+    if (debouncedSearch.trim()) searchHistory.add(debouncedSearch.trim())
   }, [debouncedSearch])
 
   const readingList = useReadingList()
   const recentlyViewed = useRecentlyViewed()
+  const searchHistory = useSearchHistory()
+  const paperNotes = useNotes()
 
   // Deep link: open paper from URL hash
   useEffect(() => {
@@ -244,6 +249,11 @@ function App() {
     setSelectedPaper(randomPaper)
   }, [])
 
+  const handleTagClick = useCallback((tag: string) => {
+    setSearchInput(tag)
+    setQuery(tag)
+  }, [])
+
   return (
     <div className="min-h-screen relative">
       {/* Scroll progress bar */}
@@ -280,7 +290,7 @@ function App() {
           <ResearchHeatmap papers={papers} />
 
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
-          <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
+          <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
           <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
           <Filters
             category={category}
@@ -455,6 +465,8 @@ function App() {
                           onToggleReadingList={() => readingList.toggle(paper.id)}
                           isSelected={compareIds.includes(paper.id)}
                           onSelect={() => toggleCompare(paper.id)}
+                          onTagClick={handleTagClick}
+                          hasNote={paperNotes.hasNote(paper.id)}
                         />
                       </div>
                     ))}
@@ -496,6 +508,8 @@ function App() {
             onNext={idx >= 0 && idx < filtered.length - 1 ? () => setSelectedPaper(filtered[idx + 1]) : undefined}
             currentIndex={idx >= 0 ? idx : undefined}
             totalCount={filtered.length}
+            note={paperNotes.getNote(selectedPaper.id)}
+            onNoteSave={paperNotes.setNote}
           />
         )
       })()}

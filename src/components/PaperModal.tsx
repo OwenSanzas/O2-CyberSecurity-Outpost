@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import type { Paper, Language } from '../types'
 import ReadingListButton from './ReadingListButton'
+import PaperNotes from './PaperNotes'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -32,9 +33,11 @@ interface Props {
   onNext?: () => void
   currentIndex?: number
   totalCount?: number
+  note?: string
+  onNoteSave?: (paperId: string, text: string) => void
 }
 
-export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount }: Props) {
+export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
   const touchStartRef = useRef<number>(0)
@@ -409,6 +412,13 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
               Report Issue
             </a>
           </div>
+
+          {/* Personal notes */}
+          {onNoteSave && (
+            <div className="mt-5 pt-5 border-t border-[var(--color-border)]">
+              <PaperNotes paperId={paper.id} note={note || ''} onSave={onNoteSave} />
+            </div>
+          )}
 
           {/* Related papers */}
           {relatedPapers && relatedPapers.length > 0 && (
