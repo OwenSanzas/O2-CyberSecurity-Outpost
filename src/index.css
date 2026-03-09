@@ -252,6 +252,11 @@ input[type="checkbox"] {
   border: 0;
 }
 
+/* Safe area for mobile nav */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
 /* Mobile touch targets */
 @media (max-width: 768px) {
   button, a, select {
@@ -262,5 +267,16 @@ input[type="checkbox"] {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  /* Extra bottom padding for mobile nav */
+  body {
+    padding-bottom: 60px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .safe-area-bottom {
+    display: none;
   }
 }

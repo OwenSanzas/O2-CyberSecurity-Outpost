@@ -28,6 +28,7 @@ const AuthorNetwork = lazy(() => import('./components/AuthorNetwork'))
 const ResearchGaps = lazy(() => import('./components/ResearchGaps'))
 const DataExplorer = lazy(() => import('./components/DataExplorer'))
 import ToastContainer, { showToast } from './components/Toast'
+import MobileNav from './components/MobileNav'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -699,6 +700,16 @@ function App() {
       {showKeyboardHelp && (
         <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />
       )}
+
+      {/* Mobile navigation */}
+      <MobileNav
+        viewMode={viewMode}
+        onViewChange={setViewMode}
+        readingListCount={readingList.count}
+        onReadingListClick={() => { }}
+        onRandomClick={openRandomPaper}
+        onSearchFocus={() => document.querySelector<HTMLInputElement>('#search-input')?.focus()}
+      />
 
       {/* Keyboard shortcut hint */}
       <div className="fixed bottom-6 left-6 text-xs text-[var(--color-text-muted)] hidden lg:block z-40">
