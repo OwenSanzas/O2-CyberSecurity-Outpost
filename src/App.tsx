@@ -20,6 +20,7 @@ import TrendAnalysis from './components/TrendAnalysis'
 import Insights from './components/Insights'
 import ResearchHeatmap from './components/ResearchHeatmap'
 import KeyboardHelp from './components/KeyboardHelp'
+import RecentlyViewed from './components/RecentlyViewed'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -28,6 +29,7 @@ import { useUrlState } from './hooks/useUrlState'
 import { useReadingList } from './hooks/useReadingList'
 import { useRelatedPapers } from './hooks/useRelatedPapers'
 import { useDebounce } from './hooks/useDebounce'
+import { useRecentlyViewed } from './hooks/useRecentlyViewed'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -61,6 +63,7 @@ function App() {
   }, [debouncedSearch])
 
   const readingList = useReadingList()
+  const recentlyViewed = useRecentlyViewed()
 
   // Deep link: open paper from URL hash
   useEffect(() => {
@@ -72,9 +75,10 @@ function App() {
     }
   }, [])
 
-  // Update hash when paper opens/closes
+  // Update hash when paper opens/closes + track recently viewed
   useEffect(() => {
     if (selectedPaper) {
+      recentlyViewed.add(selectedPaper.id)
       window.history.replaceState(null, '', `#paper=${encodeURIComponent(selectedPaper.id)}`)
     } else {
       if (window.location.hash.startsWith('#paper=')) {
@@ -275,6 +279,7 @@ function App() {
           <TrendAnalysis papers={papers} />
           <ResearchHeatmap papers={papers} />
 
+          <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
           <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
           <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
           <Filters
