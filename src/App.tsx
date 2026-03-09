@@ -15,6 +15,7 @@ import TimelineView from './components/TimelineView'
 import PaperComparison from './components/PaperComparison'
 import ReadingListPanel from './components/ReadingListPanel'
 import ShareButton from './components/ShareButton'
+import KnowledgeGraph from './components/KnowledgeGraph'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
@@ -166,6 +167,9 @@ function App() {
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8">
           <Stats papers={papers} />
           <FeaturedPapers papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
+          <div className="mb-8">
+            <KnowledgeGraph papers={papers} onPaperClick={setSelectedPaper} />
+          </div>
           <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
           <QuickFilters onSearch={setQuery} />
           <Filters
