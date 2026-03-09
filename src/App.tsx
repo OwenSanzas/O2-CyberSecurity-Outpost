@@ -16,6 +16,7 @@ import PaperComparison from './components/PaperComparison'
 import ReadingListPanel from './components/ReadingListPanel'
 import ShareButton from './components/ShareButton'
 import KnowledgeGraph from './components/KnowledgeGraph'
+import TrendAnalysis from './components/TrendAnalysis'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
@@ -197,6 +198,8 @@ function App() {
             )}
           </div>
 
+          <TrendAnalysis papers={papers} />
+
           <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
           <QuickFilters onSearch={setQuery} currentQuery={query} />
           <Filters
@@ -354,17 +357,24 @@ function App() {
       </div>
 
       {/* Paper detail modal */}
-      {selectedPaper && (
-        <PaperModal
-          paper={selectedPaper}
-          lang={lang}
-          onClose={() => setSelectedPaper(null)}
-          relatedPapers={relatedPapers}
-          onPaperClick={setSelectedPaper}
-          isInReadingList={readingList.has(selectedPaper.id)}
-          onToggleReadingList={() => readingList.toggle(selectedPaper.id)}
-        />
-      )}
+      {selectedPaper && (() => {
+        const idx = filtered.findIndex(p => p.id === selectedPaper.id)
+        return (
+          <PaperModal
+            paper={selectedPaper}
+            lang={lang}
+            onClose={() => setSelectedPaper(null)}
+            relatedPapers={relatedPapers}
+            onPaperClick={setSelectedPaper}
+            isInReadingList={readingList.has(selectedPaper.id)}
+            onToggleReadingList={() => readingList.toggle(selectedPaper.id)}
+            onPrev={idx > 0 ? () => setSelectedPaper(filtered[idx - 1]) : undefined}
+            onNext={idx >= 0 && idx < filtered.length - 1 ? () => setSelectedPaper(filtered[idx + 1]) : undefined}
+            currentIndex={idx >= 0 ? idx : undefined}
+            totalCount={filtered.length}
+          />
+        )
+      })()}
 
       {/* Paper comparison */}
       {showComparison && comparisonPapers.length >= 2 && (

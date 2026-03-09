@@ -1,62 +1,80 @@
+import { useState } from 'react'
 import type { Paper } from '../types'
 
 export default function ExportButton({ papers }: { papers: Paper[] }) {
-  const exportBibtex = () => {
-    const bibtex = papers
-      .filter(p => p.bibtex)
-      .map(p => p.bibtex)
-      .join('\n\n')
+  const [showMenu, setShowMenu] = useState(false)
 
-    if (!bibtex) {
-      alert('No BibTeX entries available for the current selection.')
-      return
-    }
-
-    const blob = new Blob([bibtex], { type: 'text/plain' })
+  const download = (content: string, filename: string, type: string) => {
+    const blob = new Blob([content], { type })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `o2-outpost-papers-${papers.length}.bib`
+    a.download = filename
     a.click()
     URL.revokeObjectURL(url)
+    setShowMenu(false)
+  }
+
+  const exportBibtex = () => {
+    const bibtex = papers.filter(p => p.bibtex).map(p => p.bibtex).join('\n\n')
+    if (!bibtex) { alert('No BibTeX entries available.'); return }
+    download(bibtex, `o2-outpost-${papers.length}.bib`, 'text/plain')
   }
 
   const exportJSON = () => {
     const data = papers.map(p => ({
-      id: p.id,
-      title: p.title,
-      authors: p.authors,
-      year: p.year,
-      venue: p.venue,
-      system_name: p.system_name,
-      categories: p.categories,
-      paperUrl: p.paperUrl,
-      codeUrl: p.codeUrl,
+      id: p.id, title: p.title, authors: p.authors, year: p.year,
+      venue: p.venue, system_name: p.system_name, categories: p.categories,
+      paperUrl: p.paperUrl, codeUrl: p.codeUrl, recommendation: p.recommendation,
     }))
+    download(JSON.stringify(data, null, 2), `o2-outpost-${papers.length}.json`, 'application/json')
+  }
 
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `o2-outpost-papers-${papers.length}.json`
-    a.click()
-    URL.revokeObjectURL(url)
+  const exportCSV = () => {
+    const escape = (s: string) => `"${(s || '').replace(/"/g, '""')}"`
+    const headers = ['Title', 'Authors', 'Year', 'Venue', 'System Name', 'Category', 'LLMs', 'Recommendation', 'Paper URL', 'Code URL']
+    const rows = papers.map(p => [
+      escape(p.title), escape(p.authors), String(p.year), escape(p.venue),
+      escape(p.system_name || ''), escape(p.categories.join('; ')),
+      escape((p.experiment?.llm || []).join('; ')), String(p.recommendation ?? 1),
+      escape(p.paperUrl), escape(p.codeUrl),
+    ].join(','))
+    download([headers.join(','), ...rows].join('\n'), `o2-outpost-${papers.length}.csv`, 'text/csv')
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="relative">
       <button
-        onClick={exportBibtex}
+        onClick={() => setShowMenu(!showMenu)}
         className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text-primary)] transition-all cursor-pointer"
       >
-        📋 Export BibTeX ({papers.length})
+        Export ({papers.length})
       </button>
-      <button
-        onClick={exportJSON}
-        className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text-primary)] transition-all cursor-pointer"
-      >
-        📥 Export JSON
-      </button>
+
+      {showMenu && (
+        <>
+          <div className="fixed inset-0 z-10" onClick={() => setShowMenu(false)} />
+          <div className="absolute right-0 top-full mt-1 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg shadow-xl z-20 overflow-hidden min-w-[140px]"
+            style={{ animation: 'fadeIn 0.15s ease-out' }}>
+            <button onClick={exportBibtex} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
+              BibTeX (.bib)
+            </button>
+            <button onClick={exportJSON} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
+              JSON (.json)
+            </button>
+            <button onClick={exportCSV} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
+              CSV (.csv)
+            </button>
+          </div>
+        </>
+      )}
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(-4px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </div>
   )
 }

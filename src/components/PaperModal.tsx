@@ -28,14 +28,22 @@ interface Props {
   onPaperClick?: (p: Paper) => void
   isInReadingList?: boolean
   onToggleReadingList?: () => void
+  onPrev?: () => void
+  onNext?: () => void
+  currentIndex?: number
+  totalCount?: number
 }
 
-export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList }: Props) {
+export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
 
   useEffect(() => {
-    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft' && onPrev) onPrev()
+      if (e.key === 'ArrowRight' && onNext) onNext()
+    }
     document.addEventListener('keydown', handler)
     document.body.style.overflow = 'hidden'
     return () => {
@@ -87,8 +95,23 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
           animation: 'modalIn 0.25s ease-out',
         }}
       >
-        {/* Close + Reading List */}
+        {/* Navigation + Close + Reading List */}
         <div className="absolute top-4 right-4 flex items-center gap-2 z-10">
+          {onPrev && (
+            <button onClick={onPrev} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all border-none cursor-pointer" title="Previous (←)">
+              ←
+            </button>
+          )}
+          {currentIndex !== undefined && totalCount !== undefined && (
+            <span className="text-xs text-[var(--color-text-muted)] font-mono">{currentIndex + 1}/{totalCount}</span>
+          )}
+          {onNext && (
+            <button onClick={onNext} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all border-none cursor-pointer" title="Next (→)">
+              →
+            </button>
+          )}
+        </div>
+        <div className="absolute top-14 right-4 flex items-center gap-2 z-10">
           {onToggleReadingList && (
             <ReadingListButton
               isInList={isInReadingList ?? false}
