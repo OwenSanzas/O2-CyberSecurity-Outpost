@@ -381,17 +381,22 @@ function App() {
               ) : (
                 <>
                   <div className="grid gap-4">
-                    {visiblePapers.map(paper => (
-                      <PaperCard
+                    {visiblePapers.map((paper, i) => (
+                      <div
                         key={paper.id}
-                        paper={paper}
-                        lang={lang}
-                        onClick={() => setSelectedPaper(paper)}
-                        isInReadingList={readingList.has(paper.id)}
-                        onToggleReadingList={() => readingList.toggle(paper.id)}
-                        isSelected={compareIds.includes(paper.id)}
-                        onSelect={() => toggleCompare(paper.id)}
-                      />
+                        className="card-enter"
+                        style={{ animationDelay: `${Math.min(i * 30, 300)}ms` }}
+                      >
+                        <PaperCard
+                          paper={paper}
+                          lang={lang}
+                          onClick={() => setSelectedPaper(paper)}
+                          isInReadingList={readingList.has(paper.id)}
+                          onToggleReadingList={() => readingList.toggle(paper.id)}
+                          isSelected={compareIds.includes(paper.id)}
+                          onSelect={() => toggleCompare(paper.id)}
+                        />
+                      </div>
                     ))}
                   </div>
                   {hasMore && (
