@@ -9,7 +9,7 @@ interface Props {
 
 function AnimatedCounter({ target, duration = 1500 }: { target: number | string; duration?: number }) {
   const [display, setDisplay] = useState('0')
-  const rafRef = useRef<number>()
+  const rafRef = useRef<number>(0)
 
   useEffect(() => {
     const numTarget = typeof target === 'string' ? parseInt(target) || 0 : target

@@ -13,7 +13,7 @@ export function useSearch(papers: Paper[]) {
         if (fieldName === '_vuln_type') return doc.experiment?.vulnerability_type?.join(' ') ?? ''
         if (fieldName === '_language') return doc.experiment?.language?.join(' ') ?? ''
         if (fieldName === '_contributions') return doc.contributions?.join(' ') ?? ''
-        return (doc as Record<string, unknown>)[fieldName] as string ?? ''
+        return (doc as unknown as Record<string, unknown>)[fieldName] as string ?? ''
       },
       searchOptions: {
         boost: { title: 3, system_name: 3, authors: 2, _llm: 2, _contributions: 1.5, summary: 1.5 },

@@ -157,7 +157,7 @@ export default function TrendAnalysis({ papers }: Props) {
             <div key={d.year} className="flex-1 flex flex-col items-center gap-1">
               <div className="w-full flex flex-col justify-end" style={{ height: `${(d.total / maxTotal) * 100}%` }}>
                 {allKeys.map(key => {
-                  const count = d.counts[key] || 0
+                  const count = (d.counts as Record<string, number>)[key] || 0
                   if (!count) return null
                   const pct = (count / d.total) * 100
                   return (

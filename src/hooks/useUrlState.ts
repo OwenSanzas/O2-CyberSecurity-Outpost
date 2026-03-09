@@ -1,15 +1,6 @@
 import { useEffect, useCallback } from 'react'
 import type { CategoryFilter, SortBy } from '../types'
 
-interface UrlState {
-  q?: string
-  cat?: CategoryFilter
-  year?: string
-  sort?: SortBy
-  rec?: string
-  lang?: 'en' | 'zh'
-}
-
 export function useUrlState(
   state: {
     query: string

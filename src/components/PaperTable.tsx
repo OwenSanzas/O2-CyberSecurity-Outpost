@@ -21,7 +21,7 @@ interface Props {
   onToggleCompare?: (id: string) => void
 }
 
-export default function PaperTable({ papers, lang, onPaperClick, isInReadingList, onToggleReadingList, compareIds, onToggleCompare }: Props) {
+export default function PaperTable({ papers, onPaperClick, isInReadingList, onToggleReadingList, compareIds, onToggleCompare }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>('year')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
 

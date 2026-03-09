@@ -39,7 +39,7 @@ export default function ResearchGaps({ papers, onSearch }: Props) {
 
     // Check category coverage
     const privacyCount = catCounts.get('privacy') || 0
-    const fuzzingCount = catCounts.get('fuzzing') || 0
+
     if (privacyCount < papers.length * 0.15) {
       result.push({
         area: 'Data Privacy',

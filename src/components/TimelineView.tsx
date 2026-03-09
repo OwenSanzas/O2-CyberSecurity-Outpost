@@ -29,7 +29,7 @@ export default function TimelineView({ papers, lang, onPaperClick, isInReadingLi
       {/* Center line */}
       <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-[var(--color-border)]" />
 
-      {years.map((year, yi) => (
+      {years.map((year) => (
         <div key={year} className="mb-8">
           {/* Year marker */}
           <div className="relative flex items-center mb-4">
