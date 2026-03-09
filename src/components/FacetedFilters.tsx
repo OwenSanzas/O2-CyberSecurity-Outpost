@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import type { Aggregation } from '../hooks/useAggregations'
 
 interface Props {
@@ -22,6 +22,7 @@ const facetIcons: Record<string, string> = {
 
 export default function FacetedFilters({ aggregations, activeFilters, onFilterChange }: Props) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({})
+  const [searchTerms, setSearchTerms] = useState<Record<string, string>>({})
 
   const toggle = (key: string, value: string) => {
     const current = activeFilters[key] || []
@@ -47,17 +48,64 @@ export default function FacetedFilters({ aggregations, activeFilters, onFilterCh
         )}
       </div>
 
+      {/* Active filters summary */}
+      {activeCount > 0 && (
+        <div className="flex flex-wrap gap-1 mb-3 pb-3 border-b border-[var(--color-border)]">
+          {Object.entries(activeFilters).map(([key, values]) =>
+            values.map(v => (
+              <button
+                key={`${key}-${v}`}
+                onClick={() => toggle(key, v)}
+                className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)] border border-[var(--color-accent)]/20 cursor-pointer transition-all hover:bg-[var(--color-accent)]/20"
+              >
+                {v} ✕
+              </button>
+            ))
+          )}
+        </div>
+      )}
+
       {aggregations.map(agg => {
         const isCollapsed = collapsed[agg.key] ?? (agg.buckets.length > 8)
-        const shown = isCollapsed ? agg.buckets.slice(0, 5) : agg.buckets
+        const searchTerm = searchTerms[agg.key] || ''
+        const filtered = searchTerm
+          ? agg.buckets.filter(b => b.value.toLowerCase().includes(searchTerm.toLowerCase()))
+          : agg.buckets
+        const shown = isCollapsed ? filtered.slice(0, 5) : filtered
         const active = activeFilters[agg.key] || []
         const icon = facetIcons[agg.key] || '📌'
+        const hasActiveInGroup = active.length > 0
 
         return (
           <div key={agg.key} className="mb-4 last:mb-0">
-            <div className="text-xs font-semibold text-[var(--color-text-secondary)] mb-1.5 uppercase tracking-wider">
-              {icon} {agg.label}
+            <div className="flex items-center justify-between mb-1.5">
+              <div className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">
+                {icon} {agg.label}
+                {hasActiveInGroup && (
+                  <span className="ml-1 text-[var(--color-accent)]">({active.length})</span>
+                )}
+              </div>
+              {hasActiveInGroup && (
+                <button
+                  onClick={() => onFilterChange(agg.key, [])}
+                  className="text-xs text-[var(--color-text-muted)] bg-transparent border-none cursor-pointer hover:text-[var(--color-accent)]"
+                >
+                  clear
+                </button>
+              )}
             </div>
+
+            {/* Inline search for large filter groups */}
+            {agg.buckets.length > 8 && (
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={e => setSearchTerms(prev => ({ ...prev, [agg.key]: e.target.value }))}
+                placeholder="Filter..."
+                className="w-full mb-1.5 px-2 py-1 text-xs bg-transparent border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)]/30"
+              />
+            )}
+
             <div className="flex flex-wrap gap-1">
               {shown.map(bucket => {
                 const isActive = active.includes(bucket.value)
@@ -78,12 +126,12 @@ export default function FacetedFilters({ aggregations, activeFilters, onFilterCh
                 )
               })}
             </div>
-            {agg.buckets.length > 5 && (
+            {filtered.length > 5 && (
               <button
                 onClick={() => setCollapsed(c => ({ ...c, [agg.key]: !isCollapsed }))}
                 className="text-xs text-[var(--color-text-muted)] mt-1 bg-transparent border-none cursor-pointer hover:text-[var(--color-text-secondary)]"
               >
-                {isCollapsed ? `+${agg.buckets.length - 5} more` : 'Show less'}
+                {isCollapsed ? `+${filtered.length - 5} more` : 'Show less'}
               </button>
             )}
           </div>
