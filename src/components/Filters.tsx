@@ -26,10 +26,19 @@ export default function Filters({
   years,
   recommendationFilter, onRecommendationChange,
 }: Props) {
+  const hasFilters = category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || sortBy !== 'year-desc'
+
+  const resetAll = () => {
+    onCategoryChange('all')
+    onYearChange('all')
+    onRecommendationChange('all')
+    onSortChange('year-desc')
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-3 mb-6 max-w-5xl mx-auto">
       {/* Category tabs */}
-      <div className="flex gap-1 bg-[var(--color-bg-card)] rounded-lg p-1 border border-[var(--color-border)]">
+      <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)]">
         {categoryOptions.map(opt => (
           <button
             key={opt.value}
@@ -65,9 +74,9 @@ export default function Filters({
         className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
       >
         <option value="all">All Levels</option>
-        <option value="3">⭐⭐⭐ Top-tier</option>
-        <option value="2">⭐⭐ Quality</option>
-        <option value="1">⭐ Standard</option>
+        <option value="3">Top-tier</option>
+        <option value="2">Quality</option>
+        <option value="1">Standard</option>
       </select>
 
       {/* Sort */}
@@ -81,6 +90,16 @@ export default function Filters({
         <option value="recommendation">By Recommendation</option>
         <option value="title">Title A-Z</option>
       </select>
+
+      {/* Reset */}
+      {hasFilters && (
+        <button
+          onClick={resetAll}
+          className="text-xs text-[var(--color-text-muted)] bg-transparent border-none cursor-pointer hover:text-[var(--color-accent)] transition-colors"
+        >
+          Reset
+        </button>
+      )}
     </div>
   )
 }

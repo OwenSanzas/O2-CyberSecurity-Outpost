@@ -17,6 +17,7 @@ import ReadingListPanel from './components/ReadingListPanel'
 import ShareButton from './components/ShareButton'
 import KnowledgeGraph from './components/KnowledgeGraph'
 import TrendAnalysis from './components/TrendAnalysis'
+import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
@@ -352,6 +353,10 @@ function App() {
             </div>
           </div>
         </main>
+
+        <div className="max-w-7xl mx-auto px-4">
+          <Methodology />
+        </div>
 
         <Footer />
       </div>
