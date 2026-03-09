@@ -25,6 +25,7 @@ import { useAggregations } from './hooks/useAggregations'
 import { useUrlState } from './hooks/useUrlState'
 import { useReadingList } from './hooks/useReadingList'
 import { useRelatedPapers } from './hooks/useRelatedPapers'
+import { useDebounce } from './hooks/useDebounce'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -48,7 +49,36 @@ function App() {
   const [showComparison, setShowComparison] = useState(false)
   const [showGraph, setShowGraph] = useState(false)
 
+  const [searchInput, setSearchInput] = useState('')
+  const debouncedSearch = useDebounce(searchInput, 200)
+
+  // Sync debounced search to query state
+  useEffect(() => {
+    setQuery(debouncedSearch)
+  }, [debouncedSearch])
+
   const readingList = useReadingList()
+
+  // Deep link: open paper from URL hash
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash.startsWith('#paper=')) {
+      const paperId = decodeURIComponent(hash.slice(7))
+      const paper = papers.find(p => p.id === paperId)
+      if (paper) setSelectedPaper(paper)
+    }
+  }, [])
+
+  // Update hash when paper opens/closes
+  useEffect(() => {
+    if (selectedPaper) {
+      window.history.replaceState(null, '', `#paper=${encodeURIComponent(selectedPaper.id)}`)
+    } else {
+      if (window.location.hash.startsWith('#paper=')) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search)
+      }
+    }
+  }, [selectedPaper])
 
   useUrlState(
     { query, category, yearFilter, sortBy, recommendationFilter, lang },
@@ -217,8 +247,8 @@ function App() {
 
           <TrendAnalysis papers={papers} />
 
-          <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
-          <QuickFilters onSearch={setQuery} currentQuery={query} />
+          <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
+          <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
           <Filters
             category={category}
             onCategoryChange={setCategory}
