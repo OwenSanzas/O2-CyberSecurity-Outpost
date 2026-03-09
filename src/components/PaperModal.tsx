@@ -400,6 +400,14 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
                 {copiedBib ? 'Copied!' : 'Copy BibTeX'}
               </button>
             )}
+            <a
+              href={`https://github.com/OwenSanzas/O2-CyberSecurity-Outpost/issues/new?title=${encodeURIComponent(`[Paper] ${paper.title}`)}&body=${encodeURIComponent(`Paper: ${paper.title}\nID: ${paper.id}\n\nIssue description:\n`)}`}
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-white/10 transition-all no-underline"
+            >
+              Report Issue
+            </a>
           </div>
 
           {/* Related papers */}

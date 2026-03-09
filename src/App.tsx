@@ -374,10 +374,24 @@ function App() {
 
             <div className="flex-1 min-w-0">
               {filtered.length === 0 ? (
-                <div className="text-center py-16 text-[var(--color-text-muted)]">
-                  <div className="text-4xl mb-3">?</div>
-                  <p>No papers found matching your criteria.</p>
-                  <p className="text-xs mt-2">Try adjusting your filters or search query.</p>
+                <div className="text-center py-20 text-[var(--color-text-muted)]">
+                  <div className="text-6xl mb-4 opacity-30">{'{ }'}</div>
+                  <p className="text-lg mb-1">No papers found</p>
+                  <p className="text-sm mb-6">Try adjusting your filters or search query.</p>
+                  <div className="flex gap-2 justify-center">
+                    <button
+                      onClick={() => { setSearchInput(''); setQuery(''); setCategory('all'); setYearFilter('all'); setRecommendationFilter('all'); setFacetFilters({}) }}
+                      className="text-xs px-4 py-2 rounded-lg border border-[var(--color-accent)]/30 text-[var(--color-accent)] bg-transparent cursor-pointer hover:bg-[var(--color-accent)]/5 transition-all"
+                    >
+                      Reset all filters
+                    </button>
+                    <button
+                      onClick={openRandomPaper}
+                      className="text-xs px-4 py-2 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] bg-transparent cursor-pointer hover:border-[var(--color-accent)]/30 transition-all"
+                    >
+                      Discover a random paper
+                    </button>
+                  </div>
                 </div>
               ) : viewMode === 'table' ? (
                 <PaperTable
