@@ -9,6 +9,7 @@ import MatrixRain from './components/MatrixRain'
 import Stats from './components/Stats'
 import ExportButton from './components/ExportButton'
 import QuickFilters from './components/QuickFilters'
+import FeaturedPapers from './components/FeaturedPapers'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
@@ -128,6 +129,7 @@ function App() {
 
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8">
           <Stats papers={papers} />
+          <FeaturedPapers papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
           <SearchBar query={query} onChange={setQuery} resultCount={filtered.length} totalCount={papers.length} />
           <QuickFilters onSearch={setQuery} />
           <Filters

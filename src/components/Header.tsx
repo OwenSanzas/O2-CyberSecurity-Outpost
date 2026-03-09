@@ -25,7 +25,7 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
   }, [])
 
   return (
-    <header className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-6 py-16">
+    <header className="relative flex flex-col items-center justify-center min-h-[60vh] md:min-h-[70vh] text-center px-4 md:px-6 py-12 md:py-16">
       <div className="absolute w-[500px] h-[500px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%)' }} />
 
@@ -47,7 +47,7 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
         ● SYSTEM ONLINE
       </div>
 
-      <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-2 relative z-1">
+      <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight mb-2 relative z-1">
         <span className="text-[var(--color-accent)]">O2</span> CyberSecurity
         <br />
         <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-blue)] bg-clip-text text-transparent">

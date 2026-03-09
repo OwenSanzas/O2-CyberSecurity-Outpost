@@ -1764,7 +1764,55 @@
     ],
     "subcategories": [
       "fine-tuning"
-    ]
+    ],
+    "system_name": "KARTAL",
+    "summary": "Proposes KARTAL, a 3-component LLM-based framework for detecting Broken Access Control vulnerabilities in web applications, achieving 87.19% accuracy with fine-tuned decoder-only transformers.",
+    "summary_zh": "提出KARTAL，一个由三个组件组成的基于LLM的框架，用于检测Web应用中的访问控制漏洞，使用微调的仅解码器Transformer达到87.19%的准确率。",
+    "contributions": [
+      "Proposes KARTAL, a novel 3-component (Fuzzer, Prompter, Detector) method for web application vulnerability detection using fine-tuned LLMs.",
+      "Addresses the gap in detecting logical and context-dependent Broken Access Control vulnerabilities (BOLA, Sensitive Information Exposure).",
+      "Custom-generates a labeled Broken Access Control vulnerability dataset using auto-regressive LLMs with few-shot prompting.",
+      "Achieves 87.19% accuracy and 0.82 F1 score by fine-tuning decoder-only pre-trained transformers for 2 vulnerability types.",
+      "Demonstrates inference-time domain adaptation reducing false positives, with fastest model making up to 539 predictions per second on consumer hardware."
+    ],
+    "contributions_zh": [
+      "提出KARTAL，一种新颖的由三个组件（Fuzzer、Prompter、Detector）组成的Web应用漏洞检测方法，使用微调的LLM。",
+      "填补了检测逻辑性和上下文相关的访问控制漏洞（BOLA、敏感信息暴露）的研究空白。",
+      "使用自回归LLM和少样本提示技术自定义生成了标注的访问控制漏洞数据集。",
+      "通过微调仅解码器预训练Transformer检测2种漏洞类型，达到87.19%的准确率和0.82的F1分数。",
+      "展示了推理时领域自适应能力以减少误报，最快模型在消费级硬件上每秒可做539次预测。"
+    ],
+    "abstract_zh": "访问控制漏洞是OWASP发布的最严重的Web应用安全风险。该类别包含高度复杂的漏洞，如对象级授权失败（BOLA）和敏感信息暴露。在大型软件系统中发现此类关键漏洞需要智能和自动化工具。包括混合应用安全测试工具、算法暴力破解器和人工智能在内的最先进研究在检测方面显示出巨大潜力。然而，在可靠识别逻辑性和上下文相关的访问控制漏洞方面存在研究空白。我们将问题建模为文本分类，并提出了KARTAL，一种使用大型语言模型（LLM）进行Web应用漏洞检测的新方法。它由3个组件组成：Fuzzer、Prompter和Detector。Fuzzer负责系统地收集应用行为。Prompter处理来自Fuzzer的数据并制定提示。最后，Detector使用我们微调过的LLM来检测漏洞。在研究中，我们调查了所提方法的性能、关键因素和局限性。我们的研究揭示了网络安全领域对标注访问控制漏洞数据集的需求。因此，我们使用自回归LLM和最先进的少样本提示技术自定义生成了自己的数据集。我们实验了微调3种仅解码器预训练Transformer来检测2种复杂漏洞。我们最好的模型达到了87.19%的准确率，F1分数为0.82。通过在消费级笔记本电脑上使用硬件加速，我们最快的模型每秒可做多达539次预测。改变训练样本量的实验展示了模型出色的学习能力。每增加400个样本，MCC分数平均提高19.58%。此外，KARTAL的动态属性使其能够在推理时适应应用领域，从而减少误报。",
+    "experiment": {
+      "language": [],
+      "platform": [
+        "web"
+      ],
+      "target_domain": [
+        "web application"
+      ],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": true,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [
+        "Broken Access Control",
+        "BOLA",
+        "Sensitive Information Exposure"
+      ],
+      "key_results": "Best model achieved 87.19% accuracy with F1 score of 0.82; fastest model makes 539 predictions per second; every 400 training samples improve MCC by 19.58%",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{sakaoglu2023kartal,\n  title={KARTAL: Web Application Vulnerability Hunting Using Large Language Models},\n  author={Sakaoglu, Sinan},\n  year={2023}\n}"
   },
   {
     "id": "shestov2024finetuning",
