@@ -10,6 +10,7 @@ import Stats from './components/Stats'
 import ExportButton from './components/ExportButton'
 import QuickFilters from './components/QuickFilters'
 import FeaturedPapers from './components/FeaturedPapers'
+import PaperTable from './components/PaperTable'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
@@ -30,6 +31,7 @@ function App() {
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  const [viewMode, setViewMode] = useState<'card' | 'table'>('card')
 
   useUrlState(
     { query, category, yearFilter, sortBy, recommendationFilter, lang },
@@ -145,13 +147,39 @@ function App() {
           />
 
           <div className="flex justify-between items-center mb-4">
-            <button
-              onClick={() => setShowMobileFilters(!showMobileFilters)}
-              className="lg:hidden text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-all cursor-pointer"
-            >
-              🔧 Filters {Object.values(facetFilters).reduce((s, v) => s + v.length, 0) > 0 && `(${Object.values(facetFilters).reduce((s, v) => s + v.length, 0)})`}
-            </button>
-            <div className="hidden lg:block" />
+            <div className="flex gap-2 items-center">
+              <button
+                onClick={() => setShowMobileFilters(!showMobileFilters)}
+                className="lg:hidden text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-all cursor-pointer"
+              >
+                🔧 Filters {Object.values(facetFilters).reduce((s, v) => s + v.length, 0) > 0 && `(${Object.values(facetFilters).reduce((s, v) => s + v.length, 0)})`}
+              </button>
+              {/* View toggle */}
+              <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)]">
+                <button
+                  onClick={() => setViewMode('card')}
+                  className="px-2 py-1 rounded text-xs cursor-pointer border-none transition-all"
+                  style={{
+                    background: viewMode === 'card' ? 'rgba(255,255,255,0.08)' : 'transparent',
+                    color: viewMode === 'card' ? 'var(--color-accent)' : 'var(--color-text-muted)',
+                  }}
+                  title="Card view"
+                >
+                  ▦
+                </button>
+                <button
+                  onClick={() => setViewMode('table')}
+                  className="px-2 py-1 rounded text-xs cursor-pointer border-none transition-all"
+                  style={{
+                    background: viewMode === 'table' ? 'rgba(255,255,255,0.08)' : 'transparent',
+                    color: viewMode === 'table' ? 'var(--color-accent)' : 'var(--color-text-muted)',
+                  }}
+                  title="Table view"
+                >
+                  ☰
+                </button>
+              </div>
+            </div>
             <ExportButton papers={filtered} />
           </div>
 
@@ -178,23 +206,26 @@ function App() {
             </aside>
 
             <div className="flex-1 min-w-0">
-              <div className="grid gap-4">
-                {filtered.map(paper => (
-                  <PaperCard
-                    key={paper.id}
-                    paper={paper}
-                    lang={lang}
-                    onClick={() => setSelectedPaper(paper)}
-                  />
-                ))}
-                {filtered.length === 0 && (
-                  <div className="text-center py-16 text-[var(--color-text-muted)]">
-                    <div className="text-4xl mb-3">🔍</div>
-                    <p>No papers found matching your criteria.</p>
-                    <p className="text-xs mt-2">Try adjusting your filters or search query.</p>
-                  </div>
-                )}
-              </div>
+              {filtered.length === 0 ? (
+                <div className="text-center py-16 text-[var(--color-text-muted)]">
+                  <div className="text-4xl mb-3">🔍</div>
+                  <p>No papers found matching your criteria.</p>
+                  <p className="text-xs mt-2">Try adjusting your filters or search query.</p>
+                </div>
+              ) : viewMode === 'table' ? (
+                <PaperTable papers={filtered} lang={lang} onPaperClick={setSelectedPaper} />
+              ) : (
+                <div className="grid gap-4">
+                  {filtered.map(paper => (
+                    <PaperCard
+                      key={paper.id}
+                      paper={paper}
+                      lang={lang}
+                      onClick={() => setSelectedPaper(paper)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </main>
