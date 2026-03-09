@@ -17,9 +17,11 @@ interface Props {
   onPaperClick: (p: Paper) => void
   isInReadingList?: (id: string) => boolean
   onToggleReadingList?: (id: string) => void
+  compareIds?: string[]
+  onToggleCompare?: (id: string) => void
 }
 
-export default function PaperTable({ papers, lang, onPaperClick, isInReadingList, onToggleReadingList }: Props) {
+export default function PaperTable({ papers, lang, onPaperClick, isInReadingList, onToggleReadingList, compareIds, onToggleCompare }: Props) {
   const [sortKey, setSortKey] = useState<SortKey>('year')
   const [sortDir, setSortDir] = useState<SortDir>('desc')
 
@@ -71,6 +73,9 @@ export default function PaperTable({ papers, lang, onPaperClick, isInReadingList
             <th className="py-2.5 px-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider hidden lg:table-cell text-left">LLM</th>
             <th className="py-2.5 px-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider hidden lg:table-cell text-left">Links</th>
             <th className="py-2.5 px-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider w-8"></th>
+            {onToggleCompare && (
+              <th className="py-2.5 px-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider w-8" title="Select for comparison">Cmp</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -124,6 +129,16 @@ export default function PaperTable({ papers, lang, onPaperClick, isInReadingList
                     />
                   )}
                 </td>
+                {onToggleCompare && (
+                  <td className="py-2.5 px-3" onClick={e => e.stopPropagation()}>
+                    <input
+                      type="checkbox"
+                      checked={compareIds?.includes(paper.id) ?? false}
+                      onChange={() => onToggleCompare(paper.id)}
+                      className="w-3.5 h-3.5 accent-[var(--color-accent)] cursor-pointer"
+                    />
+                  </td>
+                )}
               </tr>
             )
           })}

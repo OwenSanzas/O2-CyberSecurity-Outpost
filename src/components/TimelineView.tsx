@@ -1,4 +1,5 @@
 import type { Paper, Language } from '../types'
+import ReadingListButton from './ReadingListButton'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -10,9 +11,11 @@ interface Props {
   papers: Paper[]
   lang: Language
   onPaperClick: (p: Paper) => void
+  isInReadingList?: (id: string) => boolean
+  onToggleReadingList?: (id: string) => void
 }
 
-export default function TimelineView({ papers, lang, onPaperClick }: Props) {
+export default function TimelineView({ papers, lang, onPaperClick, isInReadingList, onToggleReadingList }: Props) {
   // Group by year
   const grouped = papers.reduce<Record<number, Paper[]>>((acc, p) => {
     ;(acc[p.year] = acc[p.year] || []).push(p)
@@ -76,6 +79,14 @@ export default function TimelineView({ papers, lang, onPaperClick }: Props) {
                         {paper.venue && (
                           <span className="text-xs text-[var(--color-text-muted)]">
                             {paper.venue.length > 25 ? paper.venue.slice(0, 25) + '...' : paper.venue}
+                          </span>
+                        )}
+                        {onToggleReadingList && (
+                          <span className="ml-auto" onClick={e => e.stopPropagation()}>
+                            <ReadingListButton
+                              isInList={isInReadingList?.(paper.id) ?? false}
+                              onToggle={() => onToggleReadingList(paper.id)}
+                            />
                           </span>
                         )}
                       </div>

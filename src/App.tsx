@@ -556,9 +556,17 @@ function App() {
                   onPaperClick={setSelectedPaper}
                   isInReadingList={readingList.has}
                   onToggleReadingList={readingList.toggle}
+                  compareIds={compareIds}
+                  onToggleCompare={toggleCompare}
                 />
               ) : viewMode === 'timeline' ? (
-                <TimelineView papers={filtered} lang={lang} onPaperClick={setSelectedPaper} />
+                <TimelineView
+                  papers={filtered}
+                  lang={lang}
+                  onPaperClick={setSelectedPaper}
+                  isInReadingList={readingList.has}
+                  onToggleReadingList={readingList.toggle}
+                />
               ) : (
                 <>
                   <div className="grid gap-4">
