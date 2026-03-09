@@ -62,8 +62,8 @@ export default function Filters({
               style={{ background: opt.color, opacity: category === opt.value ? 1 : 0.4 }} />
             {opt.label}
             {categoryCounts && (
-              <span className="ml-1 opacity-50 font-mono">
-                {opt.value === 'all' ? totalCount : (categoryCounts[opt.value] || 0)}
+              <span className="ml-1 text-[0.65rem] opacity-50 font-mono">
+                ({opt.value === 'all' ? totalCount : (categoryCounts[opt.value] || 0)})
               </span>
             )}
           </button>

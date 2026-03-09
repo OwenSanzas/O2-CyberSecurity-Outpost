@@ -797,6 +797,9 @@ function App() {
         onReadingListClick={() => { }}
         onRandomClick={openRandomPaper}
         onSearchFocus={() => document.querySelector<HTMLInputElement>('#search-input')?.focus()}
+        theme={theme}
+        onThemeToggle={toggleTheme}
+        onFilterToggle={() => setShowMobileFilters(prev => !prev)}
       />
 
       {/* Keyboard shortcut hint */}
