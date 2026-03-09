@@ -1,4 +1,24 @@
+import { useState } from 'react'
+
 export default function Footer() {
+  const [showCite, setShowCite] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const citation = `@misc{o2outpost2025,
+  title={O2 CyberSecurity Outpost: A Curated Collection of LLM-Based Security Research},
+  author={Zesheng Ye},
+  year={2025},
+  howpublished={\\url{https://OwenSanzas.github.io/O2-CyberSecurity-Outpost/}},
+  note={Texas A\\&M University}
+}`
+
+  const copyCitation = () => {
+    navigator.clipboard.writeText(citation).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
   return (
     <footer className="border-t border-[var(--color-border)] mt-16">
       <div className="max-w-5xl mx-auto py-12 px-6">
@@ -11,6 +31,12 @@ export default function Footer() {
             <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
               A curated, searchable collection of research papers on LLM-based software security.
             </p>
+            <button
+              onClick={() => setShowCite(!showCite)}
+              className="mt-3 text-xs px-3 py-1.5 rounded-lg border border-[var(--color-accent)]/30 text-[var(--color-accent)] bg-transparent cursor-pointer hover:bg-[var(--color-accent)]/5 transition-all"
+            >
+              Cite This Collection
+            </button>
           </div>
 
           {/* Links */}
@@ -50,6 +76,22 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Citation box */}
+        {showCite && (
+          <div className="mb-6 p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl" style={{ animation: 'fadeIn 0.2s ease-out' }}>
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider">BibTeX Citation</span>
+              <button
+                onClick={copyCitation}
+                className="text-xs text-[var(--color-accent)] bg-transparent border-none cursor-pointer hover:underline"
+              >
+                {copied ? 'Copied!' : 'Copy'}
+              </button>
+            </div>
+            <pre className="text-xs text-[var(--color-text-secondary)] font-mono whitespace-pre-wrap leading-relaxed">{citation}</pre>
+          </div>
+        )}
+
         <div className="border-t border-[var(--color-border)] pt-6 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="text-xs text-[var(--color-text-muted)]">
             Built with React + Tailwind CSS. Powered by open research.
@@ -59,6 +101,13 @@ export default function Footer() {
           </p>
         </div>
       </div>
+
+      <style>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(5px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </footer>
   )
 }

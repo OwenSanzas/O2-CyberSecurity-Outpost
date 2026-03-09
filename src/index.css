@@ -156,6 +156,15 @@ input[type="checkbox"] {
   96% { opacity: 0; }
 }
 
+/* Print styles */
+@media print {
+  body::after { display: none; }
+  canvas { display: none !important; }
+  .fixed { display: none !important; }
+  body { background: #fff; color: #000; }
+  * { border-color: #ccc !important; }
+}
+
 /* Responsive text overflow */
 @media (max-width: 768px) {
   .md\:truncate {
