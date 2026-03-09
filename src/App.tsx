@@ -430,31 +430,10 @@ function App() {
                 onVenueChange={setVenueFilter}
               />
 
-              {/* ===== TOOLBAR ===== */}
-              <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
-                <div className="flex gap-2 items-center flex-wrap">
-                  {/* View toggle */}
-                  <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)]">
-                    {([
-                      { mode: 'card' as const, label: 'Cards' },
-                      { mode: 'table' as const, label: 'Table' },
-                      { mode: 'timeline' as const, label: 'Timeline' },
-                    ]).map(v => (
-                      <button
-                        key={v.mode}
-                        onClick={() => setViewMode(v.mode)}
-                        className="px-2.5 py-1 rounded text-xs cursor-pointer border-none transition-all"
-                        style={{
-                          background: viewMode === v.mode ? 'rgba(255,255,255,0.08)' : 'transparent',
-                          color: viewMode === v.mode ? 'var(--color-accent)' : 'var(--color-text-muted)',
-                        }}
-                      >
-                        {v.label}
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Reading list filter */}
+              {/* Result count + actions */}
+              <div className="flex justify-between items-center mb-3 text-xs text-[var(--color-text-muted)]">
+                <span>{filtered.length} paper{filtered.length !== 1 ? 's' : ''}</span>
+                <div className="flex items-center gap-2">
                   {readingList.count > 0 && (
                     <button
                       onClick={() => {
@@ -464,49 +443,18 @@ function App() {
                           setSearchInput(''); setQuery('__reading_list__')
                         }
                       }}
-                      className="text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer"
-                      style={{
-                        background: query === '__reading_list__' ? 'rgba(0,255,136,0.1)' : 'var(--color-bg-card)',
-                        borderColor: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-border)',
-                        color: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                      }}
+                      className="hover:text-[var(--color-accent)] transition-colors bg-transparent border-none cursor-pointer text-xs"
+                      style={{ color: query === '__reading_list__' ? 'var(--color-accent)' : undefined }}
                     >
                       Bookmarked ({readingList.count})
                     </button>
                   )}
-
-                  {/* Discover */}
                   <button
                     onClick={openRandomPaper}
-                    className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)] transition-all cursor-pointer"
-                    title="Open a random paper (R)"
+                    className="hover:text-[var(--color-accent)] transition-colors bg-transparent border-none cursor-pointer text-xs"
                   >
                     Discover
                   </button>
-
-                  {/* Compare */}
-                  {compareIds.length > 0 && (
-                    <>
-                      <button
-                        onClick={() => setShowComparison(true)}
-                        className="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 text-[var(--color-accent)] cursor-pointer hover:bg-[var(--color-accent)]/20 transition-all"
-                      >
-                        Compare ({compareIds.length})
-                      </button>
-                      <button
-                        onClick={() => setCompareIds([])}
-                        className="text-xs px-2 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-text-secondary)] transition-all bg-transparent"
-                      >
-                        Clear
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-[var(--color-text-muted)]">
-                    {filtered.length} paper{filtered.length !== 1 ? 's' : ''}
-                  </span>
                   <ExportButton papers={filtered} />
                 </div>
               </div>
@@ -566,8 +514,6 @@ function App() {
                             onClick={() => setSelectedPaper(paper)}
                             isInReadingList={readingList.has(paper.id)}
                             onToggleReadingList={() => readingList.toggle(paper.id)}
-                            isSelected={compareIds.includes(paper.id)}
-                            onSelect={() => toggleCompare(paper.id)}
                             onTagClick={handleTagClick}
                             hasNote={paperNotes.hasNote(paper.id)}
                             searchQuery={query !== '__reading_list__' ? query : ''}
