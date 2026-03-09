@@ -18,6 +18,7 @@ import ShareButton from './components/ShareButton'
 import KnowledgeGraph from './components/KnowledgeGraph'
 import TrendAnalysis from './components/TrendAnalysis'
 import Insights from './components/Insights'
+import ResearchHeatmap from './components/ResearchHeatmap'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -254,6 +255,7 @@ function App() {
           </div>
 
           <TrendAnalysis papers={papers} />
+          <ResearchHeatmap papers={papers} />
 
           <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} />
           <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
