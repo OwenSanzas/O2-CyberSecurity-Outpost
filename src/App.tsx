@@ -2,30 +2,24 @@ import { useState, useMemo, useCallback, useEffect, useRef, lazy, Suspense } fro
 import Header from './components/Header'
 import SearchBar from './components/SearchBar'
 import Filters from './components/Filters'
-import FacetedFilters from './components/FacetedFilters'
 import PaperCard from './components/PaperCard'
-import PaperModal from './components/PaperModal'
+import PaperDetail from './components/PaperDetail'
 import MatrixRain from './components/MatrixRain'
 import ExportButton from './components/ExportButton'
 import QuickFilters from './components/QuickFilters'
 import PaperTable from './components/PaperTable'
 import TimelineView from './components/TimelineView'
 import PaperComparison from './components/PaperComparison'
-import ReadingListPanel from './components/ReadingListPanel'
-import ShareButton from './components/ShareButton'
 const KnowledgeGraph = lazy(() => import('./components/KnowledgeGraph'))
 import Insights from './components/Insights'
 import KeyboardHelp from './components/KeyboardHelp'
 import RecentlyViewed from './components/RecentlyViewed'
 import TagCloud from './components/TagCloud'
-import FilterSummary from './components/FilterSummary'
 import AnalyticsTabs from './components/AnalyticsTabs'
 import ToastContainer, { showToast } from './components/Toast'
 import MobileNav from './components/MobileNav'
 import CommandPalette from './components/CommandPalette'
-import Methodology from './components/Methodology'
 import Footer from './components/Footer'
-import FilterPresets from './components/FilterPresets'
 import { useSearch } from './hooks/useSearch'
 import { useAggregations } from './hooks/useAggregations'
 import { useUrlState } from './hooks/useUrlState'
@@ -39,7 +33,6 @@ import { usePreferences } from './hooks/usePreferences'
 import { useReadingProgress } from './hooks/useReadingProgress'
 import { useTheme } from './hooks/useTheme'
 import { useCustomTags } from './hooks/useCustomTags'
-import { useFilterPresets } from './hooks/useFilterPresets'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -55,7 +48,7 @@ function App() {
   const readingProgress = useReadingProgress()
   const { theme, toggle: toggleTheme } = useTheme()
   const customTags = useCustomTags()
-  const filterPresets = useFilterPresets()
+
 
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CategoryFilter>('all')
@@ -66,7 +59,6 @@ function App() {
   const [facetFilters, setFacetFilters] = useState<Record<string, string[]>>({})
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null)
   const [showBackToTop, setShowBackToTop] = useState(false)
-  const [showMobileFilters, setShowMobileFilters] = useState(false)
   const [viewMode, setViewModeState] = useState<'card' | 'table' | 'timeline'>(prefs.viewMode)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
   const [compareIds, setCompareIds] = useState<string[]>([])
@@ -302,22 +294,6 @@ function App() {
   const aggregations = useAggregations(filtered)
   const relatedPapers = useRelatedPapers(selectedPaper, papers)
 
-  // Filter preset helpers
-  const saveCurrentPreset = useCallback((name: string) => {
-    filterPresets.savePreset(name, {
-      category, yearFilter, sortBy, recommendationFilter, venueFilter, facetFilters,
-    })
-  }, [category, yearFilter, sortBy, recommendationFilter, venueFilter, facetFilters, filterPresets])
-
-  const loadPreset = useCallback((preset: { filters: { category: CategoryFilter; yearFilter: string; sortBy: SortBy; recommendationFilter: string; venueFilter: string; facetFilters: Record<string, string[]> } }) => {
-    setCategory(preset.filters.category)
-    setYearFilter(preset.filters.yearFilter)
-    setSortBy(preset.filters.sortBy)
-    setRecommendationFilter(preset.filters.recommendationFilter)
-    setVenueFilter(preset.filters.venueFilter)
-    setFacetFilters(preset.filters.facetFilters)
-  }, [setSortBy])
-
   const visiblePapers = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount])
   const hasMore = visibleCount < filtered.length
 
@@ -391,313 +367,261 @@ function App() {
       <div className="relative z-10">
         <Header paperCount={papers.length} categoryCount={headerStats.categoryCount} venueCount={headerStats.venueCount} yearRange={headerStats.yearRange} lang={lang} onLangChange={setLang} theme={theme} onThemeToggle={toggleTheme} />
 
-        <main id="papers" className="max-w-5xl mx-auto px-4 pb-8" role="main" aria-label="Paper collection">
-          {/* ===== SEARCH AREA ===== */}
-          <div className="sticky-search">
-            <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
-            <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
-          </div>
-
-          {/* Recently viewed */}
-          <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
-
-          {/* ===== FILTERS ===== */}
-          <Filters
-            category={category}
-            onCategoryChange={setCategory}
-            yearFilter={yearFilter}
-            onYearChange={setYearFilter}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            years={years}
-            recommendationFilter={recommendationFilter}
-            onRecommendationChange={setRecommendationFilter}
-            categoryCounts={categoryCounts}
-            totalCount={papers.length}
-            venues={venues}
-            venueFilter={venueFilter}
-            onVenueChange={setVenueFilter}
-          />
-
-          {/* ===== TOOLBAR ===== */}
-          <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
-            <div className="flex gap-2 items-center flex-wrap">
-              {/* Advanced filters toggle */}
-              <button
-                onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer"
-                style={{
-                  background: showMobileFilters ? 'rgba(0,255,136,0.1)' : 'var(--color-bg-card)',
-                  borderColor: showMobileFilters ? 'var(--color-accent)' : 'var(--color-border)',
-                  color: showMobileFilters ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                }}
-              >
-                Advanced {Object.values(facetFilters).reduce((s, v) => s + v.length, 0) > 0 && `(${Object.values(facetFilters).reduce((s, v) => s + v.length, 0)})`}
-              </button>
-
-              {/* View toggle */}
-              <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)]">
-                {([
-                  { mode: 'card' as const, label: 'Cards' },
-                  { mode: 'table' as const, label: 'Table' },
-                  { mode: 'timeline' as const, label: 'Timeline' },
-                ]).map(v => (
-                  <button
-                    key={v.mode}
-                    onClick={() => setViewMode(v.mode)}
-                    className="px-2.5 py-1 rounded text-xs cursor-pointer border-none transition-all"
-                    style={{
-                      background: viewMode === v.mode ? 'rgba(255,255,255,0.08)' : 'transparent',
-                      color: viewMode === v.mode ? 'var(--color-accent)' : 'var(--color-text-muted)',
-                    }}
-                  >
-                    {v.label}
-                  </button>
-                ))}
+        {selectedPaper ? (
+          /* ===== FULL-PAGE PAPER DETAIL ===== */
+          (() => {
+            const idx = filtered.findIndex(p => p.id === selectedPaper.id)
+            return (
+              <main role="main" aria-label="Paper detail">
+                <PaperDetail
+                  paper={selectedPaper}
+                  lang={lang}
+                  onBack={() => setSelectedPaper(null)}
+                  relatedPapers={relatedPapers}
+                  onPaperClick={setSelectedPaper}
+                  isInReadingList={readingList.has(selectedPaper.id)}
+                  onToggleReadingList={() => readingList.toggle(selectedPaper.id)}
+                  onPrev={idx > 0 ? () => setSelectedPaper(filtered[idx - 1]) : undefined}
+                  onNext={idx >= 0 && idx < filtered.length - 1 ? () => setSelectedPaper(filtered[idx + 1]) : undefined}
+                  currentIndex={idx >= 0 ? idx : undefined}
+                  totalCount={filtered.length}
+                  note={paperNotes.getNote(selectedPaper.id)}
+                  onNoteSave={paperNotes.setNote}
+                  onAuthorClick={(author) => { setSelectedPaper(null); handleTagClick(author) }}
+                  readingStatus={readingProgress.getStatus(selectedPaper.id)}
+                  onReadingStatusChange={readingProgress.setStatus}
+                  customTags={customTags.getPaperTags(selectedPaper.id)}
+                  allTags={customTags.tagDefs}
+                  onToggleTag={(tagName) => customTags.toggleTag(selectedPaper.id, tagName)}
+                  onCreateTag={customTags.createTag}
+                  onDeleteTag={customTags.deleteTag}
+                />
+              </main>
+            )
+          })()
+        ) : (
+          /* ===== PAPER LIST VIEW ===== */
+          <>
+            <main id="papers" className="max-w-5xl mx-auto px-4 pb-8" role="main" aria-label="Paper collection">
+              {/* ===== SEARCH AREA ===== */}
+              <div className="sticky-search">
+                <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
+                <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
               </div>
 
-              {/* Reading list filter */}
-              {readingList.count > 0 && (
-                <button
-                  onClick={() => {
-                    if (query === '__reading_list__') {
-                      setSearchInput(''); setQuery('')
-                    } else {
-                      setSearchInput(''); setQuery('__reading_list__')
-                    }
-                  }}
-                  className="text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer"
-                  style={{
-                    background: query === '__reading_list__' ? 'rgba(0,255,136,0.1)' : 'var(--color-bg-card)',
-                    borderColor: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-border)',
-                    color: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                  }}
-                >
-                  Bookmarked ({readingList.count})
-                </button>
-              )}
+              {/* Recently viewed */}
+              <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
 
-              {/* Discover */}
-              <button
-                onClick={openRandomPaper}
-                className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)] transition-all cursor-pointer"
-                title="Open a random paper (R)"
-              >
-                Discover
-              </button>
-
-              {/* Filter presets */}
-              <FilterPresets
-                presets={filterPresets.presets}
-                onSave={saveCurrentPreset}
-                onLoad={loadPreset}
-                onDelete={filterPresets.deletePreset}
+              {/* ===== FILTERS ===== */}
+              <Filters
+                category={category}
+                onCategoryChange={setCategory}
+                yearFilter={yearFilter}
+                onYearChange={setYearFilter}
+                sortBy={sortBy}
+                onSortChange={setSortBy}
+                years={years}
+                recommendationFilter={recommendationFilter}
+                onRecommendationChange={setRecommendationFilter}
+                categoryCounts={categoryCounts}
+                totalCount={papers.length}
+                venues={venues}
+                venueFilter={venueFilter}
+                onVenueChange={setVenueFilter}
               />
 
-              {/* Compare */}
-              {compareIds.length > 0 && (
-                <>
-                  <button
-                    onClick={() => setShowComparison(true)}
-                    className="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 text-[var(--color-accent)] cursor-pointer hover:bg-[var(--color-accent)]/20 transition-all"
-                  >
-                    Compare ({compareIds.length})
-                  </button>
-                  <button
-                    onClick={() => setCompareIds([])}
-                    className="text-xs px-2 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-text-secondary)] transition-all bg-transparent"
-                  >
-                    Clear
-                  </button>
-                </>
-              )}
-            </div>
+              {/* ===== TOOLBAR ===== */}
+              <div className="flex justify-between items-center mb-4 flex-wrap gap-2">
+                <div className="flex gap-2 items-center flex-wrap">
+                  {/* View toggle */}
+                  <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)]">
+                    {([
+                      { mode: 'card' as const, label: 'Cards' },
+                      { mode: 'table' as const, label: 'Table' },
+                      { mode: 'timeline' as const, label: 'Timeline' },
+                    ]).map(v => (
+                      <button
+                        key={v.mode}
+                        onClick={() => setViewMode(v.mode)}
+                        className="px-2.5 py-1 rounded text-xs cursor-pointer border-none transition-all"
+                        style={{
+                          background: viewMode === v.mode ? 'rgba(255,255,255,0.08)' : 'transparent',
+                          color: viewMode === v.mode ? 'var(--color-accent)' : 'var(--color-text-muted)',
+                        }}
+                      >
+                        {v.label}
+                      </button>
+                    ))}
+                  </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-[var(--color-text-muted)]">
-                {filtered.length} paper{filtered.length !== 1 ? 's' : ''}
-              </span>
-              <ShareButton />
-              <ExportButton papers={filtered} />
-            </div>
-          </div>
+                  {/* Reading list filter */}
+                  {readingList.count > 0 && (
+                    <button
+                      onClick={() => {
+                        if (query === '__reading_list__') {
+                          setSearchInput(''); setQuery('')
+                        } else {
+                          setSearchInput(''); setQuery('__reading_list__')
+                        }
+                      }}
+                      className="text-xs px-3 py-1.5 rounded-lg border transition-all cursor-pointer"
+                      style={{
+                        background: query === '__reading_list__' ? 'rgba(0,255,136,0.1)' : 'var(--color-bg-card)',
+                        borderColor: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-border)',
+                        color: query === '__reading_list__' ? 'var(--color-accent)' : 'var(--color-text-secondary)',
+                      }}
+                    >
+                      Bookmarked ({readingList.count})
+                    </button>
+                  )}
 
-          {/* Faceted filters panel */}
-          {showMobileFilters && (
-            <div className="mb-4" style={{ animation: 'fadeIn 0.2s ease-out' }}>
-              <FacetedFilters
-                aggregations={aggregations}
-                activeFilters={facetFilters}
-                onFilterChange={handleFacetChange}
-              />
-            </div>
-          )}
-
-          {/* ===== PAPER LIST ===== */}
-          <div id="paper-list">
-            <FilterSummary
-              papers={filtered}
-              totalCount={papers.length}
-              query={query}
-              hasFilters={category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || venueFilter !== 'all' || Object.values(facetFilters).some(v => v.length > 0)}
-            />
-            {filtered.length === 0 ? (
-              <div className="text-center py-20 text-[var(--color-text-muted)]">
-                <div className="text-6xl mb-4 opacity-30">{'{ }'}</div>
-                <p className="text-lg mb-1">No papers found</p>
-                <p className="text-sm mb-4">Try adjusting your filters or search query.</p>
-                <div className="flex gap-2 justify-center mb-6">
-                  <button
-                    onClick={() => { setSearchInput(''); setQuery(''); setCategory('all'); setYearFilter('all'); setRecommendationFilter('all'); setVenueFilter('all'); setFacetFilters({}) }}
-                    className="text-xs px-4 py-2 rounded-lg border border-[var(--color-accent)]/30 text-[var(--color-accent)] bg-transparent cursor-pointer hover:bg-[var(--color-accent)]/5 transition-all"
-                  >
-                    Reset all filters
-                  </button>
+                  {/* Discover */}
                   <button
                     onClick={openRandomPaper}
-                    className="text-xs px-4 py-2 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] bg-transparent cursor-pointer hover:border-[var(--color-accent)]/30 transition-all"
+                    className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)] transition-all cursor-pointer"
+                    title="Open a random paper (R)"
                   >
-                    Discover a random paper
+                    Discover
                   </button>
+
+                  {/* Compare */}
+                  {compareIds.length > 0 && (
+                    <>
+                      <button
+                        onClick={() => setShowComparison(true)}
+                        className="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 text-[var(--color-accent)] cursor-pointer hover:bg-[var(--color-accent)]/20 transition-all"
+                      >
+                        Compare ({compareIds.length})
+                      </button>
+                      <button
+                        onClick={() => setCompareIds([])}
+                        className="text-xs px-2 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-text-secondary)] transition-all bg-transparent"
+                      >
+                        Clear
+                      </button>
+                    </>
+                  )}
                 </div>
-                <p className="text-xs text-[var(--color-text-muted)] mb-2">Try searching for:</p>
-                <div className="flex gap-1.5 justify-center flex-wrap">
-                  {['GPT-4', 'fuzzing', 'smart contract', 'CodeLlama', 'privacy'].map(q => (
-                    <button key={q} onClick={() => handleTagClick(q)}
-                      className="text-xs px-2.5 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)] bg-transparent cursor-pointer hover:border-[var(--color-accent)]/30 transition-all">
-                      {q}
-                    </button>
-                  ))}
+
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-[var(--color-text-muted)]">
+                    {filtered.length} paper{filtered.length !== 1 ? 's' : ''}
+                  </span>
+                  <ExportButton papers={filtered} />
                 </div>
               </div>
-            ) : viewMode === 'table' ? (
-              <PaperTable
-                papers={filtered}
-                lang={lang}
-                onPaperClick={setSelectedPaper}
-                isInReadingList={readingList.has}
-                onToggleReadingList={readingList.toggle}
-                compareIds={compareIds}
-                onToggleCompare={toggleCompare}
-              />
-            ) : viewMode === 'timeline' ? (
-              <TimelineView
-                papers={filtered}
-                lang={lang}
-                onPaperClick={setSelectedPaper}
-                isInReadingList={readingList.has}
-                onToggleReadingList={readingList.toggle}
-              />
-            ) : (
-              <>
-                <div>
-                  {visiblePapers.map((paper, i) => (
-                    <div
-                      key={paper.id}
-                      className="card-enter"
-                      style={{ animationDelay: `${Math.min(i * 30, 300)}ms` }}
-                    >
-                      <PaperCard
-                        paper={paper}
-                        lang={lang}
-                        onClick={() => setSelectedPaper(paper)}
-                        isInReadingList={readingList.has(paper.id)}
-                        onToggleReadingList={() => readingList.toggle(paper.id)}
-                        isSelected={compareIds.includes(paper.id)}
-                        onSelect={() => toggleCompare(paper.id)}
-                        onTagClick={handleTagClick}
-                        hasNote={paperNotes.hasNote(paper.id)}
-                        searchQuery={query !== '__reading_list__' ? query : ''}
-                        readingStatus={readingProgress.getStatus(paper.id)}
-                        customTags={customTags.getPaperTags(paper.id)}
-                      />
-                    </div>
-                  ))}
-                </div>
-                {hasMore ? (
-                  <div ref={loadMoreRef} className="text-center mt-6 py-4">
-                    <div className="inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
-                      <span className="w-4 h-4 border-2 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
-                      Loading more ({visibleCount} of {filtered.length})...
+
+              {/* ===== PAPER LIST ===== */}
+              <div id="paper-list">
+                {filtered.length === 0 ? (
+                  <div className="text-center py-20 text-[var(--color-text-muted)]">
+                    <div className="text-6xl mb-4 opacity-30">{'{ }'}</div>
+                    <p className="text-lg mb-1">No papers found</p>
+                    <p className="text-sm mb-4">Try adjusting your filters or search query.</p>
+                    <div className="flex gap-2 justify-center mb-6">
+                      <button
+                        onClick={() => { setSearchInput(''); setQuery(''); setCategory('all'); setYearFilter('all'); setRecommendationFilter('all'); setVenueFilter('all'); setFacetFilters({}) }}
+                        className="text-xs px-4 py-2 rounded-lg border border-[var(--color-accent)]/30 text-[var(--color-accent)] bg-transparent cursor-pointer hover:bg-[var(--color-accent)]/5 transition-all"
+                      >
+                        Reset all filters
+                      </button>
+                      <button
+                        onClick={openRandomPaper}
+                        className="text-xs px-4 py-2 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] bg-transparent cursor-pointer hover:border-[var(--color-accent)]/30 transition-all"
+                      >
+                        Discover a random paper
+                      </button>
                     </div>
                   </div>
-                ) : filtered.length > PAGE_SIZE && (
-                  <div className="text-center mt-6 py-4 text-xs text-[var(--color-text-muted)]">
-                    Showing all {filtered.length} papers
+                ) : viewMode === 'table' ? (
+                  <PaperTable
+                    papers={filtered}
+                    lang={lang}
+                    onPaperClick={setSelectedPaper}
+                    isInReadingList={readingList.has}
+                    onToggleReadingList={readingList.toggle}
+                    compareIds={compareIds}
+                    onToggleCompare={toggleCompare}
+                  />
+                ) : viewMode === 'timeline' ? (
+                  <TimelineView
+                    papers={filtered}
+                    lang={lang}
+                    onPaperClick={setSelectedPaper}
+                    isInReadingList={readingList.has}
+                    onToggleReadingList={readingList.toggle}
+                  />
+                ) : (
+                  <>
+                    <div>
+                      {visiblePapers.map((paper, i) => (
+                        <div
+                          key={paper.id}
+                          className="card-enter"
+                          style={{ animationDelay: `${Math.min(i * 30, 300)}ms` }}
+                        >
+                          <PaperCard
+                            paper={paper}
+                            lang={lang}
+                            onClick={() => setSelectedPaper(paper)}
+                            isInReadingList={readingList.has(paper.id)}
+                            onToggleReadingList={() => readingList.toggle(paper.id)}
+                            isSelected={compareIds.includes(paper.id)}
+                            onSelect={() => toggleCompare(paper.id)}
+                            onTagClick={handleTagClick}
+                            hasNote={paperNotes.hasNote(paper.id)}
+                            searchQuery={query !== '__reading_list__' ? query : ''}
+                            readingStatus={readingProgress.getStatus(paper.id)}
+                            customTags={customTags.getPaperTags(paper.id)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    {hasMore ? (
+                      <div ref={loadMoreRef} className="text-center mt-6 py-4">
+                        <div className="inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+                          <span className="w-4 h-4 border-2 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
+                          Loading more ({visibleCount} of {filtered.length})...
+                        </div>
+                      </div>
+                    ) : filtered.length > PAGE_SIZE && (
+                      <div className="text-center mt-6 py-4 text-xs text-[var(--color-text-muted)]">
+                        Showing all {filtered.length} papers
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+
+              {/* ===== ANALYTICS (collapsed by default) ===== */}
+              <div className="mt-12 pt-8 border-t border-[var(--color-border)]">
+                <button
+                  onClick={() => setShowAnalytics(!showAnalytics)}
+                  className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-secondary)] mb-4 bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors w-full"
+                >
+                  <span style={{ transform: showAnalytics ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▶</span>
+                  Analytics & Exploration
+                </button>
+
+                {showAnalytics && (
+                  <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
+                    <Insights papers={papers} />
+                    <div className="mb-8">
+                      <Suspense fallback={<div className="text-center py-8 text-xs text-[var(--color-text-muted)]">Loading graph...</div>}>
+                        <KnowledgeGraph papers={papers} onPaperClick={setSelectedPaper} />
+                      </Suspense>
+                    </div>
+                    <TagCloud papers={papers} onTagClick={handleTagClick} />
+                    <AnalyticsTabs papers={papers} onSearch={handleTagClick} />
                   </div>
                 )}
-              </>
-            )}
-          </div>
-
-          {/* ===== ANALYTICS (collapsed by default) ===== */}
-          <div className="mt-12 pt-8 border-t border-[var(--color-border)]">
-            <button
-              onClick={() => setShowAnalytics(!showAnalytics)}
-              className="flex items-center gap-2 text-sm font-semibold text-[var(--color-text-secondary)] mb-4 bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors w-full"
-            >
-              <span style={{ transform: showAnalytics ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display: 'inline-block' }}>▶</span>
-              Analytics & Exploration
-              <span className="text-xs text-[var(--color-text-muted)] font-normal ml-1">
-                — stats, trends, knowledge graph, tag cloud
-              </span>
-            </button>
-
-            {showAnalytics && (
-              <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
-                <Insights papers={papers} />
-
-                {/* Knowledge Graph */}
-                <div className="mb-8">
-                  <h4 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider">Knowledge Graph</h4>
-                  <Suspense fallback={<div className="text-center py-8 text-xs text-[var(--color-text-muted)]">Loading graph...</div>}>
-                    <KnowledgeGraph papers={papers} onPaperClick={setSelectedPaper} />
-                  </Suspense>
-                </div>
-
-                <TagCloud papers={papers} onTagClick={handleTagClick} />
-                <AnalyticsTabs papers={papers} onSearch={handleTagClick} />
               </div>
-            )}
-          </div>
-        </main>
+            </main>
 
-        <div className="max-w-5xl mx-auto px-4">
-          <Methodology />
-        </div>
-
-        <Footer paperCount={papers.length} componentCount={44} readProgress={readingProgress.counts} />
+            <Footer paperCount={papers.length} readProgress={readingProgress.counts} />
+          </>
+        )}
       </div>
-
-      {/* Paper detail modal */}
-      {selectedPaper && (() => {
-        const idx = filtered.findIndex(p => p.id === selectedPaper.id)
-        return (
-          <PaperModal
-            paper={selectedPaper}
-            lang={lang}
-            onClose={() => setSelectedPaper(null)}
-            relatedPapers={relatedPapers}
-            onPaperClick={setSelectedPaper}
-            isInReadingList={readingList.has(selectedPaper.id)}
-            onToggleReadingList={() => readingList.toggle(selectedPaper.id)}
-            onPrev={idx > 0 ? () => setSelectedPaper(filtered[idx - 1]) : undefined}
-            onNext={idx >= 0 && idx < filtered.length - 1 ? () => setSelectedPaper(filtered[idx + 1]) : undefined}
-            currentIndex={idx >= 0 ? idx : undefined}
-            totalCount={filtered.length}
-            note={paperNotes.getNote(selectedPaper.id)}
-            onNoteSave={paperNotes.setNote}
-            onAuthorClick={(author) => { setSelectedPaper(null); handleTagClick(author) }}
-            readingStatus={readingProgress.getStatus(selectedPaper.id)}
-            onReadingStatusChange={readingProgress.setStatus}
-            customTags={customTags.getPaperTags(selectedPaper.id)}
-            allTags={customTags.tagDefs}
-            onToggleTag={(tagName) => customTags.toggleTag(selectedPaper.id, tagName)}
-            onCreateTag={customTags.createTag}
-            onDeleteTag={customTags.deleteTag}
-          />
-        )
-      })()}
 
       {/* Paper comparison */}
       {showComparison && comparisonPapers.length >= 2 && (
@@ -707,17 +631,6 @@ function App() {
           onClose={() => setShowComparison(false)}
         />
       )}
-
-      {/* Reading list panel */}
-      <ReadingListPanel
-        papers={papers}
-        lang={lang}
-        readingListIds={readingList.ids}
-        onPaperClick={(p) => setSelectedPaper(p)}
-        onRemove={(id) => readingList.toggle(id)}
-        onClear={readingList.clear}
-        notes={paperNotes.notes}
-      />
 
       {/* Back to top */}
       {showBackToTop && (
@@ -764,19 +677,8 @@ function App() {
         onSearchFocus={() => document.querySelector<HTMLInputElement>('#search-input')?.focus()}
         theme={theme}
         onThemeToggle={toggleTheme}
-        onFilterToggle={() => setShowMobileFilters(prev => !prev)}
       />
 
-      {/* Keyboard shortcut hint */}
-      <div className="fixed bottom-6 left-6 text-xs text-[var(--color-text-muted)] hidden lg:block z-40">
-        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">/</kbd> search
-        <span className="mx-1.5 text-[var(--color-border)]">|</span>
-        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">R</kbd> random
-        <span className="mx-1.5 text-[var(--color-border)]">|</span>
-        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">?</kbd> help
-        <span className="mx-1.5 text-[var(--color-border)]">|</span>
-        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">⌘K</kbd> commands
-      </div>
     </div>
   )
 }
