@@ -32,7 +32,7 @@ export default function Footer() {
               <li>
                 <a href="mailto:zesheng@tamu.edu"
                   className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors">
-                  Contact Us
+                  Contact
                 </a>
               </li>
             </ul>
@@ -55,7 +55,7 @@ export default function Footer() {
             Built with React + Tailwind CSS. Powered by open research.
           </p>
           <p className="text-xs text-[var(--color-text-muted)] font-mono">
-            <span className="text-[var(--color-accent)]">●</span> Last updated: 2025
+            <span className="text-[var(--color-accent)]">●</span> Last updated: {new Date().getFullYear()}
           </p>
         </div>
       </div>

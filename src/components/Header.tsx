@@ -1,10 +1,40 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import type { Language } from '../types'
 
 interface Props {
   paperCount: number
   lang: Language
   onLangChange: (l: Language) => void
+}
+
+function AnimatedCounter({ target, duration = 1500 }: { target: number | string; duration?: number }) {
+  const [display, setDisplay] = useState('0')
+  const rafRef = useRef<number>()
+
+  useEffect(() => {
+    const numTarget = typeof target === 'string' ? parseInt(target) || 0 : target
+    const suffix = typeof target === 'string' ? target.replace(/[0-9]/g, '') : ''
+    if (!numTarget) {
+      setDisplay(String(target))
+      return
+    }
+
+    const start = performance.now()
+    const animate = (now: number) => {
+      const elapsed = now - start
+      const progress = Math.min(elapsed / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3) // ease-out cubic
+      const current = Math.round(eased * numTarget)
+      setDisplay(current + suffix)
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(animate)
+      }
+    }
+    rafRef.current = requestAnimationFrame(animate)
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
+  }, [target, duration])
+
+  return <>{display}</>
 }
 
 export default function Header({ paperCount, lang, onLangChange }: Props) {
@@ -43,8 +73,9 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
         {lang === 'en' ? '中文' : 'EN'}
       </button>
 
-      <div className="text-sm text-[var(--color-accent)] tracking-[4px] uppercase mb-4 font-semibold relative z-1">
-        ● SYSTEM ONLINE
+      <div className="text-sm text-[var(--color-accent)] tracking-[4px] uppercase mb-4 font-semibold relative z-1"
+        style={{ animation: 'pulse 2s ease-in-out infinite' }}>
+        SYSTEM ONLINE
       </div>
 
       <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight mb-2 relative z-1">
@@ -62,14 +93,15 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
 
       <div className="flex gap-10 mb-8 relative z-1">
         {[
-          { icon: '📄', value: `${paperCount}`, label: 'Papers' },
-          { icon: '🏷️', value: '4', label: 'Categories' },
-          { icon: '🏛️', value: '15+', label: 'Venues' },
+          { value: `${paperCount}`, label: 'Papers' },
+          { value: '4', label: 'Categories' },
+          { value: '15+', label: 'Venues' },
         ].map(s => (
           <div key={s.label} className="text-center">
-            <div className="text-2xl mb-1">{s.icon}</div>
-            <div className="text-2xl font-bold text-[var(--color-accent)]">{s.value}</div>
-            <div className="text-xs text-[var(--color-text-muted)]">{s.label}</div>
+            <div className="text-2xl font-bold text-[var(--color-accent)] font-mono">
+              <AnimatedCounter target={s.value} />
+            </div>
+            <div className="text-xs text-[var(--color-text-muted)] mt-1 uppercase tracking-wider">{s.label}</div>
           </div>
         ))}
       </div>
@@ -81,9 +113,16 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
         </a>
         <a href="https://github.com/OwenSanzas/O2-CyberSecurity-Outpost" target="_blank" rel="noopener"
           className="px-6 py-3 border border-[var(--color-accent)]/30 text-[var(--color-accent)] font-semibold rounded-lg text-sm hover:border-[var(--color-accent)]/60 transition-colors no-underline">
-          ⭐ GitHub
+          GitHub
         </a>
       </div>
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+      `}</style>
     </header>
   )
 }

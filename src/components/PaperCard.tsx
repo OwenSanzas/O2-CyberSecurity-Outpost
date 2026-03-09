@@ -1,4 +1,5 @@
 import type { Paper, Language } from '../types'
+import ReadingListButton from './ReadingListButton'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -18,9 +19,13 @@ interface Props {
   paper: Paper
   lang: Language
   onClick: () => void
+  isInReadingList?: boolean
+  onToggleReadingList?: () => void
+  isSelected?: boolean
+  onSelect?: () => void
 }
 
-export default function PaperCard({ paper, lang, onClick }: Props) {
+export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect }: Props) {
   const mainCategory = paper.categories[0] || 'vulnerability-detection'
   const color = categoryColors[mainCategory] || '#888'
   const rec = paper.recommendation ?? 1
@@ -30,11 +35,26 @@ export default function PaperCard({ paper, lang, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-5 transition-all duration-200 hover:border-[var(--color-border-hover)] hover:translate-y-[-2px] hover:shadow-lg hover:shadow-black/20 cursor-pointer group"
-      style={{ borderLeftColor: color, borderLeftWidth: '3px' }}
+      className="bg-[var(--color-bg-card)] border rounded-xl p-5 transition-all duration-200 hover:border-[var(--color-border-hover)] hover:translate-y-[-2px] hover:shadow-lg hover:shadow-black/20 cursor-pointer group"
+      style={{
+        borderLeftColor: color,
+        borderLeftWidth: '3px',
+        borderColor: isSelected ? 'var(--color-accent)' : undefined,
+        boxShadow: isSelected ? '0 0 0 1px var(--color-accent)' : undefined,
+      }}
     >
       {/* Top row */}
       <div className="flex items-center gap-2 mb-2 flex-wrap">
+        {onSelect && (
+          <label className="flex items-center" onClick={e => e.stopPropagation()}>
+            <input
+              type="checkbox"
+              checked={isSelected}
+              onChange={onSelect}
+              className="w-3.5 h-3.5 accent-[var(--color-accent)] cursor-pointer"
+            />
+          </label>
+        )}
         <span className="text-xs font-mono font-bold text-[var(--color-accent)]">{paper.year}</span>
         <span className="text-xs" title={`Recommendation Level ${rec}`}>{recStars(rec)}</span>
         {paper.venue && (
@@ -53,9 +73,17 @@ export default function PaperCard({ paper, lang, onClick }: Props) {
             Open Source
           </span>
         )}
-        {/* Click hint */}
-        <span className="ml-auto text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity">
-          Click to expand →
+        {/* Actions */}
+        <span className="ml-auto flex items-center gap-1">
+          {onToggleReadingList && (
+            <ReadingListButton
+              isInList={isInReadingList ?? false}
+              onToggle={onToggleReadingList}
+            />
+          )}
+          <span className="text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity">
+            Click to expand
+          </span>
         </span>
       </div>
 
@@ -90,7 +118,7 @@ export default function PaperCard({ paper, lang, onClick }: Props) {
         <div className="flex flex-wrap gap-1.5 mb-2">
           {exp.llm?.map(l => (
             <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)]">
-              🤖 {l}
+              {l}
             </span>
           ))}
           {exp.language?.map(l => (
@@ -114,7 +142,7 @@ export default function PaperCard({ paper, lang, onClick }: Props) {
       {/* Key results one-liner */}
       {exp?.key_results && (
         <div className="text-xs text-[var(--color-text-secondary)]">
-          📈 {exp.key_results}
+          {exp.key_results}
         </div>
       )}
     </div>
