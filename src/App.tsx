@@ -211,6 +211,14 @@ function App() {
     return () => observer.disconnect()
   }, [hasMore, visibleCount])
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const p of papers) {
+      for (const c of p.categories) counts[c] = (counts[c] || 0) + 1
+    }
+    return counts
+  }, [])
+
   const openRandomPaper = useCallback(() => {
     const randomPaper = papers[Math.floor(Math.random() * papers.length)]
     setSelectedPaper(randomPaper)
@@ -259,6 +267,8 @@ function App() {
             years={years}
             recommendationFilter={recommendationFilter}
             onRecommendationChange={setRecommendationFilter}
+            categoryCounts={categoryCounts}
+            totalCount={papers.length}
           />
 
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">

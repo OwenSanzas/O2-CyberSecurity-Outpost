@@ -78,7 +78,7 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
         SYSTEM ONLINE
       </div>
 
-      <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight mb-2 relative z-1">
+      <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight mb-2 relative z-1 glitch-text" data-text="O2 CyberSecurity Outpost">
         <span className="text-[var(--color-accent)]">O2</span> CyberSecurity
         <br />
         <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-blue)] bg-clip-text text-transparent">

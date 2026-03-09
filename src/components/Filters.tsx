@@ -10,6 +10,8 @@ interface Props {
   years: number[]
   recommendationFilter: string
   onRecommendationChange: (r: string) => void
+  categoryCounts?: Record<string, number>
+  totalCount?: number
 }
 
 const categoryOptions: { value: CategoryFilter; label: string; color: string }[] = [
@@ -25,6 +27,7 @@ export default function Filters({
   sortBy, onSortChange,
   years,
   recommendationFilter, onRecommendationChange,
+  categoryCounts, totalCount,
 }: Props) {
   const hasFilters = category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || sortBy !== 'year-desc'
 
@@ -53,6 +56,11 @@ export default function Filters({
             <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5 align-middle"
               style={{ background: opt.color, opacity: category === opt.value ? 1 : 0.4 }} />
             {opt.label}
+            {categoryCounts && (
+              <span className="ml-1 opacity-50 font-mono">
+                {opt.value === 'all' ? totalCount : (categoryCounts[opt.value] || 0)}
+              </span>
+            )}
           </button>
         ))}
       </div>
