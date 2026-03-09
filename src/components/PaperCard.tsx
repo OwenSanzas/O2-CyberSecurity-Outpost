@@ -3,6 +3,32 @@ import type { ReadingStatus } from '../hooks/useReadingProgress'
 import ReadingListButton from './ReadingListButton'
 import { showToast } from './Toast'
 
+function getVenueStyle(venue: string): { color: string; bg: string; border: string } | null {
+  const v = venue.toLowerCase().replace(/[^a-z0-9/]/g, '')
+  // Top-4 security venues (gold)
+  if (v.includes('sp') && (v.includes('ieee') || v.includes('oakland') || v === 'sp'))
+    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
+  if (v.includes('usenix') && v.includes('security'))
+    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
+  if (v.includes('ccs'))
+    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
+  if (v.includes('ndss'))
+    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
+  // SE venues (blue)
+  if (v.includes('icse'))
+    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
+  if (v.includes('fse') || v.includes('esec'))
+    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
+  if (v === 'ase' || v.includes('ase'))
+    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
+  if (v.includes('issta'))
+    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
+  // arXiv (muted)
+  if (v.includes('arxiv'))
+    return { color: '#666', bg: 'transparent', border: '#666' }
+  return null
+}
+
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
   'fuzzing': '#44aaff',
@@ -76,11 +102,20 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
           <span className="badge-new text-xs px-1.5 py-0.5 rounded bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-bold uppercase" style={{ fontSize: '9px', letterSpacing: '0.5px' }}>NEW</span>
         )}
         <span className="text-xs" title={`Recommendation Level ${rec}`}>{recStars(rec)}</span>
-        {paper.venue && (
-          <span className="text-xs px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)]">
-            {paper.venue.length > 50 ? paper.venue.slice(0, 50) + '...' : paper.venue}
-          </span>
-        )}
+        {paper.venue && (() => {
+          const vs = getVenueStyle(paper.venue)
+          return (
+            <span
+              className="text-xs px-2 py-0.5 rounded-full border"
+              style={vs
+                ? { color: vs.color, backgroundColor: vs.bg, borderColor: vs.border, fontWeight: 600 }
+                : { borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)' }
+              }
+            >
+              {paper.venue.length > 50 ? paper.venue.slice(0, 50) + '...' : paper.venue}
+            </span>
+          )
+        })()}
         {paper.categories.map(cat => (
           <span key={cat} className="text-xs px-2 py-0.5 rounded-full font-medium"
             style={{ background: `${categoryColors[cat]}15`, color: categoryColors[cat] }}>

@@ -26,6 +26,7 @@ import AnalyticsTabs from './components/AnalyticsTabs'
 import ToastContainer, { showToast } from './components/Toast'
 import MobileNav from './components/MobileNav'
 import WhatsNew from './components/WhatsNew'
+import CommandPalette from './components/CommandPalette'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -75,6 +76,7 @@ function App() {
   const [venueFilter, setVenueFilter] = useState('all')
   const [focusMode, setFocusMode] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [showCommandPalette, setShowCommandPalette] = useState(false)
 
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearch = useDebounce(searchInput, 200)
@@ -147,8 +149,11 @@ function App() {
       const active = document.activeElement
       const isInput = active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA'
 
-      if ((e.key === '/' && !e.ctrlKey && !e.metaKey && !isInput) ||
-          (e.key === 'k' && (e.ctrlKey || e.metaKey))) {
+      if (e.key === 'k' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault()
+        setShowCommandPalette(prev => !prev)
+      }
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !isInput) {
         e.preventDefault()
         document.querySelector<HTMLInputElement>('#search-input')?.focus()
       }
@@ -767,6 +772,23 @@ function App() {
         <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />
       )}
 
+      {/* Command palette */}
+      {showCommandPalette && (
+        <CommandPalette
+          papers={papers}
+          onClose={() => setShowCommandPalette(false)}
+          onPaperClick={(p) => { setShowCommandPalette(false); setSelectedPaper(p) }}
+          onCommand={(cmd) => {
+            setShowCommandPalette(false)
+            if (cmd === 'toggle-theme') toggleTheme()
+            else if (cmd === 'toggle-focus') setFocusMode(prev => !prev)
+            else if (cmd === 'toggle-graph') setShowGraph(prev => !prev)
+            else if (cmd === 'random-paper') openRandomPaper()
+            else if (cmd === 'keyboard-help') setShowKeyboardHelp(true)
+          }}
+        />
+      )}
+
       {/* Mobile navigation */}
       <MobileNav
         viewMode={viewMode}
@@ -784,6 +806,8 @@ function App() {
         <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">R</kbd> random
         <span className="mx-1.5 text-[var(--color-border)]">|</span>
         <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">?</kbd> help
+        <span className="mx-1.5 text-[var(--color-border)]">|</span>
+        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">⌘K</kbd> commands
       </div>
 
       <style>{`
