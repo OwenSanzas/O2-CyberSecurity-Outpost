@@ -24,6 +24,8 @@ import RecentlyViewed from './components/RecentlyViewed'
 import TagCloud from './components/TagCloud'
 import PaperOfTheDay from './components/PaperOfTheDay'
 import FilterSummary from './components/FilterSummary'
+import AuthorNetwork from './components/AuthorNetwork'
+import ResearchGaps from './components/ResearchGaps'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -340,6 +342,8 @@ function App() {
           <TagCloud papers={papers} onTagClick={handleTagClick} />
           <TrendAnalysis papers={papers} />
           <ResearchHeatmap papers={papers} />
+          <AuthorNetwork papers={papers} onAuthorClick={handleTagClick} />
+          <ResearchGaps papers={papers} onSearch={handleTagClick} />
 
           <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
