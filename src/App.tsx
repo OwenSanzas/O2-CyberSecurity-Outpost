@@ -309,7 +309,13 @@ function App() {
                   <p className="text-xs mt-2">Try adjusting your filters or search query.</p>
                 </div>
               ) : viewMode === 'table' ? (
-                <PaperTable papers={filtered} lang={lang} onPaperClick={setSelectedPaper} />
+                <PaperTable
+                  papers={filtered}
+                  lang={lang}
+                  onPaperClick={setSelectedPaper}
+                  isInReadingList={readingList.has}
+                  onToggleReadingList={readingList.toggle}
+                />
               ) : viewMode === 'timeline' ? (
                 <TimelineView papers={filtered} lang={lang} onPaperClick={setSelectedPaper} />
               ) : (
