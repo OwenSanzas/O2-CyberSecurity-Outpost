@@ -45,7 +45,7 @@ export default function PaperComparison({ papers, lang, onClose }: Props) {
         </div>
 
         <div className="overflow-x-auto">
-          <div className="grid" style={{ gridTemplateColumns: `repeat(${papers.length}, minmax(280px, 1fr))` }}>
+          <div className="grid" style={{ gridTemplateColumns: `repeat(${papers.length}, minmax(240px, 1fr))` }}>
             {papers.map(paper => {
               const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
               const contributions = lang === 'zh' ? (paper.contributions_zh || paper.contributions) : paper.contributions
