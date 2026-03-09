@@ -384,7 +384,55 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "GPTLens",
+    "summary": "Proposes GPTLens, an adversarial two-stage LLM framework (Auditor+Critic) for smart contract vulnerability detection, improving over one-stage detection.",
+    "summary_zh": "提出GPTLens，一种对抗性两阶段LLM框架（审计者+评论者），用于智能合约漏洞检测，优于单阶段检测方法。",
+    "contributions": [
+      "Proposes GPTLens, a two-stage adversarial framework using LLM as both Auditor and Critic for smart contract vulnerability detection.",
+      "Reveals that higher randomness in LLM answers increases true positive rates but also false positives.",
+      "Introduces a generation-discrimination pipeline that progressively detects and refines vulnerability findings.",
+      "Demonstrates that GPTLens is entirely LLM-driven without requiring specialist smart contract expertise.",
+      "Releases open-source code at https://github.com/git-disl/GPTLens."
+    ],
+    "contributions_zh": [
+      "提出GPTLens，一种使用LLM同时作为审计者和评论者的两阶段对抗框架，用于智能合约漏洞检测。",
+      "揭示LLM回答中更高的随机性增加了真阳性率但也增加了误报率。",
+      "引入生成-判别流水线，逐步检测和优化漏洞发现结果。",
+      "证明GPTLens完全由LLM驱动，无需智能合约专业知识。",
+      "在https://github.com/git-disl/GPTLens开源代码。"
+    ],
+    "abstract_zh": "本文系统分析了利用GPT-4等大语言模型（LLM）挖掘智能合约漏洞的机遇、挑战和潜在解决方案。对于智能合约漏洞检测任务，实现实际可用性取决于尽可能多地识别真实漏洞，同时最小化误报数量。然而，我们的实证研究揭示了矛盾但有趣的发现：以更高随机性生成更多答案大大提高了产生正确答案的可能性，但不可避免地导致更多误报。为了缓解这种矛盾，我们提出了一个名为GPTLens的对抗框架，将传统的单阶段检测分解为两个协同阶段——生成和判别，进行渐进式检测和优化，其中LLM扮演双重角色，即审计者（AUDITOR）和评论者（CRITIC）。审计者的目标是产生广泛的漏洞范围，以期涵盖正确答案，而评论者评估已识别漏洞有效性的目标是最小化误报数量。实验结果和示例表明，审计者和评论者协同工作，相比传统单阶段检测产生了显著改进。GPTLens直观、策略性强，完全由LLM驱动，不依赖智能合约专业知识，展示了其方法的通用性和检测广泛漏洞的潜力。代码可在https://github.com/git-disl/GPTLens获取。",
+    "experiment": {
+      "language": [
+        "Solidity"
+      ],
+      "platform": [],
+      "target_domain": [
+        "smart contracts"
+      ],
+      "llm": [
+        "GPT-4"
+      ],
+      "model_family": [
+        "GPT"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "GPTLens with dual Auditor-Critic roles yields pronounced improvements over conventional one-stage detection.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{hu2023large,\n  title={Large language model-powered smart contract vulnerability detection: New perspectives},\n  author={Hu, Sihao and Huang, Tiansheng and others},\n  booktitle={2023 5th IEEE International Conference on Trust, Privacy and Security in Intelligent Systems and Applications (TPS-ISA)},\n  year={2023}\n}"
   },
   {
     "id": "keltek2024lsast",
@@ -402,7 +450,45 @@
     ],
     "subcategories": [
       "llm-sast"
-    ]
+    ],
+    "system_name": "LSAST",
+    "summary": "Proposes LSAST, integrating a locally-hosted LLM with SAST scanners and knowledge retrieval to improve vulnerability detection while preserving data privacy.",
+    "summary_zh": "提出LSAST，将本地托管的LLM与SAST扫描器和知识检索系统集成，在保护数据隐私的同时提高漏洞检测能力。",
+    "contributions": [
+      "Proposes LSAST, a novel approach integrating LLMs with SAST scanners for enhanced vulnerability detection.",
+      "Uses a locally hostable LLM combined with a state-of-the-art knowledge retrieval system to ensure data privacy.",
+      "Sets a new benchmark for static vulnerability analysis with a privacy-conscious solution.",
+      "Demonstrates that incorporating SAST results into LLM analysis significantly improves detection accuracy."
+    ],
+    "contributions_zh": [
+      "提出LSAST，一种将LLM与SAST扫描器集成的新方法，用于增强漏洞检测。",
+      "使用本地可托管的LLM结合先进的知识检索系统，确保数据隐私。",
+      "为静态漏洞分析设立了新的基准，提供了隐私感知的解决方案。",
+      "证明将SAST结果纳入LLM分析可显著提高检测准确性。"
+    ],
+    "abstract_zh": "当前网络安全形势日益复杂，传统的静态应用安全测试（SAST）工具由于依赖基于规则的匹配，在捕获复杂和新兴漏洞方面面临困难。同时，大语言模型（LLM）展示了强大的代码分析能力，但其静态训练数据和隐私风险限制了其有效性。为了克服这两种方法的局限性，我们提出了LSAST，一种将LLM与SAST扫描器集成以增强漏洞检测的新方法。LSAST利用本地可托管的LLM，结合先进的知识检索系统，在不损害数据隐私的情况下提供最新的漏洞洞察。我们为静态漏洞分析设立了新的基准，提供了一个稳健的、隐私感知的解决方案，弥合了传统扫描器与先进AI驱动分析之间的差距。我们的评估表明，将SAST结果纳入LLM分析可显著提高检测准确性，识别出传统方法遗漏的漏洞。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Incorporating SAST results into LLM analysis significantly improves detection accuracy, identifying vulnerabilities missed by conventional methods.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{keltek2024lsast,\n  title={LSAST--Enhancing Cybersecurity through LLM-supported Static Application Security Testing},\n  author={Keltek, Mete and Hu, Rong and Sani, Mohammadreza Fani and Li, Ziyue},\n  journal={arXiv preprint arXiv:2409.15735},\n  year={2024}\n}"
   },
   {
     "id": "khare2023understanding",
@@ -422,7 +508,63 @@
       "llm-sast",
       "java",
       "c-cpp"
-    ]
+    ],
+    "system_name": "",
+    "summary": "Evaluates 16 pre-trained LLMs on 5,000 code samples across 5 datasets in Java and C/C++, finding 62.8% average accuracy with step-by-step prompting improving F1 by up to 0.18.",
+    "summary_zh": "在Java和C/C++的5个数据集上评估16个预训练LLM对5000个代码样本的表现，平均准确率62.8%，逐步提示策略将F1提升最高0.18。",
+    "contributions": [
+      "Evaluates 16 pre-trained LLMs on 5,000 code samples from five diverse security datasets covering Java and C/C++.",
+      "Finds LLMs achieve an average accuracy of 62.8% and F1 score of 0.71 across datasets, with better performance on intra-procedural vulnerabilities.",
+      "Shows LLMs report higher accuracies than CodeQL on vulnerabilities like OS Command Injection and NULL Pointer Dereference.",
+      "Demonstrates that step-by-step prompting strategies improve F1 score by up to 0.18 on real-world datasets.",
+      "Identifies LLM strengths in vulnerability-related specification identification and natural language-based code behavior understanding."
+    ],
+    "contributions_zh": [
+      "在覆盖Java和C/C++的五个多样化安全数据集上评估了16个预训练LLM对5000个代码样本的表现。",
+      "发现LLM在各数据集上平均准确率为62.8%，F1分数为0.71，在过程内漏洞上表现更好。",
+      "表明LLM在OS命令注入和空指针解引用等漏洞上的准确率高于CodeQL。",
+      "证明逐步提示策略在真实世界数据集上将F1分数提高了最多0.18。",
+      "识别了LLM在漏洞相关规范识别和基于自然语言的代码行为理解方面的优势。"
+    ],
+    "abstract_zh": "虽然自动化漏洞检测技术在检测安全漏洞方面取得了可喜的进展，但其可扩展性和适用性仍然面临挑战。GPT-4和CodeLlama等大语言模型（LLM）在代码相关任务上的卓越表现促使近期研究探索LLM能否用于检测漏洞。本文通过同时检验更多的数据集、语言和LLM进行了更全面的研究，并在定性评估不同提示和漏洞类别的性能的同时解决了现有工具的不足。具体而言，我们评估了16个预训练LLM在五个多样化安全数据集的5000个代码样本上的有效性。这些平衡数据集涵盖了Java和C/C++的合成和真实世界项目，覆盖25种不同的漏洞类别。总体而言，所有规模和系列的LLM在检测漏洞方面表现一般，在各数据集上获得了62.8%的平均准确率和0.71的F1分数。它们在只需要过程内分析的漏洞检测上明显更好，如OS命令注入和空指针解引用。此外，它们在这些漏洞上的准确率高于流行的静态分析工具如CodeQL。我们发现，涉及逐步分析的高级提示策略在真实世界数据集上显著提高了LLM的F1分数（平均提高了多达0.18）。有趣的是，我们观察到LLM在正确执行部分分析方面展示了有前途的能力，如识别漏洞相关规范和利用自然语言信息理解代码行为。我们期望我们的洞察能指导未来LLM增强漏洞检测系统的研究工作。",
+    "experiment": {
+      "language": [
+        "Java",
+        "C/C++"
+      ],
+      "platform": [],
+      "target_domain": [],
+      "llm": [
+        "GPT-4",
+        "CodeLlama"
+      ],
+      "model_family": [
+        "GPT",
+        "CodeLlama"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [
+        "CodeQL"
+      ],
+      "dataset": [],
+      "benchmark_size": "5,000 code samples from 5 datasets",
+      "baselines": [
+        "CodeQL"
+      ],
+      "vulnerability_type": [
+        "OS Command Injection",
+        "NULL Pointer Dereference"
+      ],
+      "key_results": "Average accuracy of 62.8% and F1 score of 0.71; step-by-step prompting improves F1 by up to 0.18.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{khare2023understanding,\n  title={Understanding the effectiveness of large language models in detecting security vulnerabilities},\n  author={Khare, Avishree and Dutta, Saikat and Li, Ziyang and Solko-Breslin, Alaia and Alur, Rajeev and Naik, Mayur},\n  journal={arXiv preprint arXiv:2311.16169},\n  year={2023}\n}"
   },
   {
     "id": "kholoosi2024qualitative",
@@ -438,7 +580,51 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "",
+    "summary": "Studies ChatGPT's practicality for vulnerability detection through Twitter perception analysis and experiments on 40 vulnerability types across 12 programming languages.",
+    "summary_zh": "通过Twitter感知分析和对40种漏洞类型、12种编程语言的实验，研究ChatGPT在漏洞检测中的实用性。",
+    "contributions": [
+      "Conducts an empirical study analyzing perceptions of ChatGPT for security tasks from Twitter discussions.",
+      "Identifies that security practitioners view ChatGPT as beneficial for vulnerability detection, information retrieval, and penetration testing.",
+      "Designs experiments to evaluate ChatGPT's practicality for vulnerability detection on real-world projects.",
+      "Evaluates ChatGPT on a dataset compiled after OpenAI's data cut-off date covering 40 vulnerability types and 12 programming languages.",
+      "Finds that ChatGPT responses are largely filled with generic security information and may not be appropriate for industry use."
+    ],
+    "contributions_zh": [
+      "通过分析Twitter讨论，对ChatGPT在安全任务中的感知进行了实证研究。",
+      "发现安全从业者认为ChatGPT有助于漏洞检测、信息检索和渗透测试。",
+      "设计实验评估ChatGPT在真实世界项目漏洞检测中的实用性。",
+      "在OpenAI数据截止日期之后编译的数据集上评估ChatGPT，涵盖40种漏洞类型和12种编程语言。",
+      "发现ChatGPT的回复主要充满通用安全信息，可能不适合工业使用。"
+    ],
+    "abstract_zh": "人工智能（AI）的进步推动了能够以出色的语义理解和准确性执行各种任务的大语言模型（LLM）的发展。ChatGPT是一个因其在协助各种知识密集型任务方面的出色能力而受到广泛关注的LLM。由于工程安全软件的知识密集特性，预计将探索ChatGPT在软件开发/演进过程中对安全相关任务的辅助。为了了解ChatGPT作为支持软件安全的新兴技术的潜力，我们采用了双重方法。首先，我们进行了一项实证研究，分析了那些探索过使用ChatGPT进行安全任务并在Twitter上分享观点的人的看法。研究确定安全从业者认为ChatGPT有助于各种软件安全任务，包括漏洞检测、信息检索和渗透测试。其次，我们设计了一个实验，旨在调查这项技术在真实世界环境中作为预言机部署时的实用性。特别是，我们专注于漏洞检测，并对ChatGPT在这一重要软件安全任务中给定提示的输出进行了定性检查。根据我们的分析，ChatGPT在此任务中的回复主要充满了通用的安全信息，可能不适合工业使用。为防止数据泄露，我们在OpenAI数据截止日期之后从真实世界项目编译的漏洞数据集上进行了此分析，涵盖40种不同的漏洞类型和12种编程语言。我们认为这项研究的发现将有助于未来旨在开发和评估专用于软件安全的LLM的研究。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [
+        "ChatGPT"
+      ],
+      "model_family": [
+        "GPT"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "40 vulnerability types, 12 programming languages",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "ChatGPT responses are largely generic security information, not appropriate for industry use in vulnerability detection.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{kholoosi2024qualitative,\n  title={A Qualitative Study on Using ChatGPT for Software Security: Perception vs. Practicality},\n  author={Kholoosi, M Mehdi and Babar, M Ali and Croft, Roland},\n  booktitle={2024 IEEE 6th International Conference on Trust, Privacy and Security in Intelligent Systems, and Applications (TPS-ISA)},\n  year={2024}\n}"
   },
   {
     "id": "kouliaridis2024assessing",
@@ -454,7 +640,53 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "",
+    "summary": "Compares 9 LLMs on detecting Android vulnerabilities from OWASP Mobile Top 10 using over 100 code samples including obfuscated ones, with RAG augmentation.",
+    "summary_zh": "比较9个LLM对OWASP移动端Top 10中Android漏洞的检测能力，使用超过100个代码样本（含混淆样本），并采用RAG增强。",
+    "contributions": [
+      "Evaluates nine state-of-the-art LLMs on detecting Android vulnerabilities from OWASP Mobile Top 10.",
+      "Tests models against an open dataset of over 100 vulnerable code samples, including obfuscated ones.",
+      "Provides insights into context augmentation with retrieval-augmented generation (RAG) for Android vulnerability detection.",
+      "Identifies key factors contributing to LLM performance and reveals significant discrepancies among different models."
+    ],
+    "contributions_zh": [
+      "评估九个先进LLM在检测OWASP移动端Top 10中Android漏洞方面的能力。",
+      "在包含超过100个漏洞代码样本（含混淆样本）的开放数据集上测试模型。",
+      "提供关于使用检索增强生成（RAG）进行Android漏洞检测的上下文增强洞察。",
+      "识别影响LLM性能的关键因素，揭示不同模型之间的显著差异。"
+    ],
+    "abstract_zh": "针对Android应用的攻击频率不断增加，加上大语言模型（LLM）近期的流行，需要全面了解后者在识别潜在漏洞方面的能力，这对降低整体风险至关重要。为此，本研究比较了九个先进LLM检测最新开放全球应用安全项目（OWASP）移动端Top 10中列出的Android代码漏洞的能力。每个LLM在一个包含超过100个漏洞代码样本（包括混淆样本）的开放数据集上进行评估，评估每个模型识别关键漏洞的能力。我们的分析揭示了每个LLM的优缺点，识别了影响其性能的重要因素。此外，我们提供了关于使用检索增强生成（RAG）检测Android代码漏洞的上下文增强洞察，这反过来可能推动安全应用开发。最后，虽然关于代码漏洞分析的报告结果显示出前景，但也揭示了不同LLM之间的显著差异。",
+    "experiment": {
+      "language": [
+        "Java"
+      ],
+      "platform": [
+        "Android"
+      ],
+      "target_domain": [
+        "Android applications"
+      ],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "OWASP Mobile Top 10"
+      ],
+      "benchmark_size": "over 100 vulnerable code samples",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Reveals significant discrepancies among 9 LLMs in detecting Android vulnerabilities; RAG augmentation shows promise.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{kouliaridis2024assessing,\n  title={Assessing the Effectiveness of LLMs in Android Application Vulnerability Analysis},\n  author={Kouliaridis, Vasileios and Karopoulos, Georgios and Kambourakis, Georgios},\n  journal={arXiv preprint arXiv:2406.18894},\n  year={2024}\n}"
   },
   {
     "id": "li2024attention",
@@ -472,7 +704,60 @@
     ],
     "subcategories": [
       "semantic"
-    ]
+    ],
+    "system_name": "LOVA",
+    "summary": "Introduces LOVA, leveraging LLM self-attention mechanisms for vulnerability localization, achieving up to 5.3x F1 improvement across C, Python, Java, and Solidity.",
+    "summary_zh": "提出LOVA，利用LLM自注意力机制进行漏洞定位，在C、Python、Java和Solidity上实现最高5.3倍的F1提升。",
+    "contributions": [
+      "Proposes LOVA, a framework leveraging LLM self-attention mechanisms for vulnerability localization at the line level.",
+      "Achieves up to 5.3x improvement in F1 scores over existing LLM-based vulnerability localization approaches.",
+      "Demonstrates 14.6x improvement in smart contract vulnerability localization.",
+      "Validates scalability across C, Python, Java, and Solidity programming languages.",
+      "Shows consistent performance across different LLM architectures including GPT and LLaMA."
+    ],
+    "contributions_zh": [
+      "提出LOVA，一种利用LLM自注意力机制在行级别进行漏洞定位的框架。",
+      "在F1分数上比现有基于LLM的漏洞定位方法提高了最多5.3倍。",
+      "在智能合约漏洞定位上实现了14.6倍的改进。",
+      "验证了在C、Python、Java和Solidity编程语言上的可扩展性。",
+      "在GPT和LLaMA等不同LLM架构上表现出一致的性能。"
+    ],
+    "abstract_zh": "软件系统的快速扩展和报告漏洞数量的增长强调了准确识别漏洞代码段的重要性。传统的漏洞定位方法，如手动代码审计或基于规则的工具，通常耗时且范围有限，通常只关注特定编程语言或漏洞类型。近年来，GPT和LLaMA等大语言模型（LLM）的引入为自动化漏洞检测开辟了新的可能性。然而，虽然LLM在这一领域显示出前景，但它们面临挑战，特别是在更长代码上下文中保持准确性方面。本文介绍了LOVA，一种利用LLM中固有的自注意力机制来增强漏洞定位的新框架。我们的关键洞察是，自注意力机制对输入的不同部分赋予不同的重要性，使得跟踪模型对特定代码行的关注程度成为可能。在漏洞定位的背景下，假设是漏洞代码行会自然吸引更高的注意力权重，因为它们对模型输出有更大的影响。通过系统地跟踪注意力权重的变化并关注特定代码行，LOVA提高了跨多种编程语言识别漏洞行的精度。通过严格的实验和评估，我们证明LOVA显著优于现有的基于LLM的方法，在F1分数上实现了最高5.3倍的改进。LOVA还展示了强大的可扩展性，在C、Python、Java和Solidity等语言的智能合约漏洞定位上实现了最高14.6倍的改进。其稳健性通过在不同LLM架构上的一致性能得到验证。",
+    "experiment": {
+      "language": [
+        "C",
+        "Python",
+        "Java",
+        "Solidity"
+      ],
+      "platform": [],
+      "target_domain": [
+        "smart contracts"
+      ],
+      "llm": [
+        "GPT",
+        "LLaMA"
+      ],
+      "model_family": [
+        "GPT",
+        "LLaMA"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Up to 5.3x F1 improvement over existing LLM-based approaches; 14.6x improvement in smart contract vulnerability localization.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{li2024attention,\n  title={Attention is all you need for llm-based code vulnerability localization},\n  author={Li, Yue and Li, Xiao and Wu, Hao and Zhang, Yue and Cheng, Xiuzhen and Zhong, Sheng and Xu, Fengyuan},\n  journal={arXiv preprint arXiv:2410.15288},\n  year={2024}\n}"
   },
   {
     "id": "li2024enhancing",
@@ -488,7 +773,53 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "LLift",
+    "summary": "Presents LLift, combining static analysis with LLMs to detect use-before-initialization bugs in Linux kernel, discovering 4 previously unknown UBI bugs.",
+    "summary_zh": "提出LLift，将静态分析与LLM结合检测Linux内核中的使用前初始化错误，发现4个此前未知的UBI漏洞。",
+    "contributions": [
+      "Proposes LLift, a framework synergizing static analysis and LLMs for detecting use-before-initialization (UBI) bugs in the Linux kernel.",
+      "Enhances path analysis using post-constraint guidance based on variable usage conventions in Linux.",
+      "Designs procedures to handle bug-specific modeling, extensive codebases, and LLM unpredictability.",
+      "Discovers four previously unknown UBI bugs in the mainstream Linux kernel, acknowledged by the Linux community."
+    ],
+    "contributions_zh": [
+      "提出LLift，一种将静态分析与LLM协同的框架，用于检测Linux内核中的使用前初始化（UBI）漏洞。",
+      "基于Linux中的变量使用约定，使用后约束引导增强路径分析。",
+      "设计了处理特定漏洞建模、大规模代码库和LLM不可预测性的方法。",
+      "在主流Linux内核中发现了四个此前未知的UBI漏洞，已获Linux社区确认。"
+    ],
+    "abstract_zh": "虽然静态分析在发现软件漏洞方面发挥着重要作用，但其在分析大型和复杂代码库时的精度仍然具有挑战性。大语言模型（LLM）的新兴能力为解决这些复杂性提供了有前途的途径。本文介绍了LLift，一种将静态分析和LLM协同的开创性框架，重点识别Linux内核中的使用前初始化（UBI）漏洞。根据我们对Linux中变量使用约定的洞察，我们使用后约束引导来增强路径分析。这种方法结合我们精心设计的流程，使LLift能够熟练处理特定漏洞建模、大规模代码库和LLM不可预测性的挑战。我们的真实世界评估在主流Linux内核中识别出四个此前未发现的UBI漏洞，Linux社区已确认了这些漏洞。这项研究重申了将静态分析与LLM结合的潜力，为该领域未来的研究指明了令人信服的方向。",
+    "experiment": {
+      "language": [
+        "C"
+      ],
+      "platform": [
+        "Linux"
+      ],
+      "target_domain": [
+        "Linux kernel"
+      ],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [
+        "use-before-initialization (UBI)"
+      ],
+      "key_results": "Discovered 4 previously unknown UBI bugs in the mainstream Linux kernel, acknowledged by the Linux community.",
+      "real_world_impact": "4 previously unknown UBI bugs discovered and acknowledged by Linux community.",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 2,
+    "bibtex": "@article{li2024enhancing,\n  title={Enhancing Static Analysis for Practical Bug Detection: An LLM-Integrated Approach},\n  author={Li, Haonan and Hao, Yu and Zhai, Yizhuo and Qian, Zhiyun},\n  journal={Proceedings of the ACM on Programming Languages},\n  year={2024}\n}"
   },
   {
     "id": "li2024llm",
@@ -506,7 +837,53 @@
     ],
     "subcategories": [
       "llm-sast"
-    ]
+    ],
+    "system_name": "IRIS",
+    "summary": "Proposes IRIS, combining LLMs with static analysis for whole-repository Java vulnerability detection, detecting 69/120 vulnerabilities with GPT-4 vs 27 by static analysis alone.",
+    "summary_zh": "提出IRIS，将LLM与静态分析结合进行全仓库Java漏洞检测，使用GPT-4检测出120个漏洞中的69个，而单独静态分析仅检测27个。",
+    "contributions": [
+      "Proposes IRIS, the first approach systematically combining LLMs with static analysis for whole-repository vulnerability detection.",
+      "Curates CWE-Bench-Java, a new dataset of 120 manually validated security vulnerabilities in real-world Java projects (up to 7M lines of code).",
+      "Detects 69 out of 120 vulnerabilities using GPT-4, compared to 27 by state-of-the-art static analysis tools.",
+      "Reduces false alarms by more than 80% in the best case."
+    ],
+    "contributions_zh": [
+      "提出IRIS，首个系统性地将LLM与静态分析结合进行全仓库漏洞检测的方法。",
+      "构建CWE-Bench-Java，一个包含120个在真实世界Java项目（最大达700万行代码）中手动验证的安全漏洞的新数据集。",
+      "使用GPT-4检测出120个漏洞中的69个，而先进的静态分析工具仅检测27个。",
+      "在最佳情况下将误报减少了80%以上。"
+    ],
+    "abstract_zh": "软件容易出现安全漏洞。检测这些漏洞的程序分析工具在实践中的有效性有限。虽然大语言模型（LLM）已展示出令人印象深刻的代码生成能力，但它们无法对代码进行复杂推理以检测此类漏洞，特别是因为此任务需要全仓库分析。在这项工作中，我们提出了IRIS，首个系统性地将LLM与静态分析结合以执行全仓库推理来检测安全漏洞的方法。我们构建了一个新数据集CWE-Bench-Java，包含120个在真实世界Java项目中手动验证的安全漏洞。这些项目很复杂，平均有30万行代码，最大达700万行。在CWE-Bench-Java的120个漏洞中，IRIS使用GPT-4检测到69个，而先进的静态分析工具仅检测到27个。此外，IRIS还显著减少了误报数量（在最佳情况下减少了80%以上）。",
+    "experiment": {
+      "language": [
+        "Java"
+      ],
+      "platform": [],
+      "target_domain": [],
+      "llm": [
+        "GPT-4"
+      ],
+      "model_family": [
+        "GPT"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "CWE-Bench-Java"
+      ],
+      "benchmark_size": "120 manually validated vulnerabilities in real-world Java projects",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "IRIS detects 69/120 vulnerabilities with GPT-4 vs 27 by static analysis; reduces false alarms by over 80%.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{li2024llm,\n  title={LLM-Assisted Static Analysis for Detecting Security Vulnerabilities},\n  author={Li, Ziyang and Dutta, Saikat and Naik, Mayur},\n  journal={arXiv preprint arXiv:2405.17238},\n  year={2024}\n}"
   },
   {
     "id": "libro2023icse",
@@ -522,7 +899,51 @@
     "categories": [
       "fuzzing"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "LIBRO",
+    "summary": "Proposes LIBRO, using LLMs to generate bug-reproducing tests from bug reports, successfully reproducing 33% of Defects4J bugs (251/750) with first-place ranking for 149.",
+    "summary_zh": "提出LIBRO，使用LLM从缺陷报告生成缺陷复现测试，成功复现Defects4J中33%的缺陷（251/750），其中149个排名第一。",
+    "contributions": [
+      "Proposes LIBRO, a framework using LLMs to generate failure-reproducing test cases from general bug reports.",
+      "Shows that 28% of tests in open source repositories are added due to issues, motivating automated bug reproduction.",
+      "Generates bug-reproducing tests for 33% of Defects4J cases (251 out of 750), with 149 bugs reproduced in first place.",
+      "Evaluates against 31 post-training bug reports to mitigate data contamination, achieving 32% bug reproduction rate.",
+      "Introduces post-processing steps to rank and validate LLM-generated tests."
+    ],
+    "contributions_zh": [
+      "提出LIBRO，一种使用LLM从一般缺陷报告生成故障复现测试用例的框架。",
+      "表明开源仓库中28%的测试是由问题引起的，这激励了自动化缺陷复现。",
+      "为Defects4J中33%的案例（750个中的251个）生成了缺陷复现测试，其中149个缺陷排名第一。",
+      "对31个训练后缺陷报告进行评估以减轻数据污染，实现32%的缺陷复现率。",
+      "引入后处理步骤来排序和验证LLM生成的测试。"
+    ],
+    "abstract_zh": "许多自动化测试生成技术已被开发来帮助开发人员编写测试。为了实现完全自动化，大多数现有技术旨在增加覆盖率或生成探索性输入。然而，现有的测试生成技术在实现更多语义目标方面largely不足，例如生成测试以复现给定的缺陷报告。复现缺陷仍然很重要，因为我们的实证研究表明，开源仓库中因问题而添加的测试数量约为相应项目测试套件大小的28%。同时，由于将缺陷报告中的预期程序语义转换为测试预言的困难，现有的故障复现技术往往仅处理程序崩溃，这只是所有缺陷报告的一小部分。为了从一般缺陷报告自动生成测试，我们提出了LIBRO，一种使用大语言模型（LLM）的框架，LLM已被证明能够执行代码相关任务。由于LLM本身无法执行目标有缺陷的代码，我们重点关注帮助我们辨别LLM何时有效的后处理步骤，并根据有效性对生成的测试进行排序。我们对LIBRO的评估表明，在广泛研究的Defects4J基准上，LIBRO可以为33%的所有研究案例（750个中的251个）生成故障复现测试用例，同时为149个缺陷建议第一名的缺陷复现测试。为减轻数据污染，我们还对LLM训练数据收集终止后提交的31个缺陷报告进行了LIBRO评估：LIBRO为32%的研究缺陷报告生成了缺陷复现测试。总体而言，我们的结果表明LIBRO有潜力通过自动从缺陷报告生成测试来显著提高开发人员效率。",
+    "experiment": {
+      "language": [
+        "Java"
+      ],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "Defects4J"
+      ],
+      "benchmark_size": "750 bugs from Defects4J + 31 post-training bug reports",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Generates bug-reproducing tests for 33% (251/750) of Defects4J cases; first-place ranking for 149 bugs; 32% on post-training data.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 3,
+    "bibtex": "@inproceedings{libro2023icse,\n  title={Large Language Models are Few-shot Testers: Exploring LLM-based General Bug Reproduction},\n  author={},\n  booktitle={ICSE'23},\n  year={2023}\n}"
   },
   {
     "id": "liu2023software",
@@ -538,7 +959,53 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "VUL-GPT",
+    "summary": "Proposes VUL-GPT, combining code retrieval (BM-25/TF-IDF) with in-context learning to enhance GPT's vulnerability detection using similar code snippets.",
+    "summary_zh": "提出VUL-GPT，结合代码检索（BM-25/TF-IDF）和上下文学习，利用相似代码片段增强GPT的漏洞检测能力。",
+    "contributions": [
+      "Proposes VUL-GPT, a context-based learning approach for code vulnerability detection using GPT.",
+      "Combines code retrieval methods (BM-25 and TF-IDF) with code analysis for in-context learning.",
+      "Uses GPT to generate analysis content for test code and retrieves similar vulnerable code snippets from training sets.",
+      "Demonstrates that combining code retrieval and code analysis improves GPT's vulnerability detection effectiveness."
+    ],
+    "contributions_zh": [
+      "提出VUL-GPT，一种使用GPT进行代码漏洞检测的基于上下文学习的方法。",
+      "结合代码检索方法（BM-25和TF-IDF）与代码分析进行上下文学习。",
+      "使用GPT为测试代码生成分析内容，并从训练集中检索相似的漏洞代码片段。",
+      "证明结合代码检索和代码分析可以提高GPT的漏洞检测效果。"
+    ],
+    "abstract_zh": "代码漏洞检测是一种软件安全分析技术，专注于识别和解决可能的代码漏洞和弱点。其主要目标是降低恶意攻击和系统故障的可能性。漏洞包括代码中的错误、缺陷或不安全的编程方法，可能导致安全风险、服务拒绝、数据泄露和其他各种问题。以前的研究主要集中在深度学习模型上，如VulDeePecker、Russell和SySeVR。随着大语言模型的出现，在各个领域取得了令人印象深刻的进展，包括自然语言生成、文本分类和情感分析。然而，目前没有有效的方法来利用大语言模型进行漏洞检测。因此，本研究探索和验证了此类模型在代码漏洞检测中的应用。本文提出了一种名为VUL-GPT的基于上下文学习的方法来增强代码漏洞检测能力。我们的方法结合了代码检索和代码分析，利用上下文学习来提高GPT模型在漏洞检测中的性能。具体而言，我们使用GPT为测试代码生成分析内容，并采用BM-25和TF-IDF等代码检索方法从训练集中检索最相似的代码片段及其漏洞信息。随后，我们将它们与测试代码及其分析一起输入GPT模型，利用大语言模型的上下文学习能力进行漏洞检测。我们的实验表明，结合代码检索和代码分析，GPT模型可以更有效地检测代码漏洞。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [
+        "GPT"
+      ],
+      "model_family": [
+        "GPT"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [
+        "VulDeePecker",
+        "Russell",
+        "SySeVR"
+      ],
+      "vulnerability_type": [],
+      "key_results": "Combining code retrieval and code analysis improves GPT's vulnerability detection effectiveness.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{liu2023software,\n  title={Software vulnerability detection with gpt and in-context learning},\n  author={Liu, Zhihong and Liao, Qing and Gu, Wenchao and Gao, Cuiyun},\n  booktitle={2023 8th International Conference on Data Science in Cyberspace (DSC)},\n  year={2023}\n}"
   },
   {
     "id": "liu2024exploration",
@@ -554,7 +1021,51 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "",
+    "summary": "Investigates prompting strategies for GPT vulnerability detection: basic prompts, code-specific information (similar code, DFG), and chain-of-thought prompts.",
+    "summary_zh": "研究GPT漏洞检测的提示策略：基础提示、代码特定信息（相似代码、数据流图）和思维链提示。",
+    "contributions": [
+      "Designs and evaluates three levels of prompts for GPT vulnerability detection: basic, code-specific, and chain-of-thought (CoT).",
+      "Incorporates code-specific information including similar code and data flow graphs (DFG) into prompts.",
+      "Designs a code search algorithm considering both code semantic and structural information for retrieving similar code.",
+      "Explores the impact of code-specific information position in prompts and suitable temperature values for vulnerability detection.",
+      "Demonstrates that combining code-specific information and CoT enables GPT to detect vulnerabilities more effectively."
+    ],
+    "contributions_zh": [
+      "设计并评估了GPT漏洞检测的三个级别提示：基础提示、代码特定信息提示和思维链（CoT）提示。",
+      "将代码特定信息（包括相似代码和数据流图DFG）纳入提示中。",
+      "设计了一种考虑代码语义和结构信息的代码搜索算法，用于检索相似代码。",
+      "探索了代码特定信息在提示中的位置以及适合漏洞检测任务的温度值的影响。",
+      "证明结合代码特定信息和CoT使GPT能够更有效地检测漏洞。"
+    ],
+    "abstract_zh": "软件漏洞检测是一种旨在识别可能的代码漏洞和弱点的软件安全分析技术。大多数以前的研究主要集中在深度学习模型上。最近，随着大语言模型的快速发展，研究人员正在探索在漏洞检测领域使用GPT。然而，这些工作对漏洞检测的特征考虑不足，缺乏特定的提示和代码特定信息。本文主要研究提示对GPT的影响。我们逐步设计以下提示：基础提示、包含代码特定信息的提示和思维链（CoT）提示。首先，我们探索在漏洞检测领域使用基础提示的性能。随后，我们将代码特定信息纳入基础提示，主要关注相似代码和数据流图（DFG）。相似代码通过我们设计的代码搜索算法获得，该算法同时考虑代码语义和结构信息。最后，我们进一步引入CoT提示以激发GPT逐步检测漏洞的能力。我们还进行了实验，探索代码特定信息在提示中的位置以及适合漏洞检测任务的温度值的影响。实验结果表明，结合代码特定信息和CoT，GPT可以更有效地检测漏洞。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [
+        "GPT"
+      ],
+      "model_family": [
+        "GPT"
+      ],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Combining code-specific information (similar code, DFG) and CoT prompts enables GPT to detect vulnerabilities more effectively.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{liu2024exploration,\n  title={Exploration On Prompting LLM With Code-Specific Information For Vulnerability Detection},\n  author={Liu, Zhihong and Yang, Zezhou and Liao, Qing},\n  booktitle={2024 IEEE International Conference on Software Services Engineering (SSE)},\n  year={2024}\n}"
   },
   {
     "id": "liu2024vuldetectbench",
@@ -572,7 +1083,47 @@
     ],
     "subcategories": [
       "fine-tuning"
-    ]
+    ],
+    "system_name": "VulDetectBench",
+    "summary": "Introduces VulDetectBench benchmark evaluating 17 LLMs on 5 vulnerability detection tasks of increasing difficulty; models achieve 80%+ on identification but under 30% on detailed analysis.",
+    "summary_zh": "推出VulDetectBench基准，在5个难度递增的漏洞检测任务上评估17个LLM；模型在识别任务上达80%以上准确率，但在详细分析上低于30%。",
+    "contributions": [
+      "Introduces VulDetectBench, a benchmark with five tasks of increasing difficulty for evaluating LLM vulnerability detection capabilities.",
+      "Evaluates 17 models (both open- and closed-source) on vulnerability identification, classification, and localization.",
+      "Finds models achieve over 80% accuracy on identification/classification but less than 30% on detailed vulnerability analysis.",
+      "Publicly releases VulDetectBench at https://github.com/Sweetaroo/VulDetectBench."
+    ],
+    "contributions_zh": [
+      "推出VulDetectBench，一个包含五个难度递增任务的基准，用于评估LLM漏洞检测能力。",
+      "在漏洞识别、分类和定位上评估17个模型（开源和闭源）。",
+      "发现模型在识别/分类任务上准确率超过80%，但在详细漏洞分析上低于30%。",
+      "在https://github.com/Sweetaroo/VulDetectBench公开发布VulDetectBench。"
+    ],
+    "abstract_zh": "大语言模型（LLM）的训练语料包含大量程序代码，大大提高了模型的代码理解和生成能力。然而，关于检测程序漏洞这一与代码更为相关的具体任务，以及评估LLM在这一更专业场景中的表现，目前仍缺乏全面而深入的研究。为了解决漏洞分析中的常见挑战，我们的研究引入了一个新的基准VulDetectBench，专门设计用于评估LLM的漏洞检测能力。该基准通过五个难度递增的任务全面评估LLM识别、分类和定位漏洞的能力。我们评估了17个模型（开源和闭源）的性能，发现虽然现有模型在与漏洞识别和分类相关的任务上可以达到80%以上的准确率，但在更具体、更详细的漏洞分析任务上仍然不足，准确率不到30%，难以为专业漏洞挖掘提供有价值的辅助信息。我们的基准有效地评估了各种LLM在漏洞检测这一特定任务中不同层次的能力，为该代码安全关键领域的未来研究和改进奠定了基础。VulDetectBench已公开发布于https://github.com/Sweetaroo/VulDetectBench。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "VulDetectBench"
+      ],
+      "benchmark_size": "17 models evaluated on 5 tasks",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Over 80% accuracy on identification/classification tasks; less than 30% accuracy on detailed vulnerability analysis.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{liu2024vuldetectbench,\n  title={VulDetectBench: Evaluating the Deep Capability of Vulnerability Detection with Large Language Models},\n  author={Liu, Yu and Gao, Lang and Yang, Mingxin and Xie, Yu and Chen, Ping and Zhang, Xiaojin and Chen, Wei},\n  journal={arXiv preprint arXiv:2406.07595},\n  year={2024}\n}"
   },
   {
     "id": "llmif2024sp",
@@ -588,7 +1139,52 @@
     "categories": [
       "fuzzing"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "LLMIF",
+    "summary": "Proposes LLMIF, augmenting LLMs with protocol specifications to fuzz Zigbee IoT devices, achieving 55.2% more message coverage and discovering 11 vulnerabilities (8 new).",
+    "summary_zh": "提出LLMIF，利用协议规范增强LLM对Zigbee物联网设备进行模糊测试，提高55.2%的消息覆盖率并发现11个漏洞（8个新漏洞）。",
+    "contributions": [
+      "Proposes LLMIF, augmenting LLMs with protocol specification contents for IoT protocol fuzzing.",
+      "Drives LLM to perform protocol information extraction and device response reasoning from specifications.",
+      "Increases Zigbee protocol message coverage by 55.2% and code coverage by 53.9% over existing fuzzers.",
+      "Discovers 11 vulnerabilities on real-world Zigbee devices, including 8 previously unknown ones.",
+      "Seven of the discovered vulnerabilities are not covered by existing Zigbee fuzzers."
+    ],
+    "contributions_zh": [
+      "提出LLMIF，利用协议规范内容增强LLM进行物联网协议模糊测试。",
+      "驱动LLM从规范中执行协议信息提取和设备响应推理。",
+      "相比现有模糊器，Zigbee协议消息覆盖率提高55.2%，代码覆盖率提高53.9%。",
+      "在真实世界Zigbee设备上发现11个漏洞，包括8个此前未知的漏洞。",
+      "发现的漏洞中有7个未被现有Zigbee模糊器覆盖。"
+    ],
+    "abstract_zh": "尽管模糊测试在验证网络协议实现正确性方面很有效，但现有的物联网协议模糊测试方法面临若干限制，包括混淆的消息格式、未解决的消息依赖关系以及缺乏对测试用例的评估。这些限制显著削弱了物联网模糊器在漏洞识别方面的能力。在这项工作中，我们展示了协议规范包含丰富的协议消息描述，可用于克服上述限制并指导物联网协议模糊测试。为了自动化规范分析，我们用规范内容增强大语言模型，并驱动它执行两个任务（即协议信息提取和设备响应推理）。我们进一步设计并实现了一种模糊测试算法LLMIF，将LLM纳入物联网模糊测试。最后，我们选择Zigbee作为目标协议并进行了全面评估。评估结果表明LLMIF成功解决了上述限制。与现有Zigbee模糊器相比，它将协议消息覆盖率和代码覆盖率分别提高了55.2%和53.9%。除了增强的覆盖率外，LLMIF在真实世界Zigbee设备上发现了11个漏洞，其中包括8个此前未知的漏洞。其中7个未被现有Zigbee模糊器覆盖。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [
+        "IoT",
+        "Zigbee"
+      ],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [
+        "LLMIF"
+      ],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "55.2% more protocol message coverage, 53.9% more code coverage; 11 vulnerabilities found (8 previously unknown).",
+      "real_world_impact": "11 vulnerabilities on real-world Zigbee devices, including 8 previously unknown ones.",
+      "open_source": true,
+      "cost": ""
+    },
+    "recommendation": 3,
+    "bibtex": "@inproceedings{llmif2024sp,\n  title={LLMIF: Augmented Large Language Model for Fuzzing IoT Devices},\n  author={},\n  booktitle={IEEE S\\&P'24},\n  year={2024}\n}"
   },
   {
     "id": "lu2024grace",
@@ -604,7 +1200,49 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "GRACE",
+    "summary": "Proposes GRACE, integrating graph structural information and in-context learning into LLMs for vulnerability detection, outperforming 6 baselines by 28.65%+ F1 on Devign/Reveal/Big-Vul.",
+    "summary_zh": "提出GRACE，将图结构信息和上下文学习集成到LLM中进行漏洞检测，在Devign/Reveal/Big-Vul上F1超越6个基线28.65%以上。",
+    "contributions": [
+      "Proposes GRACE, a vulnerability detection approach integrating graph structural information and in-context learning into LLMs.",
+      "Designs an effective demonstration retrieval approach considering semantic, lexical, and syntactic similarities.",
+      "Outperforms six state-of-the-art vulnerability detection baselines by at least 28.65% in F1 score across three datasets.",
+      "Evaluates on three datasets: Devign, Reveal, and Big-Vul."
+    ],
+    "contributions_zh": [
+      "提出GRACE，一种将图结构信息和上下文学习集成到LLM中的漏洞检测方法。",
+      "设计了一种考虑语义、词汇和句法相似性的有效示例检索方法。",
+      "在三个数据集上F1分数超越六个先进漏洞检测基线至少28.65%。",
+      "在Devign、Reveal和Big-Vul三个数据集上进行评估。"
+    ],
+    "abstract_zh": "软件漏洞造成了相当大的经济和社会损害。因此，及时准确地检测这些缺陷变得至关重要。大语言模型（LLM）在近期研究中已成为漏洞检测的有前途的工具。然而，当仅限于纯文本源代码时，其有效性会受到影响，因为可能忽略代码的语法和语义信息。为了解决这一限制，我们提出了一种新颖的漏洞检测方法GRACE，通过将代码中的图结构信息和上下文学习纳入LLM来增强基于LLM的软件漏洞检测。我们还设计了一种有效的示例检索方法，通过考虑语义、词汇和句法相似性来为目标代码识别高度相关的代码示例，以提供更好的上下文学习示例。为了评估GRACE的有效性，我们在三个漏洞检测数据集（即Devign、Reveal和Big-Vul）上进行了实证研究。结果表明，GRACE在这三个数据集上的F1分数至少超越六个先进漏洞检测基线28.65%。因此，我们的研究强调了将图结构信息和上下文学习集成到LLM中进行漏洞检测的有效性。这些发现激励进一步研究为特定漏洞类型定制此类方法或将其适用于其他安全任务。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "Devign",
+        "Reveal",
+        "Big-Vul"
+      ],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Outperforms 6 state-of-the-art baselines by at least 28.65% in F1 score across Devign, Reveal, and Big-Vul datasets.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 2,
+    "bibtex": "@article{lu2024grace,\n  title={GRACE: Empowering LLM-based software vulnerability detection with graph structure and in-context learning},\n  author={Lu, Guilong and Ju, Xiaolin and Chen, Xiang and Pei, Wenlong and Cai, Zhilong},\n  journal={Journal of Systems and Software},\n  year={2024}\n}"
   },
   {
     "id": "luo2024fellmvp",
@@ -622,7 +1260,67 @@
     ],
     "subcategories": [
       "fine-tuning"
-    ]
+    ],
+    "system_name": "FELLMVP",
+    "summary": "Introduces FELLMVP, an ensemble of 8 fine-tuned LLMs for smart contract vulnerability classification, achieving 98.8% accuracy and 88% F1 on 15,637 contracts across 8 vulnerability types.",
+    "summary_zh": "推出FELLMVP，集成8个微调LLM进行智能合约漏洞分类，在15637个合约和8种漏洞类型上达到98.8%准确率和88% F1。",
+    "contributions": [
+      "Introduces FELLMVP, integrating ensemble learning with fine-tuned LLMs for smart contract vulnerability classification.",
+      "Parses Solidity files to construct call graphs and Contract-External Function-Call (CEC) files for analysis.",
+      "Fine-tunes eight LLMs, each targeting specific vulnerability types, then deploys an ensemble model.",
+      "Achieves 98.8% accuracy and 88% F1 on 15,637 real-world smart contracts across 8 vulnerability types.",
+      "Outperforms Llama2-7b, CodeLlama, and Falcon-7b by 5%-12% on F1 score."
+    ],
+    "contributions_zh": [
+      "推出FELLMVP，将集成学习与微调LLM结合用于智能合约漏洞分类。",
+      "解析Solidity文件以构建调用图和合约-外部函数-调用（CEC）文件进行分析。",
+      "微调8个LLM，每个针对特定漏洞类型，然后部署集成模型。",
+      "在15637个真实世界智能合约和8种漏洞类型上达到98.8%准确率和88% F1。",
+      "在F1分数上超越Llama2-7b、CodeLlama和Falcon-7b 5%-12%。"
+    ],
+    "abstract_zh": "区块链平台上智能合约的快速扩展极大地推进了交易和协议的自动化。然而，对智能合约日益增长的依赖由于其不可变性和与数字资产的交互而增加了安全风险。现有的漏洞检测方法通常无法适应新的和复杂的攻击向量，并且难以准确预测特定的漏洞类型。本文介绍了FELLMVP，一种将集成学习与大语言模型（LLM）集成以对智能合约中的漏洞进行分类的新框架。FELLMVP首先解析Solidity文件以构建调用图和合约-外部函数-调用（CEC）文件进行合约分析。它微调了八个LLM，每个针对检测特定类型的漏洞，最终部署一个利用这些LLM集体预测能力的集成模型。FELLMVP在涵盖八种漏洞类型的15637个真实世界智能合约上进行了评估，表现出优于现有方法的性能，准确率为98.8%，F1分数为88%。FELLMVP还在F1分数上超越了其他LLM如Llama2-7b、CodeLlama和Falcon-7b 5%-12%。此外，一个使用ChatGPT-4定位智能合约中漏洞代码的案例研究表明，FELLMVP对特定漏洞类型的预测与二进制结果相比增强了调试过程。",
+    "experiment": {
+      "language": [
+        "Solidity"
+      ],
+      "platform": [],
+      "target_domain": [
+        "smart contracts"
+      ],
+      "llm": [
+        "ChatGPT-4",
+        "Llama2-7b",
+        "CodeLlama",
+        "Falcon-7b"
+      ],
+      "model_family": [
+        "GPT",
+        "LLaMA",
+        "CodeLlama",
+        "Falcon"
+      ],
+      "model_size": [
+        "7B"
+      ],
+      "fine_tuning": true,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "15,637 real-world smart contracts, 8 vulnerability types",
+      "baselines": [
+        "Llama2-7b",
+        "CodeLlama",
+        "Falcon-7b"
+      ],
+      "vulnerability_type": [],
+      "key_results": "98.8% accuracy and 88% F1 score; outperforms Llama2-7b, CodeLlama, Falcon-7b by 5%-12% on F1.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{luo2024fellmvp,\n  title={FELLMVP: An Ensemble LLM Framework for Classifying Smart Contract Vulnerabilities},\n  author={Luo, Yu and Xu, Weifeng and Andersson, Karl and Hossain, Mohammad Shahadat and Xu, Dianxiang},\n  booktitle={2024 IEEE International Conference on Blockchain (Blockchain)},\n  year={2024}\n}"
   },
   {
     "id": "ma2024combining",
@@ -640,7 +1338,73 @@
     ],
     "subcategories": [
       "fine-tuning"
-    ]
+    ],
+    "system_name": "iAudit",
+    "summary": "Proposes iAudit, combining two-stage fine-tuning (Detector+Reasoner) with LLM agents (Ranker+Critic) for smart contract auditing, achieving 91.21% F1 on 263 real vulnerabilities.",
+    "summary_zh": "提出iAudit，结合两阶段微调（检测器+推理器）与LLM代理（排序器+评论者）进行智能合约审计，在263个真实漏洞上达到91.21% F1。",
+    "contributions": [
+      "Proposes iAudit, combining fine-tuning and LLM-based agents for smart contract auditing with justifications.",
+      "Employs two-stage fine-tuning: a Detector model for decisions and a Reasoner model for vulnerability cause generation.",
+      "Introduces Ranker and Critic LLM agents to iteratively select and debate the most suitable vulnerability cause.",
+      "Achieves 91.21% F1 score and 91.11% accuracy on 263 real smart contract vulnerabilities.",
+      "Compares against CodeBERT, GraphCodeBERT, CodeT5, UnixCoder, GPT-4, GPT-3.5, and CodeLlama-13b/34b."
+    ],
+    "contributions_zh": [
+      "提出iAudit，将微调与基于LLM的代理结合，用于带有理由的智能合约审计。",
+      "采用两阶段微调：检测器模型用于决策，推理器模型用于漏洞原因生成。",
+      "引入排序器和评论者LLM代理，迭代选择和辩论最合适的漏洞原因。",
+      "在263个真实智能合约漏洞上达到91.21%的F1分数和91.11%的准确率。",
+      "与CodeBERT、GraphCodeBERT、CodeT5、UnixCoder、GPT-4、GPT-3.5和CodeLlama-13b/34b进行比较。"
+    ],
+    "abstract_zh": "智能合约是构建在以太坊等区块链之上的去中心化应用。最近的研究表明大语言模型（LLM）在审计智能合约方面具有潜力，但最先进的方法表明即使GPT-4也只能达到30%的精度（当决策和理由都正确时）。这可能是因为现成的LLM主要在通用文本/代码语料上预训练，没有针对Solidity智能合约审计的特定领域进行微调。本文提出了iAudit，一个结合微调和基于LLM的代理的通用框架，用于带有理由的直观智能合约审计。具体而言，iAudit的灵感来自于专家人类审计员首先感知可能出错的地方然后对代码进行详细分析以识别原因的观察。因此，iAudit采用两阶段微调方法：首先调整检测器模型做出决策，然后调整推理器模型生成漏洞原因。然而，仅靠微调在准确识别漏洞最佳原因方面面临挑战。因此，我们引入了两个基于LLM的代理——排序器和评论者，根据微调推理器模型的输出迭代选择和辩论最合适的漏洞原因。为了评估iAudit，我们收集了一个包含1734个正样本和1810个负样本的平衡数据集来微调iAudit。然后我们将其与传统微调模型（CodeBERT、GraphCodeBERT、CodeT5和UnixCoder）以及基于提示学习的LLM（GPT4、GPT-3.5和CodeLlama-13b/34b）进行了比较。在263个真实智能合约漏洞的数据集上，iAudit达到了91.21%的F1分数和91.11%的准确率。iAudit生成的原因与真实原因相比达到了约38%的一致性。",
+    "experiment": {
+      "language": [
+        "Solidity"
+      ],
+      "platform": [
+        "Ethereum"
+      ],
+      "target_domain": [
+        "smart contracts"
+      ],
+      "llm": [
+        "GPT-4",
+        "GPT-3.5",
+        "CodeLlama-13b",
+        "CodeLlama-34b"
+      ],
+      "model_family": [
+        "GPT",
+        "CodeLlama"
+      ],
+      "model_size": [
+        "13B",
+        "34B"
+      ],
+      "fine_tuning": true,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "1,734 positive + 1,810 negative samples for fine-tuning; 263 real vulnerabilities for evaluation",
+      "baselines": [
+        "CodeBERT",
+        "GraphCodeBERT",
+        "CodeT5",
+        "UnixCoder",
+        "GPT-4",
+        "GPT-3.5",
+        "CodeLlama-13b",
+        "CodeLlama-34b"
+      ],
+      "vulnerability_type": [],
+      "key_results": "91.21% F1 score and 91.11% accuracy on 263 real smart contract vulnerabilities; 38% cause consistency with ground truth.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{ma2024combining,\n  title={Combining Fine-Tuning and LLM-based Agents for Intuitive Smart Contract Auditing with Justifications},\n  author={Ma, Wei and Wu, Daoyuan and Sun, Yuqiang and Wang, Tianwen and Liu, Shangqing and Zhang, Jian and Xue, Yue and Liu, Yang},\n  journal={arXiv preprint arXiv:2403.16073},\n  year={2024}\n}"
   },
   {
     "id": "mahyari2024harnessing",
@@ -656,7 +1420,48 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "",
+    "summary": "Trains LLMs on LLVM IR representations of source code for language-universal vulnerability detection, evaluated on NVD and SARD with high accuracy.",
+    "summary_zh": "在源代码的LLVM IR表示上训练LLM，实现跨语言通用漏洞检测，在NVD和SARD上评估并取得高准确率。",
+    "contributions": [
+      "Converts source code to LLVM IR for language-universal vulnerability detection using LLMs.",
+      "Conducts extensive experiments on various LLM architectures for vulnerability detection.",
+      "Evaluates on real-world (NVD) and synthetic (SARD) code datasets, demonstrating high accuracy.",
+      "Proposes a universal approach applicable across multiple programming languages via intermediate representation."
+    ],
+    "contributions_zh": [
+      "将源代码转换为LLVM IR，使用LLM进行跨语言通用漏洞检测。",
+      "在各种LLM架构上进行了广泛的漏洞检测实验。",
+      "在真实世界（NVD）和合成（SARD）代码数据集上进行评估，展示了高准确率。",
+      "提出了一种通过中间表示适用于多种编程语言的通用方法。"
+    ],
+    "abstract_zh": "软件漏洞由源代码中的无意缺陷引起，是网络攻击的主要根源。源代码的静态分析被广泛用于检测软件开发人员引入的这些无意缺陷。大语言模型（LLM）由于其捕获序列数据（如自然语言）中复杂模式的能力，已展示出类人的对话能力。在本文中，我们利用LLM的能力来分析源代码并检测已知漏洞。为确保所提出的漏洞检测方法在多种编程语言中具有通用性，我们将源代码转换为LLVM IR并在这些中间表示上训练LLM。我们在各种LLM架构上进行了广泛的实验并比较了它们的准确性。我们对来自NVD和SARD的真实世界和合成代码的综合实验证明了识别源代码漏洞的高准确性。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": true,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "NVD",
+        "SARD"
+      ],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "High accuracy in identifying source code vulnerabilities on NVD and SARD using LLVM IR representation.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{mahyari2024harnessing,\n  title={Harnessing the Power of LLMs in Source Code Vulnerability Detection},\n  author={Mahyari, Andrew A},\n  booktitle={MILCOM 2024-2024 IEEE Military Communications Conference (MILCOM)},\n  year={2024}\n}"
   },
   {
     "id": "mao2024multi",
@@ -672,7 +1477,43 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "",
+    "summary": "Introduces a multi-role LLM discussion approach simulating code review with developers and testers, improving precision by 13.48%, recall by 18.25%, and F1 by 16.13%.",
+    "summary_zh": "引入多角色LLM讨论方法，模拟开发者和测试者的代码审查过程，精度提高13.48%，召回率提高18.25%，F1提高16.13%。",
+    "contributions": [
+      "Introduces a multi-role approach using LLMs as developers and testers to simulate real-life code review for vulnerability detection.",
+      "Engages multiple LLM roles in discussion toward consensus on vulnerability existence and classification.",
+      "Achieves 13.48% increase in precision, 18.25% increase in recall, and 16.13% increase in F1 score."
+    ],
+    "contributions_zh": [
+      "引入多角色方法，使用LLM扮演开发者和测试者，模拟真实代码审查过程进行漏洞检测。",
+      "让多个LLM角色参与讨论，就漏洞的存在和分类达成共识。",
+      "精度提高13.48%，召回率提高18.25%，F1分数提高16.13%。"
+    ],
+    "abstract_zh": "大语言模型（LLM）的最新进展凸显了漏洞检测的潜力，这是软件质量保证的关键组成部分。尽管取得了进展，但大多数研究仅限于单一角色（通常是测试者）的视角，缺乏典型软件开发生命周期中不同角色（包括开发者和测试者）的多样化观点。为此，本文引入了一种多角色方法，使用LLM扮演不同角色来模拟真实的代码审查过程，并就代码中漏洞的存在和分类进行讨论以达成共识。对这种方法的初步评估表明，精度提高了13.48%，召回率提高了18.25%，F1分数提高了16.13%。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "13.48% precision increase, 18.25% recall increase, 16.13% F1 increase.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{mao2024multi,\n  title={Multi-role consensus through llms discussions for vulnerability detection},\n  author={Mao, Zhenyy and Li, Jialong and Jin, Dongming and Li, Munan and Tei, Kenji},\n  booktitle={2024 IEEE 24th International Conference on Software Quality, Reliability, and Security Companion (QRS-C)},\n  year={2024}\n}"
   },
   {
     "id": "mao2024towards",
@@ -690,7 +1531,47 @@
     ],
     "subcategories": [
       "fine-tuning"
-    ]
+    ],
+    "system_name": "LLMVulExp",
+    "summary": "Proposes LLMVulExp for vulnerability detection and explanation via fine-tuned LLMs, achieving over 90% F1 on SeVC dataset with CoT-guided analysis.",
+    "summary_zh": "提出LLMVulExp，通过微调LLM进行漏洞检测和解释，在SeVC数据集上达到90%以上F1，并采用CoT引导分析。",
+    "contributions": [
+      "Proposes LLMVulExp, a framework using fine-tuned LLMs for both vulnerability detection and explanation.",
+      "Generates vulnerability cause, location, and repair suggestions through code context analysis.",
+      "Achieves over 90% F1 score on the SeVC dataset for vulnerability detection.",
+      "Explores Chain-of-Thought (CoT) strategies to guide LLMs in concentrating on vulnerability-prone code."
+    ],
+    "contributions_zh": [
+      "提出LLMVulExp，一种使用微调LLM同时进行漏洞检测和解释的框架。",
+      "通过代码上下文分析生成漏洞原因、位置和修复建议。",
+      "在SeVC数据集上的漏洞检测F1分数超过90%。",
+      "探索思维链（CoT）策略引导LLM关注易受漏洞影响的代码。"
+    ],
+    "abstract_zh": "软件漏洞对软件系统的安全性和完整性构成重大风险。先前的研究提出了一系列使用深度学习或预训练模型进行漏洞检测的方法。然而，除了检测漏洞发生之外，仍然缺乏对漏洞的详细解释以便理解。最近，大语言模型（LLM）在复杂上下文理解和内容生成方面展示了卓越的能力，这为LLM检测和解释漏洞带来了机遇。在本文中，我们进行了全面研究以调查LLM在检测和解释漏洞方面的能力，并提出了LLMVulExp，一种利用LLM进行漏洞检测和解释的框架。在针对漏洞解释的专门微调下，LLMVulExp不仅检测代码中的漏洞类型，还分析代码上下文以生成这些漏洞的原因、位置和修复建议。我们发现LLMVulExp可以有效地使LLM执行漏洞检测（例如，在SeVC数据集上F1分数超过90%）和解释。我们还探索了使用思维链（CoT）等高级策略引导LLM关注易受漏洞影响的代码，并取得了有前途的结果。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": true,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "SeVC"
+      ],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Over 90% F1 score on SeVC dataset for vulnerability detection.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{mao2024towards,\n  title={Towards Effectively Detecting and Explaining Vulnerabilities Using Large Language Models},\n  author={Mao, Qiheng and Li, Zhenhao and Hu, Xing and Liu, Kui and Xia, Xin and Sun, Jianling},\n  journal={arXiv preprint arXiv:2406.09701},\n  year={2024}\n}"
   },
   {
     "id": "mathews2024llbezpeky",
@@ -706,7 +1587,53 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "LLbezpeky",
+    "summary": "Proposes LLbezpeky, an LLM-driven workflow for Android vulnerability detection, correctly flagging insecure apps in 91.67% of cases on the Ghera benchmark.",
+    "summary_zh": "提出LLbezpeky，一个LLM驱动的Android漏洞检测工作流，在Ghera基准上正确标记91.67%的不安全应用。",
+    "contributions": [
+      "Proposes LLbezpeky, an AI-driven workflow for Android vulnerability detection and rectification.",
+      "Demonstrates LLMs correctly flag insecure apps in 91.67% of cases on the Ghera benchmark.",
+      "Builds a robust and actionable vulnerability detection system for Android applications.",
+      "Investigates how different configurations affect True Positive and False Positive rates."
+    ],
+    "contributions_zh": [
+      "提出LLbezpeky，一个AI驱动的Android漏洞检测和修复工作流。",
+      "证明LLM在Ghera基准上正确标记了91.67%的不安全应用。",
+      "构建了一个稳健且可操作的Android应用漏洞检测系统。",
+      "研究了不同配置如何影响真阳性率和假阳性率。"
+    ],
+    "abstract_zh": "尽管在构建安全系统方面持续研究和进步，Android应用程序仍然充满漏洞，需要有效的检测方法。目前涉及静态和动态分析工具的策略存在局限性，如大量误报和有限的分析范围，这使得两者都难以采用。在过去几年中，基于机器学习的方法已被广泛探索用于漏洞检测，但其在真实世界中的适用性受到数据需求和特征工程挑战的限制。大语言模型（LLM）凭借其庞大的参数，在理解人类语言和编程语言语义方面展示了巨大的潜力。我们深入研究了LLM在Android安全背景下检测漏洞的功效。我们专注于构建一个AI驱动的工作流，帮助开发人员识别和修复漏洞。我们的实验表明，LLM在发现应用程序问题方面超出了我们的预期，在Ghera基准中正确标记了91.67%的不安全应用。我们利用实验中的推断来构建一个稳健且可操作的漏洞检测系统，并展示了其有效性。我们的实验还揭示了不同简单配置如何影响真阳性（TP）和假阳性（FP）率。",
+    "experiment": {
+      "language": [
+        "Java"
+      ],
+      "platform": [
+        "Android"
+      ],
+      "target_domain": [
+        "Android applications"
+      ],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [
+        "Ghera"
+      ],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Correctly flags insecure apps in 91.67% of cases on the Ghera benchmark.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{mathews2024llbezpeky,\n  title={Llbezpeky: Leveraging large language models for vulnerability detection},\n  author={Mathews, Noble Saji and Brus, Yelizaveta and Aafer, Yousra and Nagappan, Meiyappan and McIntosh, Shane},\n  journal={arXiv preprint arXiv:2401.01269},\n  year={2024}\n}"
   },
   {
     "id": "mishra2024ai",
@@ -722,7 +1649,48 @@
     "categories": [
       "vulnerability-detection"
     ],
-    "subcategories": []
+    "subcategories": [],
+    "system_name": "",
+    "summary": "Combines Graph Attention Networks on Code Property Graphs with LLM-guided patching for automated vulnerability detection and repair of SQL injection and session hijacking.",
+    "summary_zh": "将代码属性图上的图注意力网络与LLM引导的补丁生成结合，用于SQL注入和会话劫持的自动化漏洞检测和修复。",
+    "contributions": [
+      "Models vulnerability detection as graph representation learning via Graph Attention Networks (GAT) on Code Property Graphs and ASTs.",
+      "Uses GAT predictions to guide LLM patching with vulnerability type and precise code location.",
+      "Demonstrates effectiveness in detecting SQL injection and session hijacking vulnerabilities.",
+      "Shows significant improvement in patch security when LLM is guided by the vulnerability detection system."
+    ],
+    "contributions_zh": [
+      "将漏洞检测建模为在代码属性图和AST上通过图注意力网络（GAT）进行的图表示学习。",
+      "使用GAT预测结果引导LLM生成补丁，提供漏洞类型和精确代码位置。",
+      "展示了在检测SQL注入和会话劫持漏洞方面的有效性。",
+      "表明当LLM由漏洞检测系统引导时，补丁安全性显著提高。"
+    ],
+    "abstract_zh": "软件漏洞仍然是一个持续的威胁，AI生成代码的使用增加带来了新的安全挑战。虽然大语言模型（LLM）擅长代码生成，但它们通常难以持续生成安全代码或应用有针对性的漏洞修复。这项工作提出了一个新颖的系统，通过结合基于图的深度学习和LLM的优势来弥合这一差距，实现自动化漏洞检测和补丁生成。我们首先通过图注意力网络（GAT）将漏洞检测建模为图表示学习，以准确识别代码中的漏洞，利用代码属性图（CPG）和抽象语法树（AST）中编码的丰富结构信息。然后我们的系统利用GAT的预测来引导LLM，提供漏洞类型和需要补丁的代码中的精确位置。这种有针对性的引导使LLM能够生成更安全和上下文适当的代码修改。通过在真实世界漏洞代码数据集上的实验，我们展示了我们的方法在检测SQL注入和会话劫持等关键漏洞方面的有效性。我们进一步评估了LLM生成补丁的质量，表明在我们系统引导下安全性有显著改善。这项研究通过将基于深度学习的漏洞分析与LLM的生成能力相结合，为更安全和可靠的AI辅助软件开发铺平了道路。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "",
+      "baselines": [],
+      "vulnerability_type": [
+        "SQL injection",
+        "session hijacking"
+      ],
+      "key_results": "Significant improvement in patch security when LLM is guided by GAT-based vulnerability detection.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@article{mishra2024ai,\n  title={AI-Augmented Vulnerability Detection and Patching},\n  author={Mishra, Poornaditya},\n  year={2024}\n}"
   },
   {
     "id": "purba2023software",
@@ -740,7 +1708,45 @@
     ],
     "subcategories": [
       "fine-tuning"
-    ]
+    ],
+    "system_name": "",
+    "summary": "Evaluates 4 LLMs on 2 public vulnerability datasets, finding high false positive rates compared to static analysis tools but promise in identifying subtle vulnerability patterns.",
+    "summary_zh": "在2个公开漏洞数据集上评估4个LLM，发现与静态分析工具相比误报率高，但在识别细微漏洞模式方面有前景。",
+    "contributions": [
+      "Evaluates four well-known LLMs on two widely referenced public datasets for vulnerability detection.",
+      "Identifies a significant performance gap between LLMs and static analysis tools, primarily due to high false positive rates.",
+      "Shows LLMs have great promise in identifying subtle patterns commonly associated with software vulnerabilities.",
+      "Suggests a path forward by combining LLMs with other program analysis techniques for better vulnerability detection."
+    ],
+    "contributions_zh": [
+      "在两个广泛引用的公开数据集上评估四个知名LLM的漏洞检测能力。",
+      "识别出LLM与静态分析工具之间的显著性能差距，主要由于高误报率。",
+      "表明LLM在识别与软件漏洞相关的细微模式方面具有很大前景。",
+      "建议通过将LLM与其他程序分析技术结合来实现更好的漏洞检测。"
+    ],
+    "abstract_zh": "软件开发是使用大语言模型（LLM）提高人类生产力的首批示范之一。这种协同驾驶范式设想LLM与人类开发人员并肩工作，协助编程任务。确保软件产品的安全性是这种范式成功的关键因素。关于使用LLM检测程序中漏洞的成功案例已有各种报道。本文报告了一组实验，将四个知名LLM应用于两个广泛引用的公开数据集，以评估LLM在检测软件漏洞方面的性能。我们的结果显示，这些LLM与流行的静态分析工具之间存在显著的性能差距，主要原因是它们的高误报率。然而，LLM在识别与软件漏洞相关的细微模式方面显示出巨大的前景。这一观察表明，通过将LLM与其他程序分析技术相结合，可能会实现更好的软件漏洞检测。",
+    "experiment": {
+      "language": [],
+      "platform": [],
+      "target_domain": [],
+      "llm": [],
+      "model_family": [],
+      "model_size": [],
+      "fine_tuning": false,
+      "fine_tuning_method": "",
+      "fuzzer": [],
+      "static_tool": [],
+      "dataset": [],
+      "benchmark_size": "2 public datasets",
+      "baselines": [],
+      "vulnerability_type": [],
+      "key_results": "Significant performance gap vs static analysis tools due to high false positive rates; LLMs show promise in identifying subtle vulnerability patterns.",
+      "real_world_impact": "",
+      "open_source": false,
+      "cost": ""
+    },
+    "recommendation": 1,
+    "bibtex": "@inproceedings{purba2023software,\n  title={Software vulnerability detection using large language models},\n  author={Purba, Moumita Das and Ghosh, Arpita and Radford, Benjamin J and Chu, Bill},\n  booktitle={2023 IEEE 34th International Symposium on Software Reliability Engineering Workshops (ISSREW)},\n  year={2023}\n}"
   },
   {
     "id": "sakaoglu2023kartal",

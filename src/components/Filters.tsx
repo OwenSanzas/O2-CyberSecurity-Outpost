@@ -8,6 +8,8 @@ interface Props {
   sortBy: SortBy
   onSortChange: (s: SortBy) => void
   years: number[]
+  recommendationFilter: string
+  onRecommendationChange: (r: string) => void
 }
 
 const categoryOptions: { value: CategoryFilter; label: string; color: string }[] = [
@@ -17,7 +19,13 @@ const categoryOptions: { value: CategoryFilter; label: string; color: string }[]
   { value: 'privacy', label: 'Privacy', color: '#44ff88' },
 ]
 
-export default function Filters({ category, onCategoryChange, yearFilter, onYearChange, sortBy, onSortChange, years }: Props) {
+export default function Filters({
+  category, onCategoryChange,
+  yearFilter, onYearChange,
+  sortBy, onSortChange,
+  years,
+  recommendationFilter, onRecommendationChange,
+}: Props) {
   return (
     <div className="flex flex-wrap items-center gap-3 mb-6 max-w-5xl mx-auto">
       {/* Category tabs */}
@@ -40,16 +48,26 @@ export default function Filters({ category, onCategoryChange, yearFilter, onYear
         ))}
       </div>
 
-      {/* Year filter */}
+      {/* Year */}
       <select
         value={yearFilter}
         onChange={e => onYearChange(e.target.value)}
         className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
       >
         <option value="all">All Years</option>
-        {years.map(y => (
-          <option key={y} value={y}>{y}</option>
-        ))}
+        {years.map(y => <option key={y} value={y}>{y}</option>)}
+      </select>
+
+      {/* Recommendation */}
+      <select
+        value={recommendationFilter}
+        onChange={e => onRecommendationChange(e.target.value)}
+        className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
+      >
+        <option value="all">All Levels</option>
+        <option value="3">⭐⭐⭐ Top-tier</option>
+        <option value="2">⭐⭐ Quality</option>
+        <option value="1">⭐ Standard</option>
       </select>
 
       {/* Sort */}
@@ -60,6 +78,7 @@ export default function Filters({ category, onCategoryChange, yearFilter, onYear
       >
         <option value="year-desc">Newest First</option>
         <option value="year-asc">Oldest First</option>
+        <option value="recommendation">By Recommendation</option>
         <option value="title">Title A-Z</option>
       </select>
     </div>

@@ -1,20 +1,9 @@
-import { useState } from 'react'
-import type { Paper } from '../types'
+import type { Paper, Language } from '../types'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
   'fuzzing': '#44aaff',
   'privacy': '#44ff88',
-}
-
-const subcategoryLabels: Record<string, string> = {
-  'fine-tuning': 'Fine-tuning',
-  'llm-sast': 'LLM+SAST',
-  'semantic': 'Semantic',
-  'solidity': 'Solidity',
-  'java': 'Java',
-  'c-cpp': 'C/C++',
-  'other': 'Other',
 }
 
 const categoryLabels: Record<string, string> = {
@@ -23,23 +12,34 @@ const categoryLabels: Record<string, string> = {
   'privacy': 'Privacy',
 }
 
-export default function PaperCard({ paper }: { paper: Paper }) {
-  const [expanded, setExpanded] = useState(false)
+const recStars = (level: number) => '⭐'.repeat(level)
 
+interface Props {
+  paper: Paper
+  lang: Language
+  onClick: () => void
+}
+
+export default function PaperCard({ paper, lang, onClick }: Props) {
   const mainCategory = paper.categories[0] || 'vulnerability-detection'
   const color = categoryColors[mainCategory] || '#888'
+  const rec = paper.recommendation ?? 1
+  const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
+  const exp = paper.experiment
 
   return (
     <div
-      className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-5 transition-all duration-200 hover:border-[var(--color-border-hover)] hover:translate-y-[-1px]"
+      onClick={onClick}
+      className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-5 transition-all duration-200 hover:border-[var(--color-border-hover)] hover:translate-y-[-2px] hover:shadow-lg hover:shadow-black/20 cursor-pointer group"
       style={{ borderLeftColor: color, borderLeftWidth: '3px' }}
     >
-      {/* Top row: year + categories */}
+      {/* Top row */}
       <div className="flex items-center gap-2 mb-2 flex-wrap">
         <span className="text-xs font-mono font-bold text-[var(--color-accent)]">{paper.year}</span>
+        <span className="text-xs" title={`Recommendation Level ${rec}`}>{recStars(rec)}</span>
         {paper.venue && (
           <span className="text-xs px-2 py-0.5 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)]">
-            {paper.venue.length > 40 ? paper.venue.slice(0, 40) + '...' : paper.venue}
+            {paper.venue.length > 50 ? paper.venue.slice(0, 50) + '...' : paper.venue}
           </span>
         )}
         {paper.categories.map(cat => (
@@ -48,69 +48,75 @@ export default function PaperCard({ paper }: { paper: Paper }) {
             {categoryLabels[cat] || cat}
           </span>
         ))}
-        {paper.subcategories.map(sub => (
-          <span key={sub} className="text-xs px-1.5 py-0.5 rounded text-[var(--color-text-muted)] bg-white/5">
-            {subcategoryLabels[sub] || sub}
+        {exp?.open_source && (
+          <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
+            Open Source
           </span>
-        ))}
+        )}
+        {/* Click hint */}
+        <span className="ml-auto text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity">
+          Click to expand →
+        </span>
       </div>
 
-      {/* Title */}
-      <h3 className="text-base font-semibold leading-snug mb-1.5 text-[var(--color-text-primary)]">
-        {paper.title}
-      </h3>
+      {/* System name + Title */}
+      <div className="mb-1.5">
+        {paper.system_name && (
+          <span className="text-sm font-mono font-bold text-[var(--color-accent)] mr-2">
+            [{paper.system_name}]
+          </span>
+        )}
+        <h3 className="text-base font-semibold leading-snug text-[var(--color-text-primary)] inline group-hover:text-white transition-colors">
+          {paper.title}
+        </h3>
+      </div>
 
       {/* Authors */}
       {paper.authors && (
-        <p className="text-xs text-[var(--color-text-secondary)] mb-3 leading-relaxed">
+        <p className="text-xs text-[var(--color-text-secondary)] mb-2">
           {paper.authors}
         </p>
       )}
 
-      {/* Abstract */}
-      {paper.abstract && (
-        <div className="mb-3">
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-dim)] cursor-pointer bg-transparent border-none font-medium transition-colors"
-          >
-            {expanded ? '▾ Hide Abstract' : '▸ Show Abstract'}
-          </button>
-          {expanded && (
-            <p className="mt-2 text-sm text-[var(--color-text-secondary)] leading-relaxed border-l-2 border-[var(--color-border)] pl-3">
-              {paper.abstract}
-            </p>
+      {/* Summary */}
+      {summary && (
+        <p className="text-sm text-[var(--color-text-primary)] mb-3 bg-white/[0.03] px-3 py-2 rounded-lg border-l-2 border-[var(--color-accent)]/30">
+          {summary}
+        </p>
+      )}
+
+      {/* Experiment tags (compact) */}
+      {exp && (
+        <div className="flex flex-wrap gap-1.5 mb-2">
+          {exp.llm?.map(l => (
+            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)]">
+              🤖 {l}
+            </span>
+          ))}
+          {exp.language?.map(l => (
+            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-blue)]/10 text-[var(--color-blue)]">
+              {l}
+            </span>
+          ))}
+          {exp.fine_tuning && (
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-orange)]/10 text-[var(--color-orange)]">
+              Fine-tuned
+            </span>
           )}
+          {exp.dataset?.slice(0, 3).map(d => (
+            <span key={d} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-green)]/10 text-[var(--color-green)]">
+              {d}
+            </span>
+          ))}
         </div>
       )}
 
-      {/* Links */}
-      <div className="flex gap-2 flex-wrap">
-        {paper.paperUrl && (
-          <a href={paper.paperUrl} target="_blank" rel="noopener"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
-            📄 Paper
-          </a>
-        )}
-        {paper.codeUrl && (
-          <a href={paper.codeUrl} target="_blank" rel="noopener"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
-            💻 Code
-          </a>
-        )}
-        {paper.slidesUrl && (
-          <a href={paper.slidesUrl} target="_blank" rel="noopener"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
-            🖥️ Slides
-          </a>
-        )}
-        {paper.talkUrl && (
-          <a href={paper.talkUrl} target="_blank" rel="noopener"
-            className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-md bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
-            🎥 Talk
-          </a>
-        )}
-      </div>
+      {/* Key results one-liner */}
+      {exp?.key_results && (
+        <div className="text-xs text-[var(--color-text-secondary)]">
+          📈 {exp.key_results}
+        </div>
+      )}
     </div>
   )
 }

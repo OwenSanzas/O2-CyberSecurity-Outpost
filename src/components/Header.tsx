@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react'
+import type { Language } from '../types'
 
-export default function Header({ paperCount }: { paperCount: number }) {
+interface Props {
+  paperCount: number
+  lang: Language
+  onLangChange: (l: Language) => void
+}
+
+export default function Header({ paperCount, lang, onLangChange }: Props) {
   const [typedText, setTypedText] = useState('')
   const fullText = 'Tracking the frontier of LLM-powered security research.'
 
@@ -19,22 +26,28 @@ export default function Header({ paperCount }: { paperCount: number }) {
 
   return (
     <header className="relative flex flex-col items-center justify-center min-h-[70vh] text-center px-6 py-16">
-      {/* Background glow */}
       <div className="absolute w-[500px] h-[500px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%)' }} />
 
-      {/* Grid overlay */}
-      <div className="fixed inset-0 pointer-events-none"
+      <div className="fixed inset-0 pointer-events-none z-0"
         style={{
           backgroundImage: `linear-gradient(rgba(0,255,136,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,136,0.02) 1px, transparent 1px)`,
           backgroundSize: '60px 60px',
         }} />
 
-      <div className="text-sm text-[var(--color-accent)] tracking-[4px] uppercase mb-4 font-semibold">
+      {/* Language toggle */}
+      <button
+        onClick={() => onLangChange(lang === 'en' ? 'zh' : 'en')}
+        className="absolute top-6 right-6 px-3 py-1.5 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-colors cursor-pointer z-10"
+      >
+        {lang === 'en' ? '中文' : 'EN'}
+      </button>
+
+      <div className="text-sm text-[var(--color-accent)] tracking-[4px] uppercase mb-4 font-semibold relative z-1">
         ● SYSTEM ONLINE
       </div>
 
-      <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-2">
+      <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-2 relative z-1">
         <span className="text-[var(--color-accent)]">O2</span> CyberSecurity
         <br />
         <span className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-blue)] bg-clip-text text-transparent">
@@ -42,12 +55,12 @@ export default function Header({ paperCount }: { paperCount: number }) {
         </span>
       </h1>
 
-      <p className="text-lg text-[var(--color-text-secondary)] max-w-xl mt-4 mb-8 min-h-[2rem]">
+      <p className="text-lg text-[var(--color-text-secondary)] max-w-xl mt-4 mb-8 min-h-[2rem] relative z-1">
         {typedText}
         <span className="border-r-2 border-[var(--color-accent)] ml-0.5 animate-pulse" />
       </p>
 
-      <div className="flex gap-10 mb-8">
+      <div className="flex gap-10 mb-8 relative z-1">
         {[
           { icon: '📄', value: `${paperCount}`, label: 'Papers' },
           { icon: '🏷️', value: '4', label: 'Categories' },
@@ -61,7 +74,7 @@ export default function Header({ paperCount }: { paperCount: number }) {
         ))}
       </div>
 
-      <div className="flex gap-3">
+      <div className="flex gap-3 relative z-1">
         <a href="#papers"
           className="px-6 py-3 bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-dim)] text-[var(--color-bg-primary)] font-bold rounded-lg text-sm hover:opacity-90 transition-opacity no-underline">
           Browse Papers ↓
