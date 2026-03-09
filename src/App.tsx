@@ -16,17 +16,13 @@ import PaperComparison from './components/PaperComparison'
 import ReadingListPanel from './components/ReadingListPanel'
 import ShareButton from './components/ShareButton'
 const KnowledgeGraph = lazy(() => import('./components/KnowledgeGraph'))
-const TrendAnalysis = lazy(() => import('./components/TrendAnalysis'))
-const ResearchHeatmap = lazy(() => import('./components/ResearchHeatmap'))
 import Insights from './components/Insights'
 import KeyboardHelp from './components/KeyboardHelp'
 import RecentlyViewed from './components/RecentlyViewed'
 import TagCloud from './components/TagCloud'
 import PaperOfTheDay from './components/PaperOfTheDay'
 import FilterSummary from './components/FilterSummary'
-const AuthorNetwork = lazy(() => import('./components/AuthorNetwork'))
-const ResearchGaps = lazy(() => import('./components/ResearchGaps'))
-const DataExplorer = lazy(() => import('./components/DataExplorer'))
+import AnalyticsTabs from './components/AnalyticsTabs'
 import ToastContainer, { showToast } from './components/Toast'
 import MobileNav from './components/MobileNav'
 import Methodology from './components/Methodology'
@@ -368,13 +364,7 @@ function App() {
           </div>
 
           <TagCloud papers={papers} onTagClick={handleTagClick} />
-          <Suspense fallback={null}>
-            <TrendAnalysis papers={papers} />
-            <ResearchHeatmap papers={papers} />
-            <AuthorNetwork papers={papers} onAuthorClick={handleTagClick} />
-            <ResearchGaps papers={papers} onSearch={handleTagClick} />
-            <DataExplorer papers={papers} onSearch={handleTagClick} />
-          </Suspense>
+          <AnalyticsTabs papers={papers} onSearch={handleTagClick} />
 
           <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
