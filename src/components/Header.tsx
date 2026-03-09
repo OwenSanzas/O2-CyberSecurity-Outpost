@@ -8,6 +8,8 @@ interface Props {
   yearRange: string
   lang: Language
   onLangChange: (l: Language) => void
+  theme?: 'dark' | 'light'
+  onThemeToggle?: () => void
 }
 
 function AnimatedCounter({ target, duration = 1500 }: { target: number | string; duration?: number }) {
@@ -41,7 +43,7 @@ function AnimatedCounter({ target, duration = 1500 }: { target: number | string;
   return <>{display}</>
 }
 
-export default function Header({ paperCount, categoryCount, venueCount, yearRange, lang, onLangChange }: Props) {
+export default function Header({ paperCount, categoryCount, venueCount, yearRange, lang, onLangChange, theme, onThemeToggle }: Props) {
   const [typedText, setTypedText] = useState('')
   const fullText = 'Tracking the frontier of LLM-powered security research.'
 
@@ -69,13 +71,24 @@ export default function Header({ paperCount, categoryCount, venueCount, yearRang
           backgroundSize: '60px 60px',
         }} />
 
-      {/* Language toggle */}
-      <button
-        onClick={() => onLangChange(lang === 'en' ? 'zh' : 'en')}
-        className="absolute top-6 right-6 px-3 py-1.5 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-colors cursor-pointer z-10"
-      >
-        {lang === 'en' ? '中文' : 'EN'}
-      </button>
+      {/* Language + Theme toggles */}
+      <div className="absolute top-6 right-6 flex items-center gap-2 z-10">
+        {onThemeToggle && (
+          <button
+            onClick={onThemeToggle}
+            className="px-3 py-1.5 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-colors cursor-pointer"
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? 'Light' : 'Dark'}
+          </button>
+        )}
+        <button
+          onClick={() => onLangChange(lang === 'en' ? 'zh' : 'en')}
+          className="px-3 py-1.5 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-colors cursor-pointer"
+        >
+          {lang === 'en' ? '中文' : 'EN'}
+        </button>
+      </div>
 
       <div className="text-sm text-[var(--color-accent)] tracking-[4px] uppercase mb-4 font-semibold relative z-1"
         style={{ animation: 'pulse 2s ease-in-out infinite' }}>

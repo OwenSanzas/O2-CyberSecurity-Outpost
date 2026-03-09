@@ -39,6 +39,7 @@ import { useSearchHistory } from './hooks/useSearchHistory'
 import { useNotes } from './hooks/useNotes'
 import { usePreferences } from './hooks/usePreferences'
 import { useReadingProgress } from './hooks/useReadingProgress'
+import { useTheme } from './hooks/useTheme'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -53,6 +54,7 @@ function App() {
   const searchHistory = useSearchHistory()
   const paperNotes = useNotes()
   const readingProgress = useReadingProgress()
+  const { theme, toggle: toggleTheme } = useTheme()
 
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CategoryFilter>('all')
@@ -378,7 +380,7 @@ function App() {
       <MatrixRain />
 
       <div className="relative z-1">
-        <Header paperCount={papers.length} categoryCount={headerStats.categoryCount} venueCount={headerStats.venueCount} yearRange={headerStats.yearRange} lang={lang} onLangChange={setLang} />
+        <Header paperCount={papers.length} categoryCount={headerStats.categoryCount} venueCount={headerStats.venueCount} yearRange={headerStats.yearRange} lang={lang} onLangChange={setLang} theme={theme} onThemeToggle={toggleTheme} />
 
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8" role="main" aria-label="Paper collection">
           <Stats papers={papers} />

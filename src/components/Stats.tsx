@@ -100,6 +100,37 @@ export default function Stats({ papers }: { papers: Paper[] }) {
                 )
               })}
             </div>
+
+            {/* Mini horizontal bar chart */}
+            <div className="mt-5 pt-4 border-t border-[var(--color-border)]">
+              <h4 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider">
+                Distribution
+              </h4>
+              <div className="space-y-1.5">
+                {years.map((year, idx) => {
+                  const count = byYear[year]
+                  const widthPct = (count / maxYearCount) * 100
+                  const opacity = 0.4 + 0.6 * ((idx + 1) / years.length)
+                  return (
+                    <div key={year} className="flex items-center gap-2 group">
+                      <span className="text-xs text-[var(--color-text-muted)] font-mono w-10 shrink-0 text-right">{year}</span>
+                      <div className="flex-1 h-3 bg-white/5 rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-700"
+                          style={{
+                            width: `${widthPct}%`,
+                            backgroundColor: '#00ff88',
+                            opacity,
+                            minWidth: count > 0 ? '4px' : '0',
+                          }}
+                        />
+                      </div>
+                      <span className="text-xs text-[var(--color-text-muted)] font-mono w-6 shrink-0 text-right">{count}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           </div>
 
           {/* Categories breakdown */}
