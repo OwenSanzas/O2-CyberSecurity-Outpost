@@ -301,6 +301,11 @@ function App() {
 
   return (
     <div className="min-h-screen relative">
+      {/* Skip navigation for accessibility */}
+      <a href="#papers" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-[var(--color-accent)] focus:text-[var(--color-bg-primary)] focus:rounded-lg focus:font-semibold focus:text-sm">
+        Skip to papers
+      </a>
+
       {/* Scroll progress bar */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
@@ -439,6 +444,18 @@ function App() {
               )}
               {compareIds.length > 0 && (
                 <button
+                  onClick={() => {
+                    const bibtex = comparisonPapers.filter(p => p.bibtex).map(p => p.bibtex).join('\n\n')
+                    if (bibtex) navigator.clipboard.writeText(bibtex)
+                  }}
+                  className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] cursor-pointer hover:border-[var(--color-accent)]/30 hover:text-[var(--color-accent)] transition-all bg-transparent"
+                  title="Copy BibTeX for selected papers"
+                >
+                  Copy BibTeX
+                </button>
+              )}
+              {compareIds.length > 0 && (
+                <button
                   onClick={() => setCompareIds([])}
                   className="text-xs px-2 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-muted)] cursor-pointer hover:text-[var(--color-text-secondary)] transition-all bg-transparent"
                 >
@@ -483,10 +500,10 @@ function App() {
                 <div className="text-center py-20 text-[var(--color-text-muted)]">
                   <div className="text-6xl mb-4 opacity-30">{'{ }'}</div>
                   <p className="text-lg mb-1">No papers found</p>
-                  <p className="text-sm mb-6">Try adjusting your filters or search query.</p>
-                  <div className="flex gap-2 justify-center">
+                  <p className="text-sm mb-4">Try adjusting your filters or search query.</p>
+                  <div className="flex gap-2 justify-center mb-6">
                     <button
-                      onClick={() => { setSearchInput(''); setQuery(''); setCategory('all'); setYearFilter('all'); setRecommendationFilter('all'); setFacetFilters({}) }}
+                      onClick={() => { setSearchInput(''); setQuery(''); setCategory('all'); setYearFilter('all'); setRecommendationFilter('all'); setVenueFilter('all'); setFacetFilters({}) }}
                       className="text-xs px-4 py-2 rounded-lg border border-[var(--color-accent)]/30 text-[var(--color-accent)] bg-transparent cursor-pointer hover:bg-[var(--color-accent)]/5 transition-all"
                     >
                       Reset all filters
@@ -497,6 +514,15 @@ function App() {
                     >
                       Discover a random paper
                     </button>
+                  </div>
+                  <p className="text-xs text-[var(--color-text-muted)] mb-2">Try searching for:</p>
+                  <div className="flex gap-1.5 justify-center flex-wrap">
+                    {['GPT-4', 'fuzzing', 'smart contract', 'CodeLlama', 'privacy'].map(q => (
+                      <button key={q} onClick={() => handleTagClick(q)}
+                        className="text-xs px-2.5 py-1 rounded-full border border-[var(--color-border)] text-[var(--color-text-secondary)] bg-transparent cursor-pointer hover:border-[var(--color-accent)]/30 transition-all">
+                        {q}
+                      </button>
+                    ))}
                   </div>
                 </div>
               ) : viewMode === 'table' ? (
