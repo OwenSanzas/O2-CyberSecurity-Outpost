@@ -1,0 +1,16 @@
+{
+  "name": "O2 CyberSecurity Outpost",
+  "short_name": "O2 Outpost",
+  "description": "Curated collection of LLM-based security research papers",
+  "start_url": "/O2-CyberSecurity-Outpost/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00ff88",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
