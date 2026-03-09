@@ -23,6 +23,7 @@ import KeyboardHelp from './components/KeyboardHelp'
 import RecentlyViewed from './components/RecentlyViewed'
 import TagCloud from './components/TagCloud'
 import PaperOfTheDay from './components/PaperOfTheDay'
+import FilterSummary from './components/FilterSummary'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -496,6 +497,12 @@ function App() {
             </aside>
 
             <div className="flex-1 min-w-0">
+              <FilterSummary
+                papers={filtered}
+                totalCount={papers.length}
+                query={query}
+                hasFilters={category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || venueFilter !== 'all' || Object.values(facetFilters).some(v => v.length > 0)}
+              />
               {filtered.length === 0 ? (
                 <div className="text-center py-20 text-[var(--color-text-muted)]">
                   <div className="text-6xl mb-4 opacity-30">{'{ }'}</div>

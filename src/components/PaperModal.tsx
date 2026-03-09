@@ -180,7 +180,7 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
           </div>
 
           {/* Authors (clickable) */}
-          <p className="text-sm text-[var(--color-text-secondary)] mb-4">
+          <p className="text-sm text-[var(--color-text-secondary)] mb-2">
             {paper.authors.split(/, | and /).map((author, i, arr) => (
               <span key={i}>
                 <span
@@ -194,6 +194,25 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
               </span>
             ))}
           </p>
+
+          {/* Quick info chips */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {paper.codeUrl && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
+                Open Source
+              </span>
+            )}
+            {paper.slidesUrl && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-blue)]/10 text-[var(--color-blue)]">
+                Slides Available
+              </span>
+            )}
+            {paper.talkUrl && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)]">
+                Talk Video
+              </span>
+            )}
+          </div>
 
           {/* Tab navigation */}
           <div className="flex gap-0.5 bg-[var(--color-bg-card)] rounded-lg p-0.5 border border-[var(--color-border)] mb-5 w-fit">
