@@ -140,7 +140,8 @@ function App() {
       const active = document.activeElement
       const isInput = active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA'
 
-      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !isInput) {
+      if ((e.key === '/' && !e.ctrlKey && !e.metaKey && !isInput) ||
+          (e.key === 'k' && (e.ctrlKey || e.metaKey))) {
         e.preventDefault()
         document.querySelector<HTMLInputElement>('#search-input')?.focus()
       }
@@ -613,12 +614,16 @@ function App() {
                       </div>
                     ))}
                   </div>
-                  {hasMore && (
+                  {hasMore ? (
                     <div ref={loadMoreRef} className="text-center mt-6 py-4">
                       <div className="inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
                         <span className="w-4 h-4 border-2 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
-                        Loading more papers...
+                        Loading more ({visibleCount} of {filtered.length})...
                       </div>
+                    </div>
+                  ) : filtered.length > PAGE_SIZE && (
+                    <div className="text-center mt-6 py-4 text-xs text-[var(--color-text-muted)]">
+                      Showing all {filtered.length} papers
                     </div>
                   )}
                 </>

@@ -100,7 +100,7 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
           onChange={e => { onChange(e.target.value); setShowSuggestions(true) }}
           onFocus={() => setShowSuggestions(true)}
           onKeyDown={handleKeyDown}
-          placeholder="Search by title, author, system name, LLM, dataset, vulnerability type..."
+          placeholder="Search papers... (/ or Cmd+K)"
           className="w-full pl-12 pr-28 py-3.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl text-[var(--color-text-primary)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-accent)]/50 focus:shadow-[0_0_20px_rgba(0,255,136,0.05)] transition-all text-sm font-mono"
         />
         {query && (
