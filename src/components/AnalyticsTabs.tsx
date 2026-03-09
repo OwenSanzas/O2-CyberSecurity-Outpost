@@ -1,11 +1,10 @@
-import { useState, lazy, Suspense } from 'react'
+import { useState } from 'react'
 import type { Paper } from '../types'
-
-const TrendAnalysis = lazy(() => import('./TrendAnalysis'))
-const ResearchHeatmap = lazy(() => import('./ResearchHeatmap'))
-const AuthorNetwork = lazy(() => import('./AuthorNetwork'))
-const ResearchGaps = lazy(() => import('./ResearchGaps'))
-const DataExplorer = lazy(() => import('./DataExplorer'))
+import TrendAnalysis from './TrendAnalysis'
+import ResearchHeatmap from './ResearchHeatmap'
+import AuthorNetwork from './AuthorNetwork'
+import ResearchGaps from './ResearchGaps'
+import DataExplorer from './DataExplorer'
 
 interface Props {
   papers: Paper[]
@@ -56,13 +55,11 @@ export default function AnalyticsTabs({ papers, onSearch }: Props) {
             ))}
           </div>
 
-          <Suspense fallback={<div className="text-center py-12 text-xs text-[var(--color-text-muted)]">Loading...</div>}>
-            {activeTab === 'trends' && <TrendAnalysis papers={papers} />}
-            {activeTab === 'heatmap' && <ResearchHeatmap papers={papers} />}
-            {activeTab === 'authors' && <AuthorNetwork papers={papers} onAuthorClick={onSearch} />}
-            {activeTab === 'gaps' && <ResearchGaps papers={papers} onSearch={onSearch} />}
-            {activeTab === 'explorer' && <DataExplorer papers={papers} onSearch={onSearch} />}
-          </Suspense>
+          {activeTab === 'trends' && <TrendAnalysis papers={papers} />}
+          {activeTab === 'heatmap' && <ResearchHeatmap papers={papers} />}
+          {activeTab === 'authors' && <AuthorNetwork papers={papers} onAuthorClick={onSearch} />}
+          {activeTab === 'gaps' && <ResearchGaps papers={papers} onSearch={onSearch} />}
+          {activeTab === 'explorer' && <DataExplorer papers={papers} onSearch={onSearch} />}
         </div>
       )}
 
