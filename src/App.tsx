@@ -26,6 +26,7 @@ import PaperOfTheDay from './components/PaperOfTheDay'
 import FilterSummary from './components/FilterSummary'
 import AuthorNetwork from './components/AuthorNetwork'
 import ResearchGaps from './components/ResearchGaps'
+import DataExplorer from './components/DataExplorer'
 import ToastContainer, { showToast } from './components/Toast'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
@@ -357,6 +358,7 @@ function App() {
           <ResearchHeatmap papers={papers} />
           <AuthorNetwork papers={papers} onAuthorClick={handleTagClick} />
           <ResearchGaps papers={papers} onSearch={handleTagClick} />
+          <DataExplorer papers={papers} onSearch={handleTagClick} />
 
           <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
