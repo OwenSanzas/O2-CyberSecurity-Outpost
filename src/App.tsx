@@ -17,6 +17,7 @@ import ReadingListPanel from './components/ReadingListPanel'
 import ShareButton from './components/ShareButton'
 import KnowledgeGraph from './components/KnowledgeGraph'
 import TrendAnalysis from './components/TrendAnalysis'
+import Insights from './components/Insights'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -194,6 +195,7 @@ function App() {
 
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8" role="main" aria-label="Paper collection">
           <Stats papers={papers} />
+          <Insights papers={papers} />
           <FeaturedPapers papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
 
           {/* Knowledge Graph (collapsible) */}

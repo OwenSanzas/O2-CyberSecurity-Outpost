@@ -55,6 +55,9 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
   useEffect(() => {
     setActiveTab('overview')
     setCopiedBib(false)
+    // Scroll modal content to top when paper changes
+    const modalContent = document.querySelector('[data-modal-content]')
+    if (modalContent) modalContent.scrollTop = 0
   }, [paper.id])
 
   const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
@@ -83,6 +86,7 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
     <div
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
       onClick={onClose}
+      data-modal-content
     >
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
 
