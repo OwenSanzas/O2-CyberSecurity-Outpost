@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef, lazy, Suspense } from 'react'
 import Header from './components/Header'
 import SearchBar from './components/SearchBar'
 import Filters from './components/Filters'
@@ -15,18 +15,18 @@ import TimelineView from './components/TimelineView'
 import PaperComparison from './components/PaperComparison'
 import ReadingListPanel from './components/ReadingListPanel'
 import ShareButton from './components/ShareButton'
-import KnowledgeGraph from './components/KnowledgeGraph'
-import TrendAnalysis from './components/TrendAnalysis'
+const KnowledgeGraph = lazy(() => import('./components/KnowledgeGraph'))
+const TrendAnalysis = lazy(() => import('./components/TrendAnalysis'))
+const ResearchHeatmap = lazy(() => import('./components/ResearchHeatmap'))
 import Insights from './components/Insights'
-import ResearchHeatmap from './components/ResearchHeatmap'
 import KeyboardHelp from './components/KeyboardHelp'
 import RecentlyViewed from './components/RecentlyViewed'
 import TagCloud from './components/TagCloud'
 import PaperOfTheDay from './components/PaperOfTheDay'
 import FilterSummary from './components/FilterSummary'
-import AuthorNetwork from './components/AuthorNetwork'
-import ResearchGaps from './components/ResearchGaps'
-import DataExplorer from './components/DataExplorer'
+const AuthorNetwork = lazy(() => import('./components/AuthorNetwork'))
+const ResearchGaps = lazy(() => import('./components/ResearchGaps'))
+const DataExplorer = lazy(() => import('./components/DataExplorer'))
 import ToastContainer, { showToast } from './components/Toast'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
@@ -348,17 +348,21 @@ function App() {
             </button>
             {showGraph && (
               <div style={{ animation: 'fadeIn 0.3s ease-out' }}>
+                <Suspense fallback={<div className="text-center py-8 text-xs text-[var(--color-text-muted)]">Loading graph...</div>}>
                 <KnowledgeGraph papers={papers} onPaperClick={setSelectedPaper} />
+                </Suspense>
               </div>
             )}
           </div>
 
           <TagCloud papers={papers} onTagClick={handleTagClick} />
-          <TrendAnalysis papers={papers} />
-          <ResearchHeatmap papers={papers} />
-          <AuthorNetwork papers={papers} onAuthorClick={handleTagClick} />
-          <ResearchGaps papers={papers} onSearch={handleTagClick} />
-          <DataExplorer papers={papers} onSearch={handleTagClick} />
+          <Suspense fallback={null}>
+            <TrendAnalysis papers={papers} />
+            <ResearchHeatmap papers={papers} />
+            <AuthorNetwork papers={papers} onAuthorClick={handleTagClick} />
+            <ResearchGaps papers={papers} onSearch={handleTagClick} />
+            <DataExplorer papers={papers} onSearch={handleTagClick} />
+          </Suspense>
 
           <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
