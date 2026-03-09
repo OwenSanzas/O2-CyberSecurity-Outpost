@@ -77,6 +77,12 @@ export default function Filters({
         className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
       >
         <option value="all">All Years</option>
+        {years.length >= 3 && (
+          <>
+            <option value={`${years[0]}-${years[1]}`}>Last 2 years ({years[1]}–{years[0]})</option>
+            {years.length >= 4 && <option value={`${years[0]}-${years[2]}`}>Last 3 years ({years[2]}–{years[0]})</option>}
+          </>
+        )}
         {years.map(y => <option key={y} value={y}>{y}</option>)}
       </select>
 

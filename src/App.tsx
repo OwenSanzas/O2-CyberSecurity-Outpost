@@ -229,7 +229,12 @@ function App() {
     }
 
     if (yearFilter !== 'all') {
-      result = result.filter(p => p.year === Number(yearFilter))
+      if (yearFilter.includes('-')) {
+        const [endYear, startYear] = yearFilter.split('-').map(Number)
+        result = result.filter(p => p.year >= startYear && p.year <= endYear)
+      } else {
+        result = result.filter(p => p.year === Number(yearFilter))
+      }
     }
 
     if (recommendationFilter !== 'all') {

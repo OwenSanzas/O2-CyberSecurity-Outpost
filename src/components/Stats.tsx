@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import type { Paper } from '../types'
 
 export default function Stats({ papers }: { papers: Paper[] }) {
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(false)
 
   const { byYear, byCategory, topLLMs, topLanguages, topVulnTypes, fineTuned, openSource } = useMemo(() => {
     const byYear: Record<number, number> = {}
