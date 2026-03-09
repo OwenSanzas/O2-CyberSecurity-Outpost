@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import Header from './components/Header'
 import SearchBar from './components/SearchBar'
 import Filters from './components/Filters'
@@ -166,6 +166,20 @@ function App() {
     [compareIds]
   )
 
+  // Infinite scroll
+  const loadMoreRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const el = loadMoreRef.current
+    if (!el || !hasMore) return
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        setVisibleCount(prev => prev + PAGE_SIZE)
+      }
+    }, { rootMargin: '200px' })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [hasMore, visibleCount])
+
   const openRandomPaper = useCallback(() => {
     const randomPaper = papers[Math.floor(Math.random() * papers.length)]
     setSelectedPaper(randomPaper)
@@ -178,7 +192,7 @@ function App() {
       <div className="relative z-1">
         <Header paperCount={papers.length} lang={lang} onLangChange={setLang} />
 
-        <main id="papers" className="max-w-7xl mx-auto px-4 py-8">
+        <main id="papers" className="max-w-7xl mx-auto px-4 py-8" role="main" aria-label="Paper collection">
           <Stats papers={papers} />
           <FeaturedPapers papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
 
@@ -339,13 +353,11 @@ function App() {
                     ))}
                   </div>
                   {hasMore && (
-                    <div className="text-center mt-6">
-                      <button
-                        onClick={() => setVisibleCount(prev => prev + PAGE_SIZE)}
-                        className="px-6 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)] transition-all cursor-pointer text-sm"
-                      >
-                        Load more ({filtered.length - visibleCount} remaining)
-                      </button>
+                    <div ref={loadMoreRef} className="text-center mt-6 py-4">
+                      <div className="inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+                        <span className="w-4 h-4 border-2 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
+                        Loading more papers...
+                      </div>
                     </div>
                   )}
                 </>
