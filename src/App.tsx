@@ -641,7 +641,7 @@ function App() {
           <Methodology />
         </div>
 
-        <Footer />
+        <Footer paperCount={papers.length} componentCount={36} />
       </div>
 
       {/* Paper detail modal */}

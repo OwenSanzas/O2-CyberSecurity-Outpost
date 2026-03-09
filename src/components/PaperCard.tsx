@@ -178,10 +178,36 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
 
       {/* Key results one-liner */}
       {exp?.key_results && (
-        <div className="text-xs text-[var(--color-text-secondary)]">
+        <div className="text-xs text-[var(--color-text-secondary)] line-clamp-2">
           {exp.key_results}
         </div>
       )}
+
+      {/* Quick links row */}
+      <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[var(--color-border)]/50">
+        {paper.paperUrl && (
+          <a
+            href={paper.paperUrl}
+            target="_blank"
+            rel="noopener"
+            onClick={e => e.stopPropagation()}
+            className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline"
+          >
+            PDF
+          </a>
+        )}
+        {paper.codeUrl && (
+          <a
+            href={paper.codeUrl}
+            target="_blank"
+            rel="noopener"
+            onClick={e => e.stopPropagation()}
+            className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline"
+          >
+            Code
+          </a>
+        )}
+      </div>
     </div>
   )
 }

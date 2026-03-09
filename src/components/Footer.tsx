@@ -1,6 +1,11 @@
 import { useState } from 'react'
 
-export default function Footer() {
+interface Props {
+  paperCount?: number
+  componentCount?: number
+}
+
+export default function Footer({ paperCount, componentCount }: Props) {
   const [showCite, setShowCite] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -95,9 +100,11 @@ export default function Footer() {
         <div className="border-t border-[var(--color-border)] pt-6 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="text-xs text-[var(--color-text-muted)]">
             Built with React + Tailwind CSS. Powered by open research.
+            {paperCount && <span className="ml-2 text-[var(--color-text-secondary)]">{paperCount} papers indexed</span>}
+            {componentCount && <span className="ml-2">| {componentCount} components</span>}
           </p>
           <p className="text-xs text-[var(--color-text-muted)] font-mono">
-            <span className="text-[var(--color-accent)]">●</span> Last updated: {new Date().getFullYear()}
+            <span className="text-[var(--color-accent)]">●</span> Last updated: March 2026
           </p>
         </div>
       </div>
