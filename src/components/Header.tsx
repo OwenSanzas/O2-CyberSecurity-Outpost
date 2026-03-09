@@ -13,59 +13,37 @@ interface Props {
 
 export default function Header({ paperCount, categoryCount, venueCount, yearRange, lang, onLangChange, theme, onThemeToggle }: Props) {
   return (
-    <header className="relative px-4 md:px-6 pt-6 pb-8 md:pt-8 md:pb-10">
+    <header className="relative px-4 md:px-6 pt-4 pb-6 md:pt-6 md:pb-8">
       <div className="max-w-5xl mx-auto">
-        {/* Top bar: controls */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] text-[var(--color-accent)] tracking-[3px] uppercase font-semibold opacity-80">
-              SYSTEM ONLINE
-            </span>
+        {/* Title row with controls */}
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-extrabold leading-tight">
+              <span className="text-[var(--color-accent)]">O2</span>
+              <span className="text-[var(--color-text-primary)]"> CyberSecurity </span>
+              <span className="animated-gradient-title">Outpost</span>
+            </h1>
+            <p className="text-xs text-[var(--color-text-muted)] mt-1">
+              LLM-powered security research &middot; {paperCount} papers &middot; {yearRange}
+            </p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 shrink-0 mt-1">
             {onThemeToggle && (
               <button
                 onClick={onThemeToggle}
-                className="px-2.5 py-1 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-colors cursor-pointer"
+                className="px-2 py-1 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text-secondary)] transition-colors cursor-pointer"
                 title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
               >
-                {theme === 'dark' ? 'Light' : 'Dark'}
+                {theme === 'dark' ? '☀' : '🌙'}
               </button>
             )}
             <button
               onClick={() => onLangChange(lang === 'en' ? 'zh' : 'en')}
-              className="px-2.5 py-1 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]/50 transition-colors cursor-pointer"
+              className="px-2 py-1 text-xs font-mono border border-[var(--color-border)] rounded-lg bg-[var(--color-bg-card)] text-[var(--color-text-muted)] hover:border-[var(--color-accent)]/50 hover:text-[var(--color-text-secondary)] transition-colors cursor-pointer"
             >
-              {lang === 'en' ? '中文' : 'EN'}
+              {lang === 'en' ? '中' : 'EN'}
             </button>
           </div>
-        </div>
-
-        {/* Title */}
-        <div className="text-center mb-6">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight mb-2">
-            <span className="text-[var(--color-accent)]">O2</span>
-            <span className="text-[var(--color-text-primary)]"> CyberSecurity </span>
-            <span className="animated-gradient-title">Outpost</span>
-          </h1>
-          <p className="text-sm text-[var(--color-text-secondary)] max-w-lg mx-auto">
-            Tracking the frontier of LLM-powered security research
-          </p>
-        </div>
-
-        {/* Stats row */}
-        <div className="flex items-center justify-center gap-6 md:gap-10">
-          {[
-            { value: paperCount, label: 'Papers' },
-            { value: categoryCount, label: 'Categories' },
-            { value: venueCount, label: 'Venues' },
-            { value: yearRange, label: 'Timeline' },
-          ].map(s => (
-            <div key={s.label} className="text-center">
-              <div className="text-lg md:text-xl font-bold text-[var(--color-accent)] font-mono">{s.value}</div>
-              <div className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider">{s.label}</div>
-            </div>
-          ))}
         </div>
       </div>
     </header>

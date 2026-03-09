@@ -17,11 +17,11 @@ interface Props {
   onVenueChange?: (v: string) => void
 }
 
-const categoryOptions: { value: CategoryFilter; label: string; description: string; color: string; icon: string }[] = [
-  { value: 'all', label: 'All Papers', description: 'Browse everything', color: 'var(--color-text-secondary)', icon: '📋' },
-  { value: 'vulnerability-detection', label: 'Vulnerability Detection', description: 'Finding bugs with LLMs', color: '#ff4444', icon: '🛡️' },
-  { value: 'fuzzing', label: 'Fuzzing', description: 'Automated test generation', color: '#44aaff', icon: '🔧' },
-  { value: 'privacy', label: 'Privacy & Data Security', description: 'LLM privacy research', color: '#44ff88', icon: '🔒' },
+const categoryOptions: { value: CategoryFilter; label: string; color: string; icon: string }[] = [
+  { value: 'all', label: 'All', color: 'var(--color-text-secondary)', icon: '📋' },
+  { value: 'vulnerability-detection', label: 'Vulnerability', color: '#ff4444', icon: '🛡️' },
+  { value: 'fuzzing', label: 'Fuzzing', color: '#44aaff', icon: '🔧' },
+  { value: 'privacy', label: 'Privacy', color: '#44ff88', icon: '🔒' },
 ]
 
 export default function Filters({
@@ -35,18 +35,10 @@ export default function Filters({
 }: Props) {
   const hasFilters = category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || sortBy !== 'year-desc' || (venueFilter && venueFilter !== 'all')
 
-  const resetAll = () => {
-    onCategoryChange('all')
-    onYearChange('all')
-    onRecommendationChange('all')
-    onSortChange('year-desc')
-    onVenueChange?.('all')
-  }
-
   return (
-    <div className="mb-6">
-      {/* Category cards */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+    <div className="mb-4">
+      <div className="flex flex-wrap items-center gap-2">
+        {/* Category buttons */}
         {categoryOptions.map(opt => {
           const isActive = category === opt.value
           const count = opt.value === 'all' ? totalCount : (categoryCounts?.[opt.value] || 0)
@@ -54,93 +46,81 @@ export default function Filters({
             <button
               key={opt.value}
               onClick={() => onCategoryChange(opt.value)}
-              className="text-left px-3 py-2.5 rounded-xl border transition-all cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all cursor-pointer"
               style={{
                 background: isActive ? `${opt.color}11` : 'var(--color-bg-card)',
                 borderColor: isActive ? opt.color : 'var(--color-border)',
-                borderWidth: isActive ? '2px' : '1px',
+                color: isActive ? opt.color : 'var(--color-text-secondary)',
               }}
             >
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <span className="text-sm">{opt.icon}</span>
-                <span className="text-xs font-semibold" style={{ color: isActive ? opt.color : 'var(--color-text-primary)' }}>
-                  {opt.label}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] text-[var(--color-text-muted)]">{opt.description}</span>
-                {count !== undefined && (
-                  <span className="text-[10px] font-mono" style={{ color: opt.color, opacity: isActive ? 1 : 0.6 }}>
-                    {count}
-                  </span>
-                )}
-              </div>
+              <span>{opt.icon}</span>
+              <span>{opt.label}</span>
+              {count !== undefined && (
+                <span className="font-mono text-[10px] opacity-60">{count}</span>
+              )}
             </button>
           )
         })}
-      </div>
 
-      {/* Filter dropdowns row */}
-      <div className="flex flex-wrap items-center gap-2">
-        {/* Year */}
+        <span className="w-px h-5 bg-[var(--color-border)] hidden md:block" />
+
         <select
           value={yearFilter}
           onChange={e => onYearChange(e.target.value)}
-          className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
+          className="px-2.5 py-1.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
         >
           <option value="all">All Years</option>
           {years.length >= 3 && (
-            <>
-              <option value={`${years[0]}-${years[1]}`}>Last 2 years ({years[1]}–{years[0]})</option>
-              {years.length >= 4 && <option value={`${years[0]}-${years[2]}`}>Last 3 years ({years[2]}–{years[0]})</option>}
-            </>
+            <option value={`${years[0]}-${years[1]}`}>Last 2 years</option>
           )}
           {years.map(y => <option key={y} value={y}>{y}</option>)}
         </select>
 
-        {/* Recommendation */}
         <select
           value={recommendationFilter}
           onChange={e => onRecommendationChange(e.target.value)}
-          className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
+          className="px-2.5 py-1.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
         >
-          <option value="all">All Quality</option>
+          <option value="all">Quality</option>
           <option value="3">Top-tier</option>
           <option value="2">Quality</option>
           <option value="1">Standard</option>
         </select>
 
-        {/* Venue */}
         {venues && venues.length > 0 && onVenueChange && (
           <select
             value={venueFilter || 'all'}
             onChange={e => onVenueChange(e.target.value)}
-            className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50 max-w-[200px]"
+            className="px-2.5 py-1.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50 max-w-[160px]"
           >
-            <option value="all">All Venues</option>
-            {venues.map(v => <option key={v} value={v}>{v.length > 35 ? v.slice(0, 35) + '...' : v}</option>)}
+            <option value="all">Venue</option>
+            {venues.map(v => <option key={v} value={v}>{v.length > 30 ? v.slice(0, 30) + '...' : v}</option>)}
           </select>
         )}
 
-        {/* Sort */}
         <select
           value={sortBy}
           onChange={e => onSortChange(e.target.value as SortBy)}
-          className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
+          className="px-2.5 py-1.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50"
         >
-          <option value="year-desc">Newest First</option>
-          <option value="year-asc">Oldest First</option>
-          <option value="recommendation">By Quality</option>
-          <option value="title">Title A-Z</option>
+          <option value="year-desc">Newest</option>
+          <option value="year-asc">Oldest</option>
+          <option value="recommendation">Top Quality</option>
+          <option value="title">A-Z</option>
         </select>
 
-        {/* Reset */}
         {hasFilters && (
           <button
-            onClick={resetAll}
+            onClick={() => {
+              onCategoryChange('all')
+              onYearChange('all')
+              onRecommendationChange('all')
+              onSortChange('year-desc')
+              onVenueChange?.('all')
+            }}
             className="text-xs text-[var(--color-text-muted)] bg-transparent border-none cursor-pointer hover:text-[var(--color-accent)] transition-colors"
           >
-            Reset all
+            Reset
           </button>
         )}
       </div>
