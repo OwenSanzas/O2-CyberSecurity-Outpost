@@ -19,6 +19,7 @@ import KnowledgeGraph from './components/KnowledgeGraph'
 import TrendAnalysis from './components/TrendAnalysis'
 import Insights from './components/Insights'
 import ResearchHeatmap from './components/ResearchHeatmap'
+import KeyboardHelp from './components/KeyboardHelp'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -49,6 +50,7 @@ function App() {
   const [compareIds, setCompareIds] = useState<string[]>([])
   const [showComparison, setShowComparison] = useState(false)
   const [showGraph, setShowGraph] = useState(false)
+  const [showKeyboardHelp, setShowKeyboardHelp] = useState(false)
 
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearch = useDebounce(searchInput, 200)
@@ -97,6 +99,11 @@ function App() {
       if (e.key === '/' && !e.ctrlKey && !e.metaKey && !isInput) {
         e.preventDefault()
         document.querySelector<HTMLInputElement>('#search-input')?.focus()
+      }
+      // ? for keyboard help
+      if (e.key === '?' && !isInput) {
+        e.preventDefault()
+        setShowKeyboardHelp(prev => !prev)
       }
       // R for random paper
       if (e.key === 'r' && !e.ctrlKey && !e.metaKey && !isInput && !selectedPaper) {
@@ -518,11 +525,18 @@ function App() {
         </button>
       )}
 
+      {/* Keyboard help */}
+      {showKeyboardHelp && (
+        <KeyboardHelp onClose={() => setShowKeyboardHelp(false)} />
+      )}
+
       {/* Keyboard shortcut hint */}
       <div className="fixed bottom-6 left-6 text-xs text-[var(--color-text-muted)] hidden lg:block z-40">
         <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">/</kbd> search
         <span className="mx-1.5 text-[var(--color-border)]">|</span>
         <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">R</kbd> random
+        <span className="mx-1.5 text-[var(--color-border)]">|</span>
+        <kbd className="px-1.5 py-0.5 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded text-[var(--color-text-secondary)] font-mono">?</kbd> help
       </div>
 
       <style>{`
