@@ -1,4 +1,5 @@
 import type { Paper, Language } from '../types'
+import type { ReadingStatus } from '../hooks/useReadingProgress'
 import ReadingListButton from './ReadingListButton'
 import { showToast } from './Toast'
 
@@ -27,6 +28,7 @@ interface Props {
   onTagClick?: (query: string) => void
   hasNote?: boolean
   searchQuery?: string
+  readingStatus?: ReadingStatus
 }
 
 function highlightText(text: string, query: string): React.ReactNode {
@@ -39,7 +41,7 @@ function highlightText(text: string, query: string): React.ReactNode {
   )
 }
 
-export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote, searchQuery }: Props) {
+export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote, searchQuery, readingStatus }: Props) {
   const mainCategory = paper.categories[0] || 'vulnerability-detection'
   const color = categoryColors[mainCategory] || '#888'
   const rec = paper.recommendation ?? 1
@@ -92,6 +94,12 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
         )}
         {/* Actions */}
         <span className="ml-auto flex items-center gap-1">
+          {readingStatus === 'read' && (
+            <span className="text-xs text-[var(--color-accent)]" title="Read">read</span>
+          )}
+          {readingStatus === 'reading' && (
+            <span className="text-xs text-[var(--color-orange)]" title="Currently reading">reading</span>
+          )}
           {hasNote && (
             <span className="text-xs text-[var(--color-orange)]" title="Has personal note">
               notes

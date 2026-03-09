@@ -42,6 +42,66 @@ export default function ExportButton({ papers }: { papers: Paper[] }) {
     download([headers.join(','), ...rows].join('\n'), `o2-outpost-${papers.length}.csv`, 'text/csv')
   }
 
+  /** Parse "FirstName MiddleName LastName" into "LastName, F. M." (APA) */
+  const formatAuthorAPA = (name: string): string => {
+    const parts = name.trim().split(/\s+/)
+    if (parts.length === 0) return name.trim()
+    if (parts.length === 1) return parts[0]
+    const last = parts[parts.length - 1]
+    const initials = parts.slice(0, -1).map(p => p.charAt(0).toUpperCase() + '.').join(' ')
+    return `${last}, ${initials}`
+  }
+
+  /** Format full author string for APA: "LastName, F. M., & LastName, F." */
+  const formatAuthorsAPA = (authors: string): string => {
+    const names = authors.split(/,\s*(?:and\s+)?|\s+and\s+/).map(n => n.trim()).filter(Boolean)
+    if (names.length === 0) return authors
+    const formatted = names.map(formatAuthorAPA)
+    if (formatted.length === 1) return formatted[0]
+    if (formatted.length === 2) return `${formatted[0]}, & ${formatted[1]}`
+    return formatted.slice(0, -1).join(', ') + ', & ' + formatted[formatted.length - 1]
+  }
+
+  /** Parse "FirstName MiddleName LastName" into "F. M. LastName" (IEEE) */
+  const formatAuthorIEEE = (name: string): string => {
+    const parts = name.trim().split(/\s+/)
+    if (parts.length === 0) return name.trim()
+    if (parts.length === 1) return parts[0]
+    const last = parts[parts.length - 1]
+    const initials = parts.slice(0, -1).map(p => p.charAt(0).toUpperCase() + '.').join(' ')
+    return `${initials} ${last}`
+  }
+
+  /** Format full author string for IEEE: "F. Author1 and G. Author2" */
+  const formatAuthorsIEEE = (authors: string): string => {
+    const names = authors.split(/,\s*(?:and\s+)?|\s+and\s+/).map(n => n.trim()).filter(Boolean)
+    if (names.length === 0) return authors
+    const formatted = names.map(formatAuthorIEEE)
+    if (formatted.length === 1) return formatted[0]
+    if (formatted.length === 2) return `${formatted[0]} and ${formatted[1]}`
+    return formatted.slice(0, -1).join(', ') + ', and ' + formatted[formatted.length - 1]
+  }
+
+  const exportAPA = () => {
+    const entries = papers.map(p => {
+      const authors = formatAuthorsAPA(p.authors)
+      const venue = p.venue ? ` *${p.venue}*.` : ''
+      const url = p.paperUrl ? ` ${p.paperUrl}` : ''
+      return `${authors} (${p.year}). ${p.title}.${venue}${url}`
+    })
+    download(entries.join('\n\n'), `o2-outpost-${papers.length}-apa.txt`, 'text/plain')
+  }
+
+  const exportIEEE = () => {
+    const entries = papers.map((p, i) => {
+      const authors = formatAuthorsIEEE(p.authors)
+      const venue = p.venue ? ` in *${p.venue}*,` : ''
+      const url = p.paperUrl ? ` ${p.paperUrl}` : ''
+      return `[${i + 1}] ${authors}, "${p.title},"${venue} ${p.year}.${url}`
+    })
+    download(entries.join('\n\n'), `o2-outpost-${papers.length}-ieee.txt`, 'text/plain')
+  }
+
   const exportMarkdown = () => {
     const lines = papers.map(p => {
       const rec = '⭐'.repeat(p.recommendation ?? 1)
@@ -88,6 +148,12 @@ export default function ExportButton({ papers }: { papers: Paper[] }) {
             </button>
             <button onClick={exportMarkdown} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
               Markdown (.md)
+            </button>
+            <button onClick={exportAPA} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
+              APA (.txt)
+            </button>
+            <button onClick={exportIEEE} className="w-full text-left px-4 py-2 text-xs text-[var(--color-text-secondary)] hover:bg-white/5 hover:text-[var(--color-text-primary)] transition-colors border-none cursor-pointer bg-transparent">
+              IEEE (.txt)
             </button>
           </div>
         </>

@@ -25,6 +25,7 @@ import FilterSummary from './components/FilterSummary'
 import AnalyticsTabs from './components/AnalyticsTabs'
 import ToastContainer, { showToast } from './components/Toast'
 import MobileNav from './components/MobileNav'
+import WhatsNew from './components/WhatsNew'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -37,6 +38,7 @@ import { useRecentlyViewed } from './hooks/useRecentlyViewed'
 import { useSearchHistory } from './hooks/useSearchHistory'
 import { useNotes } from './hooks/useNotes'
 import { usePreferences } from './hooks/usePreferences'
+import { useReadingProgress } from './hooks/useReadingProgress'
 import papersData from './data/papers.json'
 import type { Paper, CategoryFilter, SortBy, Language } from './types'
 
@@ -50,6 +52,7 @@ function App() {
   const recentlyViewed = useRecentlyViewed()
   const searchHistory = useSearchHistory()
   const paperNotes = useNotes()
+  const readingProgress = useReadingProgress()
 
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<CategoryFilter>('all')
@@ -273,7 +276,32 @@ function App() {
   // Reset pagination when filters change
   useEffect(() => {
     setVisibleCount(PAGE_SIZE)
+    const papersTop = document.getElementById('papers')?.offsetTop ?? 0
+    if (window.scrollY > papersTop) {
+      window.scrollTo({ top: papersTop, behavior: 'smooth' })
+    }
   }, [query, category, yearFilter, sortBy, recommendationFilter, venueFilter, facetFilters])
+
+  // j/k navigation when modal is open
+  useEffect(() => {
+    if (!selectedPaper) return
+    const handler = (e: KeyboardEvent) => {
+      const active = document.activeElement
+      const isInput = active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA'
+      if (isInput) return
+      const idx = filtered.findIndex(p => p.id === selectedPaper.id)
+      if (e.key === 'j' && idx < filtered.length - 1) {
+        e.preventDefault()
+        setSelectedPaper(filtered[idx + 1])
+      }
+      if (e.key === 'k' && idx > 0) {
+        e.preventDefault()
+        setSelectedPaper(filtered[idx - 1])
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [selectedPaper, filtered])
 
   const aggregations = useAggregations(filtered)
   const relatedPapers = useRelatedPapers(selectedPaper, papers)
@@ -369,6 +397,7 @@ function App() {
           <AnalyticsTabs papers={papers} onSearch={handleTagClick} />
 
           <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
+          <WhatsNew papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
           <div className="sticky-search">
           <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
@@ -611,6 +640,7 @@ function App() {
                           onTagClick={handleTagClick}
                           hasNote={paperNotes.hasNote(paper.id)}
                           searchQuery={query !== '__reading_list__' ? query : ''}
+                          readingStatus={readingProgress.getStatus(paper.id)}
                         />
                       </div>
                     ))}
@@ -659,6 +689,8 @@ function App() {
             note={paperNotes.getNote(selectedPaper.id)}
             onNoteSave={paperNotes.setNote}
             onAuthorClick={(author) => { setSelectedPaper(null); handleTagClick(author) }}
+            readingStatus={readingProgress.getStatus(selectedPaper.id)}
+            onReadingStatusChange={readingProgress.setStatus}
           />
         )
       })()}

@@ -1,8 +1,10 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import type { Paper, Language } from '../types'
+import type { ReadingStatus } from '../hooks/useReadingProgress'
 import ReadingListButton from './ReadingListButton'
 import PaperNotes from './PaperNotes'
 import { showToast } from './Toast'
+import { useSwipe } from '../hooks/useSwipe'
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -37,12 +39,18 @@ interface Props {
   note?: string
   onNoteSave?: (paperId: string, text: string) => void
   onAuthorClick?: (author: string) => void
+  readingStatus?: ReadingStatus
+  onReadingStatusChange?: (paperId: string, status: ReadingStatus) => void
 }
 
-export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave, onAuthorClick }: Props) {
+export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave, onAuthorClick, readingStatus, onReadingStatusChange }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
-  const touchStartRef = useRef<number>(0)
+
+  const swipeRef = useSwipe<HTMLDivElement>({
+    onSwipeLeft: onNext,
+    onSwipeRight: onPrev,
+  })
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -91,17 +99,10 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
 
   return (
     <div
+      ref={swipeRef}
       className="fixed inset-0 z-50 flex items-start justify-center pt-8 pb-8 px-4 overflow-y-auto"
       onClick={onClose}
       data-modal-content
-      onTouchStart={e => { touchStartRef.current = e.touches[0].clientX }}
-      onTouchEnd={e => {
-        const diff = e.changedTouches[0].clientX - touchStartRef.current
-        if (Math.abs(diff) > 80) {
-          if (diff > 0 && onPrev) onPrev()
-          if (diff < 0 && onNext) onNext()
-        }
-      }}
     >
       <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
 
@@ -131,6 +132,20 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
           )}
         </div>
         <div className="absolute top-14 right-4 flex items-center gap-2 z-10">
+          {onReadingStatusChange && (
+            <select
+              value={readingStatus || 'unread'}
+              onChange={e => onReadingStatusChange(paper.id, e.target.value as ReadingStatus)}
+              className="text-xs px-2 py-1 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-secondary)] cursor-pointer"
+              style={{
+                color: readingStatus === 'read' ? 'var(--color-accent)' : readingStatus === 'reading' ? 'var(--color-orange)' : 'var(--color-text-muted)',
+              }}
+            >
+              <option value="unread">Unread</option>
+              <option value="reading">Reading</option>
+              <option value="read">Read</option>
+            </select>
+          )}
           {onToggleReadingList && (
             <ReadingListButton
               isInList={isInReadingList ?? false}
