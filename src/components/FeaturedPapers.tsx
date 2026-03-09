@@ -37,7 +37,7 @@ export default function FeaturedPapers({ papers, lang, onPaperClick }: Props) {
   const mainCat = activePaper.categories[0] || 'vulnerability-detection'
 
   return (
-    <div className="max-w-5xl mx-auto mb-10">
+    <div className="mb-10">
       <h3 className="text-sm font-semibold text-[var(--color-text-secondary)] mb-4 uppercase tracking-wider flex items-center gap-2">
         Featured Top-Tier Papers
       </h3>

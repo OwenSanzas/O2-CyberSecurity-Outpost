@@ -66,7 +66,7 @@ export default function TagCloud({ papers, onTagClick }: Props) {
   }, [tags])
 
   return (
-    <div className="max-w-5xl mx-auto mb-8">
+    <div className="mb-8">
       <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider">
         Research Landscape
       </h3>

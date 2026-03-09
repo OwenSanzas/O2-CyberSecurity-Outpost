@@ -17,7 +17,7 @@ export default function RecentlyViewed({ papers, recentIds, onPaperClick }: Prop
   if (recentPapers.length === 0) return null
 
   return (
-    <div className="max-w-3xl mx-auto mb-4">
+    <div className="mb-4">
       <div className="flex items-center gap-2 overflow-x-auto pb-1">
         <span className="text-xs text-[var(--color-text-muted)] shrink-0">Recent:</span>
         {recentPapers.map(p => (

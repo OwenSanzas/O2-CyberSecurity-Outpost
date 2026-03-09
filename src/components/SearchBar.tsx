@@ -89,7 +89,7 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
   }
 
   return (
-    <div className="relative max-w-3xl mx-auto mb-6">
+    <div className="relative mb-6">
       <div className="relative">
         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] text-sm font-mono">&gt;_</span>
         <input

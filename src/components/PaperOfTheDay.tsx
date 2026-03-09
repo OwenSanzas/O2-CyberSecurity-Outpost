@@ -29,7 +29,7 @@ export default function PaperOfTheDay({ papers, onPaperClick }: Props) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto mb-6">
+    <div className="mb-6">
       <div
         className="bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-xl p-4 cursor-pointer hover:border-[var(--color-border-hover)] transition-all group"
         onClick={() => onPaperClick(paper)}

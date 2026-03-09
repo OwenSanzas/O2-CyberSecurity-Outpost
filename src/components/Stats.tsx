@@ -45,7 +45,7 @@ export default function Stats({ papers }: { papers: Paper[] }) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto mb-10">
+    <div className="mb-10">
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] mb-4 uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"

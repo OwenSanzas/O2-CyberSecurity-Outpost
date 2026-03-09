@@ -1,33 +1,8 @@
 import type { Paper, Language } from '../types'
 import type { ReadingStatus } from '../hooks/useReadingProgress'
+import type { CustomTag } from '../hooks/useCustomTags'
 import ReadingListButton from './ReadingListButton'
 import { showToast } from './Toast'
-
-function getVenueStyle(venue: string): { color: string; bg: string; border: string } | null {
-  const v = venue.toLowerCase().replace(/[^a-z0-9/]/g, '')
-  // Top-4 security venues (gold)
-  if (v.includes('sp') && (v.includes('ieee') || v.includes('oakland') || v === 'sp'))
-    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
-  if (v.includes('usenix') && v.includes('security'))
-    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
-  if (v.includes('ccs'))
-    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
-  if (v.includes('ndss'))
-    return { color: '#ffd700', bg: 'rgba(255, 215, 0, 0.10)', border: 'rgba(255, 215, 0, 0.35)' }
-  // SE venues (blue)
-  if (v.includes('icse'))
-    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
-  if (v.includes('fse') || v.includes('esec'))
-    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
-  if (v === 'ase' || v.includes('ase'))
-    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
-  if (v.includes('issta'))
-    return { color: '#44aaff', bg: 'rgba(68, 170, 255, 0.10)', border: 'rgba(68, 170, 255, 0.35)' }
-  // arXiv (muted)
-  if (v.includes('arxiv'))
-    return { color: '#666', bg: 'transparent', border: '#666' }
-  return null
-}
 
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
@@ -36,12 +11,25 @@ const categoryColors: Record<string, string> = {
 }
 
 const categoryLabels: Record<string, string> = {
-  'vulnerability-detection': 'Vuln Detection',
+  'vulnerability-detection': 'Vulnerability Detection',
   'fuzzing': 'Fuzzing',
   'privacy': 'Privacy',
 }
 
-const recStars = (level: number) => '⭐'.repeat(level)
+const categoryIcons: Record<string, string> = {
+  'vulnerability-detection': '🛡️',
+  'fuzzing': '🔧',
+  'privacy': '🔒',
+}
+
+function getVenueLabel(venue: string): { label: string; tier: 'top' | 'good' | 'normal' } {
+  const v = venue.toLowerCase()
+  if (v.includes('s&p') || v.includes('oakland') || v.includes('usenix') && v.includes('security') || v.includes('ccs') || v.includes('ndss'))
+    return { label: venue.length > 40 ? venue.slice(0, 40) + '...' : venue, tier: 'top' }
+  if (v.includes('icse') || v.includes('fse') || v.includes('esec') || v.includes('ase') || v.includes('issta'))
+    return { label: venue.length > 40 ? venue.slice(0, 40) + '...' : venue, tier: 'good' }
+  return { label: venue.length > 40 ? venue.slice(0, 40) + '...' : venue, tier: 'normal' }
+}
 
 interface Props {
   paper: Paper
@@ -55,97 +43,196 @@ interface Props {
   hasNote?: boolean
   searchQuery?: string
   readingStatus?: ReadingStatus
+  customTags?: CustomTag[]
 }
 
 function highlightText(text: string, query: string): React.ReactNode {
   if (!query || query.length < 2) return text
-  const parts = text.split(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'))
-  return parts.map((part, i) =>
-    part.toLowerCase() === query.toLowerCase()
-      ? <mark key={i} className="bg-[var(--color-accent)]/20 text-[var(--color-accent)] rounded-sm px-0.5">{part}</mark>
-      : part
-  )
+  try {
+    const parts = text.split(new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'))
+    return parts.map((part, i) =>
+      part.toLowerCase() === query.toLowerCase()
+        ? <mark key={i} className="bg-[var(--color-accent)]/20 text-[var(--color-accent)] rounded-sm px-0.5">{part}</mark>
+        : part
+    )
+  } catch {
+    return text
+  }
 }
 
-export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote, searchQuery, readingStatus }: Props) {
+export default function PaperCard({ paper, lang, onClick, isInReadingList, onToggleReadingList, isSelected, onSelect, onTagClick, hasNote, searchQuery, readingStatus, customTags }: Props) {
   const mainCategory = paper.categories[0] || 'vulnerability-detection'
-  const color = categoryColors[mainCategory] || '#888'
   const rec = paper.recommendation ?? 1
   const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
   const exp = paper.experiment
 
+  const venueInfo = paper.venue ? getVenueLabel(paper.venue) : null
+  const isNew = paper.year >= new Date().getFullYear() - 1
+
   return (
-    <div
+    <article
       onClick={onClick}
-      className="bg-[var(--color-bg-card)] border rounded-xl p-5 transition-all duration-200 hover:border-[var(--color-border-hover)] hover:translate-y-[-2px] hover:shadow-lg hover:shadow-black/20 cursor-pointer group"
-      style={{
-        borderLeftColor: color,
-        borderLeftWidth: '3px',
-        borderColor: isSelected ? 'var(--color-accent)' : undefined,
-        boxShadow: isSelected ? '0 0 0 1px var(--color-accent)' : undefined,
-      }}
+      className="group cursor-pointer transition-all duration-200"
     >
-      {/* Top row */}
-      <div className="flex items-center gap-2 mb-2 flex-wrap">
-        {onSelect && (
-          <label className="flex items-center" onClick={e => e.stopPropagation()}>
-            <input
-              type="checkbox"
-              checked={isSelected}
-              onChange={onSelect}
-              className="w-3.5 h-3.5 accent-[var(--color-accent)] cursor-pointer"
-            />
-          </label>
-        )}
-        <span className="text-xs font-mono font-bold text-[var(--color-accent)]">{paper.year}</span>
-        {paper.year >= new Date().getFullYear() - 1 && (
-          <span className="badge-new text-xs px-1.5 py-0.5 rounded bg-[var(--color-accent)]/15 text-[var(--color-accent)] font-bold uppercase" style={{ fontSize: '9px', letterSpacing: '0.5px' }}>NEW</span>
-        )}
-        <span className="text-xs" title={`Recommendation Level ${rec}`}>{recStars(rec)}</span>
-        {paper.venue && (() => {
-          const vs = getVenueStyle(paper.venue)
-          return (
-            <span
-              className="text-xs px-2 py-0.5 rounded-full border"
-              style={vs
-                ? { color: vs.color, backgroundColor: vs.bg, borderColor: vs.border, fontWeight: 600 }
-                : { borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)' }
-              }
-            >
-              {paper.venue.length > 50 ? paper.venue.slice(0, 50) + '...' : paper.venue}
+      {/* Blog-style entry */}
+      <div className="py-6 border-b border-[var(--color-border)] hover:bg-[var(--color-bg-card)]/50 px-4 -mx-4 rounded-lg transition-colors">
+        {/* Meta line */}
+        <div className="flex items-center gap-2 mb-2 text-xs flex-wrap">
+          <span className="font-mono font-bold text-[var(--color-accent)]">{paper.year}</span>
+          <span className="text-[var(--color-border)]">·</span>
+          {paper.categories.map(cat => (
+            <span key={cat} className="flex items-center gap-1" style={{ color: categoryColors[cat] }}>
+              <span>{categoryIcons[cat]}</span>
+              <span className="font-medium">{categoryLabels[cat] || cat}</span>
             </span>
-          )
-        })()}
-        {paper.categories.map(cat => (
-          <span key={cat} className="text-xs px-2 py-0.5 rounded-full font-medium"
-            style={{ background: `${categoryColors[cat]}15`, color: categoryColors[cat] }}>
-            {categoryLabels[cat] || cat}
-          </span>
-        ))}
-        {exp?.open_source && (
-          <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
-            Open Source
-          </span>
+          ))}
+          {venueInfo && (
+            <>
+              <span className="text-[var(--color-border)]">·</span>
+              <span
+                className="font-medium"
+                style={{
+                  color: venueInfo.tier === 'top' ? '#ffd700' : venueInfo.tier === 'good' ? '#44aaff' : 'var(--color-text-muted)',
+                }}
+              >
+                {venueInfo.label}
+                {venueInfo.tier === 'top' && ' ★'}
+              </span>
+            </>
+          )}
+          {isNew && (
+            <>
+              <span className="text-[var(--color-border)]">·</span>
+              <span className="badge-new text-[var(--color-accent)] font-bold uppercase" style={{ fontSize: '10px' }}>NEW</span>
+            </>
+          )}
+          {rec >= 3 && (
+            <>
+              <span className="text-[var(--color-border)]">·</span>
+              <span className="text-[#ffd700] font-medium">Top-tier</span>
+            </>
+          )}
+        </div>
+
+        {/* Title */}
+        <h2 className="text-lg md:text-xl font-bold text-[var(--color-text-primary)] mb-2 leading-snug group-hover:text-[var(--color-accent)] transition-colors">
+          {paper.system_name && (
+            <span className="text-[var(--color-accent)] font-mono mr-1.5">[{paper.system_name}]</span>
+          )}
+          {searchQuery ? highlightText(paper.title, searchQuery) : paper.title}
+        </h2>
+
+        {/* Authors */}
+        <p className="text-sm text-[var(--color-text-secondary)] mb-3">
+          {paper.authors}
+        </p>
+
+        {/* Summary (blog excerpt) */}
+        {summary && (
+          <p className="text-sm text-[var(--color-text-primary)] leading-relaxed mb-3 opacity-80">
+            {summary}
+          </p>
         )}
-        {/* Actions */}
-        <span className="ml-auto flex items-center gap-1">
+
+        {/* Key results */}
+        {exp?.key_results && (
+          <p className="text-xs text-[var(--color-text-secondary)] mb-3 pl-3 border-l-2 border-[var(--color-accent)]/30 italic">
+            {exp.key_results}
+          </p>
+        )}
+
+        {/* Tags */}
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* LLMs */}
+          {exp?.llm?.map(l => (
+            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)] hover:bg-[var(--color-purple)]/20 transition-colors cursor-pointer"
+              onClick={e => { e.stopPropagation(); onTagClick?.(l) }}>
+              {l}
+            </span>
+          ))}
+          {/* Languages */}
+          {exp?.language?.map(l => (
+            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-blue)]/10 text-[var(--color-blue)] hover:bg-[var(--color-blue)]/20 transition-colors cursor-pointer"
+              onClick={e => { e.stopPropagation(); onTagClick?.(l) }}>
+              {l}
+            </span>
+          ))}
+          {exp?.fine_tuning && (
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-orange)]/10 text-[var(--color-orange)]">
+              Fine-tuned
+            </span>
+          )}
+          {exp?.open_source && (
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-accent)]/10 text-[var(--color-accent)]">
+              Open Source
+            </span>
+          )}
+          {customTags?.map(tag => (
+            <span
+              key={tag.name}
+              className="text-xs px-2 py-0.5 rounded-full font-medium"
+              style={{ background: `${tag.color}20`, color: tag.color }}
+            >
+              {tag.name}
+            </span>
+          ))}
+
+          {/* Spacer */}
+          <span className="flex-1" />
+
+          {/* Status & Actions */}
           {readingStatus === 'read' && (
-            <span className="text-xs text-[var(--color-accent)]" title="Read">read</span>
+            <span className="text-xs text-[var(--color-accent)] font-medium">✓ Read</span>
           )}
           {readingStatus === 'reading' && (
-            <span className="text-xs text-[var(--color-orange)]" title="Currently reading">reading</span>
+            <span className="text-xs text-[var(--color-orange)] font-medium">Reading</span>
           )}
           {hasNote && (
-            <span className="text-xs text-[var(--color-orange)]" title="Has personal note">
-              notes
-            </span>
+            <span className="text-xs text-[var(--color-purple)]">📝</span>
           )}
-          {onToggleReadingList && (
-            <ReadingListButton
-              isInList={isInReadingList ?? false}
-              onToggle={onToggleReadingList}
-            />
+
+          {/* Quick links */}
+          {paper.paperUrl && (
+            <a
+              href={paper.paperUrl}
+              target="_blank"
+              rel="noopener"
+              onClick={e => e.stopPropagation()}
+              className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline font-medium"
+            >
+              PDF ↗
+            </a>
           )}
+          {paper.codeUrl && (
+            <a
+              href={paper.codeUrl}
+              target="_blank"
+              rel="noopener"
+              onClick={e => e.stopPropagation()}
+              className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline font-medium"
+            >
+              Code ↗
+            </a>
+          )}
+          <span onClick={e => e.stopPropagation()} className="flex items-center gap-1">
+            {onToggleReadingList && (
+              <ReadingListButton
+                isInList={isInReadingList ?? false}
+                onToggle={onToggleReadingList}
+              />
+            )}
+            {onSelect && (
+              <label className="flex items-center cursor-pointer" onClick={e => e.stopPropagation()}>
+                <input
+                  type="checkbox"
+                  checked={isSelected}
+                  onChange={onSelect}
+                  className="w-3.5 h-3.5 accent-[var(--color-accent)] cursor-pointer"
+                  title="Select for comparison"
+                />
+              </label>
+            )}
+          </span>
           <button
             onClick={e => {
               e.stopPropagation()
@@ -154,106 +241,12 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
               showToast('Link copied!')
             }}
             className="text-xs text-[var(--color-text-muted)] opacity-0 group-hover:opacity-100 transition-opacity bg-transparent border-none cursor-pointer hover:text-[var(--color-accent)]"
-            title="Copy link to paper"
+            title="Copy link"
           >
-            link
+            🔗
           </button>
-        </span>
-      </div>
-
-      {/* System name + Title */}
-      <div className="mb-1.5">
-        {paper.system_name && (
-          <span className="text-sm font-mono font-bold text-[var(--color-accent)] mr-2">
-            [{paper.system_name}]
-          </span>
-        )}
-        <h3
-          className="text-base font-semibold leading-snug text-[var(--color-text-primary)] inline group-hover:text-white transition-colors"
-          title={paper.abstract ? (paper.abstract.length > 200 ? paper.abstract.slice(0, 200) + '...' : paper.abstract) : undefined}
-        >
-          {searchQuery ? highlightText(paper.title, searchQuery) : paper.title}
-        </h3>
-      </div>
-
-      {/* Authors */}
-      {paper.authors && (
-        <p className="text-xs text-[var(--color-text-secondary)] mb-2">
-          {paper.authors}
-        </p>
-      )}
-
-      {/* Summary */}
-      {summary && (
-        <p className="text-sm text-[var(--color-text-primary)] mb-3 bg-white/[0.03] px-3 py-2 rounded-lg border-l-2 border-[var(--color-accent)]/30">
-          {summary}
-        </p>
-      )}
-
-      {/* Experiment tags (compact, clickable) */}
-      {exp && (
-        <div className="flex flex-wrap gap-1.5 mb-2">
-          {exp.llm?.map(l => (
-            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-purple)]/10 text-[var(--color-purple)] hover:bg-[var(--color-purple)]/20 transition-colors cursor-pointer"
-              onClick={e => { e.stopPropagation(); onTagClick?.(l) }}
-              title={`Search for "${l}"`}>
-              {l}
-            </span>
-          ))}
-          {exp.language?.map(l => (
-            <span key={l} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-blue)]/10 text-[var(--color-blue)] hover:bg-[var(--color-blue)]/20 transition-colors cursor-pointer"
-              onClick={e => { e.stopPropagation(); onTagClick?.(l) }}
-              title={`Search for "${l}"`}>
-              {l}
-            </span>
-          ))}
-          {exp.fine_tuning && (
-            <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-orange)]/10 text-[var(--color-orange)]">
-              Fine-tuned
-            </span>
-          )}
-          {exp.dataset?.slice(0, 3).map(d => (
-            <span key={d} className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-green)]/10 text-[var(--color-green)] hover:bg-[var(--color-green)]/20 transition-colors cursor-pointer"
-              onClick={e => { e.stopPropagation(); onTagClick?.(d) }}
-              title={`Search for "${d}"`}>
-              {d}
-            </span>
-          ))}
         </div>
-      )}
-
-      {/* Key results one-liner */}
-      {exp?.key_results && (
-        <div className="text-xs text-[var(--color-text-secondary)] line-clamp-2">
-          {exp.key_results}
-        </div>
-      )}
-
-      {/* Quick links row */}
-      <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[var(--color-border)]/50">
-        {paper.paperUrl && (
-          <a
-            href={paper.paperUrl}
-            target="_blank"
-            rel="noopener"
-            onClick={e => e.stopPropagation()}
-            className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline"
-          >
-            PDF
-          </a>
-        )}
-        {paper.codeUrl && (
-          <a
-            href={paper.codeUrl}
-            target="_blank"
-            rel="noopener"
-            onClick={e => e.stopPropagation()}
-            className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline"
-          >
-            Code
-          </a>
-        )}
       </div>
-    </div>
+    </article>
   )
 }

@@ -22,7 +22,7 @@ const quickFilters = [
 
 export default function QuickFilters({ onSearch, currentQuery }: Props) {
   return (
-    <div className="max-w-3xl mx-auto mb-4 flex flex-wrap gap-1.5 justify-center">
+    <div className="mb-4 flex flex-wrap gap-1.5">
       <span className="text-xs text-[var(--color-text-muted)] self-center mr-1">Quick:</span>
       {quickFilters.map(f => {
         const isActive = currentQuery?.toLowerCase() === f.query.toLowerCase()

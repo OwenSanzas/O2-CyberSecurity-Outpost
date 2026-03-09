@@ -57,7 +57,7 @@ export default function DataExplorer({ papers, onSearch }: Props) {
 
   if (!expanded) {
     return (
-      <div className="max-w-5xl mx-auto mb-8">
+      <div className="mb-8">
         <button
           onClick={() => setExpanded(true)}
           className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"
@@ -73,7 +73,7 @@ export default function DataExplorer({ papers, onSearch }: Props) {
   const maxCount = data.length > 0 ? data[0][1].count : 1
 
   return (
-    <div className="max-w-5xl mx-auto mb-8">
+    <div className="mb-8">
       <button
         onClick={() => setExpanded(false)}
         className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"

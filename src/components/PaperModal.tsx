@@ -2,8 +2,11 @@ import { useEffect, useState, useRef, useCallback } from 'react'
 import type { Paper, Language } from '../types'
 import type { ReadingStatus } from '../hooks/useReadingProgress'
 import type { RelatedPaper } from '../hooks/useRelatedPapers'
+import type { CustomTag } from '../hooks/useCustomTags'
 import ReadingListButton from './ReadingListButton'
 import PaperNotes from './PaperNotes'
+import CitationExport from './CitationExport'
+import CustomTags from './CustomTags'
 import { showToast } from './Toast'
 import { useSwipe } from '../hooks/useSwipe'
 
@@ -42,9 +45,14 @@ interface Props {
   onAuthorClick?: (author: string) => void
   readingStatus?: ReadingStatus
   onReadingStatusChange?: (paperId: string, status: ReadingStatus) => void
+  customTags?: CustomTag[]
+  allTags?: CustomTag[]
+  onToggleTag?: (tagName: string) => void
+  onCreateTag?: (name: string) => void
+  onDeleteTag?: (name: string) => void
 }
 
-export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave, onAuthorClick, readingStatus, onReadingStatusChange }: Props) {
+export default function PaperModal({ paper, lang, onClose, relatedPapers, onPaperClick, isInReadingList, onToggleReadingList, onPrev, onNext, currentIndex, totalCount, note, onNoteSave, onAuthorClick, readingStatus, onReadingStatusChange, customTags, allTags, onToggleTag, onCreateTag, onDeleteTag }: Props) {
   const [copiedBib, setCopiedBib] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'experiment' | 'abstract'>('overview')
   const dialogRef = useRef<HTMLDivElement | null>(null)
@@ -507,6 +515,24 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
             >
               Report Issue
             </a>
+          </div>
+
+          {/* Custom Tags */}
+          {onToggleTag && onCreateTag && onDeleteTag && (
+            <div className="mt-5 pt-5 border-t border-[var(--color-border)]">
+              <CustomTags
+                paperTags={customTags || []}
+                allTags={allTags || []}
+                onToggleTag={onToggleTag}
+                onCreateTag={onCreateTag}
+                onDeleteTag={onDeleteTag}
+              />
+            </div>
+          )}
+
+          {/* Citation Export */}
+          <div className="mt-5 pt-5 border-t border-[var(--color-border)]">
+            <CitationExport paper={paper} />
           </div>
 
           {/* Personal notes */}

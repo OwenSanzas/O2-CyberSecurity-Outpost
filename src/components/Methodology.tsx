@@ -4,7 +4,7 @@ export default function Methodology() {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="max-w-5xl mx-auto mb-8">
+    <div className="mb-8">
       <button
         onClick={() => setExpanded(!expanded)}
         className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"

@@ -75,7 +75,7 @@ export default function MatrixRain() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.35 }}
+      style={{ opacity: 0.15 }}
     />
   )
 }

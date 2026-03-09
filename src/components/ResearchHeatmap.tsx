@@ -73,7 +73,7 @@ export default function ResearchHeatmap({ papers }: Props) {
 
   if (!expanded) {
     return (
-      <div className="max-w-5xl mx-auto mb-6">
+      <div className="mb-6">
         <button
           onClick={() => setExpanded(true)}
           className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"
@@ -85,7 +85,7 @@ export default function ResearchHeatmap({ papers }: Props) {
   }
 
   return (
-    <div className="max-w-5xl mx-auto mb-8">
+    <div className="mb-8">
       <button
         onClick={() => setExpanded(false)}
         className="flex items-center gap-2 text-xs font-semibold text-[var(--color-text-secondary)] mb-4 uppercase tracking-wider bg-transparent border-none cursor-pointer hover:text-[var(--color-text-primary)] transition-colors"

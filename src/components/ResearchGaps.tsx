@@ -100,7 +100,7 @@ export default function ResearchGaps({ papers, onSearch }: Props) {
   if (gaps.length === 0) return null
 
   return (
-    <div className="max-w-5xl mx-auto mb-8">
+    <div className="mb-8">
       <h3 className="text-xs font-semibold text-[var(--color-text-secondary)] mb-3 uppercase tracking-wider">
         Research Gaps & Opportunities
       </h3>
