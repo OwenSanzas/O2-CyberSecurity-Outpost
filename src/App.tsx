@@ -21,6 +21,8 @@ import Insights from './components/Insights'
 import ResearchHeatmap from './components/ResearchHeatmap'
 import KeyboardHelp from './components/KeyboardHelp'
 import RecentlyViewed from './components/RecentlyViewed'
+import TagCloud from './components/TagCloud'
+import PaperOfTheDay from './components/PaperOfTheDay'
 import Methodology from './components/Methodology'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
@@ -297,9 +299,11 @@ function App() {
             )}
           </div>
 
+          <TagCloud papers={papers} onTagClick={handleTagClick} />
           <TrendAnalysis papers={papers} />
           <ResearchHeatmap papers={papers} />
 
+          <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
           <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
           <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
@@ -385,6 +389,15 @@ function App() {
                   className="text-xs px-3 py-1.5 rounded-lg bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/30 text-[var(--color-accent)] cursor-pointer hover:bg-[var(--color-accent)]/20 transition-all"
                 >
                   Compare ({compareIds.length})
+                </button>
+              )}
+              {compareIds.length > 0 && (
+                <button
+                  onClick={() => compareIds.forEach(id => { if (!readingList.has(id)) readingList.toggle(id) })}
+                  className="text-xs px-3 py-1.5 rounded-lg border border-[var(--color-border)] text-[var(--color-text-secondary)] cursor-pointer hover:border-[var(--color-accent)]/30 hover:text-[var(--color-accent)] transition-all bg-transparent"
+                  title="Bookmark all selected papers"
+                >
+                  Bookmark All
                 </button>
               )}
               {compareIds.length > 0 && (
