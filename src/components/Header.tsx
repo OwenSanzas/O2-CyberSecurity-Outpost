@@ -3,6 +3,9 @@ import type { Language } from '../types'
 
 interface Props {
   paperCount: number
+  categoryCount: number
+  venueCount: number
+  yearRange: string
   lang: Language
   onLangChange: (l: Language) => void
 }
@@ -14,7 +17,8 @@ function AnimatedCounter({ target, duration = 1500 }: { target: number | string;
   useEffect(() => {
     const numTarget = typeof target === 'string' ? parseInt(target) || 0 : target
     const suffix = typeof target === 'string' ? target.replace(/[0-9]/g, '') : ''
-    if (!numTarget) {
+    // If the string contains non-numeric chars beyond a simple suffix (e.g. "2020-2025"), show as-is
+    if (!numTarget || (typeof target === 'string' && /[^0-9].*[0-9]/.test(target))) {
       setDisplay(String(target))
       return
     }
@@ -37,7 +41,7 @@ function AnimatedCounter({ target, duration = 1500 }: { target: number | string;
   return <>{display}</>
 }
 
-export default function Header({ paperCount, lang, onLangChange }: Props) {
+export default function Header({ paperCount, categoryCount, venueCount, yearRange, lang, onLangChange }: Props) {
   const [typedText, setTypedText] = useState('')
   const fullText = 'Tracking the frontier of LLM-powered security research.'
 
@@ -94,8 +98,9 @@ export default function Header({ paperCount, lang, onLangChange }: Props) {
       <div className="flex gap-10 mb-8 relative z-1">
         {[
           { value: `${paperCount}`, label: 'Papers' },
-          { value: '4', label: 'Categories' },
-          { value: '15+', label: 'Venues' },
+          { value: `${categoryCount}`, label: 'Categories' },
+          { value: `${venueCount}`, label: 'Venues' },
+          { value: yearRange, label: 'Timeline' },
         ].map(s => (
           <div key={s.label} className="text-center">
             <div className="text-2xl font-bold text-[var(--color-accent)] font-mono">

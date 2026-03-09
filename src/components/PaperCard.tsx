@@ -133,7 +133,10 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
             [{paper.system_name}]
           </span>
         )}
-        <h3 className="text-base font-semibold leading-snug text-[var(--color-text-primary)] inline group-hover:text-white transition-colors">
+        <h3
+          className="text-base font-semibold leading-snug text-[var(--color-text-primary)] inline group-hover:text-white transition-colors"
+          title={paper.abstract ? (paper.abstract.length > 200 ? paper.abstract.slice(0, 200) + '...' : paper.abstract) : undefined}
+        >
           {searchQuery ? highlightText(paper.title, searchQuery) : paper.title}
         </h3>
       </div>

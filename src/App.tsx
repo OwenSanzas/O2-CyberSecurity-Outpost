@@ -345,6 +345,16 @@ function App() {
     return counts
   }, [])
 
+  const headerStats = useMemo(() => {
+    const categoryCount = Object.keys(categoryCounts).length
+    const venueCount = new Set(papers.map(p => p.venue).filter(Boolean)).size
+    const yearsAll = papers.map(p => p.year)
+    const minYear = Math.min(...yearsAll)
+    const maxYear = Math.max(...yearsAll)
+    const yearRange = `${minYear}-${maxYear}`
+    return { categoryCount, venueCount, yearRange }
+  }, [categoryCounts])
+
   const openRandomPaper = useCallback(() => {
     const randomPaper = papers[Math.floor(Math.random() * papers.length)]
     setSelectedPaper(randomPaper)
@@ -368,7 +378,7 @@ function App() {
       <MatrixRain />
 
       <div className="relative z-1">
-        <Header paperCount={papers.length} lang={lang} onLangChange={setLang} />
+        <Header paperCount={papers.length} categoryCount={headerStats.categoryCount} venueCount={headerStats.venueCount} yearRange={headerStats.yearRange} lang={lang} onLangChange={setLang} />
 
         <main id="papers" className="max-w-7xl mx-auto px-4 py-8" role="main" aria-label="Paper collection">
           <Stats papers={papers} />
@@ -688,7 +698,7 @@ function App() {
           <Methodology />
         </div>
 
-        <Footer paperCount={papers.length} componentCount={36} />
+        <Footer paperCount={papers.length} componentCount={38} readProgress={readingProgress.counts} />
       </div>
 
       {/* Paper detail modal */}
