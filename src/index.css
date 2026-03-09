@@ -188,6 +188,20 @@ input[type="checkbox"] {
   transition: width 0.1s;
 }
 
+/* Sticky search bar */
+.sticky-search {
+  position: sticky;
+  top: 4px;
+  z-index: 30;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 15, 0.85);
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding: 0.75rem 1rem 0;
+  border-radius: 12px;
+}
+
 /* Print styles */
 @media print {
   body::after { display: none; }

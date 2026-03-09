@@ -57,6 +57,7 @@ function App() {
   const [showComparison, setShowComparison] = useState(false)
   const [showGraph, setShowGraph] = useState(false)
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false)
+  const [venueFilter, setVenueFilter] = useState('all')
 
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearch = useDebounce(searchInput, 200)
@@ -86,13 +87,30 @@ function App() {
   useEffect(() => {
     if (selectedPaper) {
       recentlyViewed.add(selectedPaper.id)
-      window.history.replaceState(null, '', `#paper=${encodeURIComponent(selectedPaper.id)}`)
+      const currentHash = `#paper=${encodeURIComponent(selectedPaper.id)}`
+      if (window.location.hash !== currentHash) {
+        window.history.pushState({ paper: selectedPaper.id }, '', currentHash)
+      }
     } else {
       if (window.location.hash.startsWith('#paper=')) {
         window.history.replaceState(null, '', window.location.pathname + window.location.search)
       }
     }
   }, [selectedPaper])
+
+  // Handle browser back button to close modal
+  useEffect(() => {
+    const handler = (e: PopStateEvent) => {
+      if (e.state?.paper) {
+        const paper = papers.find(p => p.id === e.state.paper)
+        if (paper) setSelectedPaper(paper)
+      } else {
+        setSelectedPaper(null)
+      }
+    }
+    window.addEventListener('popstate', handler)
+    return () => window.removeEventListener('popstate', handler)
+  }, [])
 
   useUrlState(
     { query, category, yearFilter, sortBy, recommendationFilter, lang },
@@ -156,6 +174,16 @@ function App() {
     return [...set].sort((a, b) => b - a)
   }, [])
 
+  const venues = useMemo(() => {
+    const venueCount = new Map<string, number>()
+    for (const p of papers) {
+      if (p.venue) venueCount.set(p.venue, (venueCount.get(p.venue) || 0) + 1)
+    }
+    return [...venueCount.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([v]) => v)
+  }, [])
+
   const handleFacetChange = useCallback((key: string, values: string[]) => {
     setFacetFilters(prev => ({ ...prev, [key]: values }))
   }, [])
@@ -184,6 +212,10 @@ function App() {
       result = result.filter(p => (p.recommendation ?? 1) === Number(recommendationFilter))
     }
 
+    if (venueFilter !== 'all') {
+      result = result.filter(p => p.venue === venueFilter)
+    }
+
     for (const [key, values] of Object.entries(facetFilters)) {
       if (!values.length) continue
       result = result.filter(p => {
@@ -209,12 +241,12 @@ function App() {
       if (sortBy === 'recommendation') return (b.recommendation ?? 1) - (a.recommendation ?? 1) || b.year - a.year
       return a.title.localeCompare(b.title)
     })
-  }, [query, category, yearFilter, sortBy, recommendationFilter, facetFilters, miniSearch, readingList.ids])
+  }, [query, category, yearFilter, sortBy, recommendationFilter, venueFilter, facetFilters, miniSearch, readingList.ids])
 
   // Reset pagination when filters change
   useEffect(() => {
     setVisibleCount(PAGE_SIZE)
-  }, [query, category, yearFilter, sortBy, recommendationFilter, facetFilters])
+  }, [query, category, yearFilter, sortBy, recommendationFilter, venueFilter, facetFilters])
 
   const aggregations = useAggregations(filtered)
   const relatedPapers = useRelatedPapers(selectedPaper, papers)
@@ -305,8 +337,10 @@ function App() {
 
           <PaperOfTheDay papers={papers} onPaperClick={setSelectedPaper} />
           <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
+          <div className="sticky-search">
           <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
           <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
+          </div>
           <Filters
             category={category}
             onCategoryChange={setCategory}
@@ -319,6 +353,9 @@ function App() {
             onRecommendationChange={setRecommendationFilter}
             categoryCounts={categoryCounts}
             totalCount={papers.length}
+            venues={venues}
+            venueFilter={venueFilter}
+            onVenueChange={setVenueFilter}
           />
 
           <div className="flex justify-between items-center mb-4 flex-wrap gap-2">

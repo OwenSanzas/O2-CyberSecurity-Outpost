@@ -12,6 +12,9 @@ interface Props {
   onRecommendationChange: (r: string) => void
   categoryCounts?: Record<string, number>
   totalCount?: number
+  venues?: string[]
+  venueFilter?: string
+  onVenueChange?: (v: string) => void
 }
 
 const categoryOptions: { value: CategoryFilter; label: string; color: string }[] = [
@@ -28,14 +31,16 @@ export default function Filters({
   years,
   recommendationFilter, onRecommendationChange,
   categoryCounts, totalCount,
+  venues, venueFilter, onVenueChange,
 }: Props) {
-  const hasFilters = category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || sortBy !== 'year-desc'
+  const hasFilters = category !== 'all' || yearFilter !== 'all' || recommendationFilter !== 'all' || sortBy !== 'year-desc' || (venueFilter && venueFilter !== 'all')
 
   const resetAll = () => {
     onCategoryChange('all')
     onYearChange('all')
     onRecommendationChange('all')
     onSortChange('year-desc')
+    onVenueChange?.('all')
   }
 
   return (
@@ -86,6 +91,18 @@ export default function Filters({
         <option value="2">Quality</option>
         <option value="1">Standard</option>
       </select>
+
+      {/* Venue */}
+      {venues && venues.length > 0 && onVenueChange && (
+        <select
+          value={venueFilter || 'all'}
+          onChange={e => onVenueChange(e.target.value)}
+          className="px-3 py-2 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-lg text-xs text-[var(--color-text-primary)] cursor-pointer focus:outline-none focus:border-[var(--color-accent)]/50 max-w-[160px]"
+        >
+          <option value="all">All Venues</option>
+          {venues.map(v => <option key={v} value={v}>{v.length > 30 ? v.slice(0, 30) + '...' : v}</option>)}
+        </select>
+      )}
 
       {/* Sort */}
       <select

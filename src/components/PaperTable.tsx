@@ -83,6 +83,9 @@ export default function PaperTable({ papers, lang, onPaperClick, isInReadingList
                 key={paper.id}
                 onClick={() => onPaperClick(paper)}
                 className="border-b border-[var(--color-border)]/50 hover:bg-white/[0.02] cursor-pointer transition-colors"
+                style={{
+                  background: isInReadingList?.(paper.id) ? 'rgba(0,255,136,0.02)' : undefined,
+                }}
               >
                 <td className="py-2.5 px-3 font-mono text-[var(--color-accent)] font-bold text-xs">{paper.year}</td>
                 <td className="py-2.5 px-3 text-xs">{'⭐'.repeat(rec)}</td>
