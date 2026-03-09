@@ -13,6 +13,7 @@ const shortcuts = [
   { key: '←', description: 'Previous paper (in modal)' },
   { key: '→', description: 'Next paper (in modal)' },
   { key: 'Esc', description: 'Close modal / panel' },
+  { key: 'Cmd+K', description: 'Focus search bar (alt)' },
   { key: '?', description: 'Show this help' },
 ]
 

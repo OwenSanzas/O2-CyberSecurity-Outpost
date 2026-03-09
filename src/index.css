@@ -217,11 +217,17 @@ input[type="checkbox"] {
 
 /* Focus mode */
 .focus-mode header,
-.focus-mode .sticky-search,
 .focus-mode aside,
 .focus-mode footer,
-.focus-mode canvas {
+.focus-mode canvas,
+.focus-mode .safe-area-bottom {
   display: none !important;
+}
+
+.focus-mode .sticky-search {
+  position: static !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
 }
 
 .focus-mode main {
