@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { Paper, Language } from '../types'
 import type { ReadingStatus } from '../hooks/useReadingProgress'
+import type { RelatedPaper } from '../hooks/useRelatedPapers'
 import ReadingListButton from './ReadingListButton'
 import PaperNotes from './PaperNotes'
 import { showToast } from './Toast'
@@ -28,7 +29,7 @@ interface Props {
   paper: Paper
   lang: Language
   onClose: () => void
-  relatedPapers?: Paper[]
+  relatedPapers?: RelatedPaper[]
   onPaperClick?: (p: Paper) => void
   isInReadingList?: boolean
   onToggleReadingList?: () => void
@@ -485,7 +486,7 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
             <div className="mt-5 pt-5 border-t border-[var(--color-border)]">
               <h4 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3">Related Papers</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {relatedPapers.map(rp => (
+                {relatedPapers.map(({ paper: rp, score }) => (
                   <div
                     key={rp.id}
                     onClick={() => onPaperClick?.(rp)}
@@ -496,6 +497,16 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
                       {rp.system_name && (
                         <span className="text-xs font-mono font-bold text-[var(--color-accent)]">[{rp.system_name}]</span>
                       )}
+                      <span
+                        className="ml-auto text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-full shrink-0"
+                        style={{
+                          background: score >= 80 ? 'rgba(0,255,136,0.15)' : score >= 50 ? 'rgba(255,170,0,0.15)' : 'rgba(255,255,255,0.06)',
+                          color: score >= 80 ? 'var(--color-accent)' : score >= 50 ? 'var(--color-orange)' : 'var(--color-text-muted)',
+                        }}
+                        title={`${score}% similarity`}
+                      >
+                        {score}%
+                      </span>
                     </div>
                     <p className="text-xs text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] transition-colors line-clamp-2">
                       {rp.title}

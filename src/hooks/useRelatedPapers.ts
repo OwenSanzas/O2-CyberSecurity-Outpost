@@ -1,6 +1,11 @@
 import { useMemo } from 'react'
 import type { Paper } from '../types'
 
+export interface RelatedPaper {
+  paper: Paper
+  score: number
+}
+
 function similarity(a: Paper, b: Paper): number {
   if (a.id === b.id) return -1
   let score = 0
@@ -38,14 +43,20 @@ function similarity(a: Paper, b: Paper): number {
   return score
 }
 
-export function useRelatedPapers(paper: Paper | null, allPapers: Paper[], count = 4): Paper[] {
+export function useRelatedPapers(paper: Paper | null, allPapers: Paper[], count = 4): RelatedPaper[] {
   return useMemo(() => {
     if (!paper) return []
-    return allPapers
+    const scored = allPapers
       .map(p => ({ paper: p, score: similarity(paper, p) }))
       .filter(r => r.score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, count)
-      .map(r => r.paper)
+
+    // Normalize scores to 0-100 range
+    const maxScore = scored.length > 0 ? scored[0].score : 1
+    return scored.map(r => ({
+      paper: r.paper,
+      score: Math.round((r.score / maxScore) * 100),
+    }))
   }, [paper, allPapers, count])
 }

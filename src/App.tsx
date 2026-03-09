@@ -72,6 +72,7 @@ function App() {
   const [showKeyboardHelp, setShowKeyboardHelp] = useState(false)
   const [venueFilter, setVenueFilter] = useState('all')
   const [focusMode, setFocusMode] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   const [searchInput, setSearchInput] = useState('')
   const debouncedSearch = useDebounce(searchInput, 200)
@@ -556,13 +557,33 @@ function App() {
           )}
 
           <div className="flex gap-6">
-            <aside className="w-72 shrink-0 hidden lg:block">
+            <aside
+              className={`shrink-0 hidden lg:block transition-all duration-300 ${sidebarCollapsed ? 'w-10' : 'w-72'}`}
+            >
               <div className="sticky top-4">
-                <FacetedFilters
-                  aggregations={aggregations}
-                  activeFilters={facetFilters}
-                  onFilterChange={handleFacetChange}
-                />
+                <button
+                  onClick={() => setSidebarCollapsed(prev => !prev)}
+                  className="flex items-center gap-1.5 text-xs font-semibold text-[var(--color-text-secondary)] mb-3 px-2 py-1.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg-card)] cursor-pointer hover:border-[var(--color-accent)]/50 hover:text-[var(--color-accent)] transition-all w-full"
+                  title={sidebarCollapsed ? 'Expand filters' : 'Collapse filters'}
+                >
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      transition: 'transform 0.2s',
+                      transform: sidebarCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)',
+                    }}
+                  >
+                    ▼
+                  </span>
+                  {!sidebarCollapsed && <span>Filters</span>}
+                </button>
+                {!sidebarCollapsed && (
+                  <FacetedFilters
+                    aggregations={aggregations}
+                    activeFilters={facetFilters}
+                    onFilterChange={handleFacetChange}
+                  />
+                )}
               </div>
             </aside>
 
