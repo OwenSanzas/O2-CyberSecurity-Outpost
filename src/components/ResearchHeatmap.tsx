@@ -27,8 +27,8 @@ export default function ResearchHeatmap({ papers }: Props) {
     const data: Record<string, Record<number, number>> = {}
 
     if (dimension === 'category') {
-      groups = ['vulnerability-detection', 'fuzzing', 'privacy']
-      const labels: Record<string, string> = { 'vulnerability-detection': 'Vuln Detection', 'fuzzing': 'Fuzzing', 'privacy': 'Privacy' }
+      groups = ['vulnerability-detection', 'fuzzing', 'fuzzing-harness', 'patching', 'privacy']
+      const labels: Record<string, string> = { 'vulnerability-detection': 'Vuln Detection', 'fuzzing': 'Fuzzing', 'fuzzing-harness': 'Harness Gen', 'patching': 'Patching', 'privacy': 'Privacy' }
       for (const g of groups) {
         data[labels[g]] = {}
         for (const y of years) {
