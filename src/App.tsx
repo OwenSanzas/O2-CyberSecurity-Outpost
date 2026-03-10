@@ -9,6 +9,7 @@ import ExportButton from './components/ExportButton'
 import QuickFilters from './components/QuickFilters'
 import PaperTable from './components/PaperTable'
 import Pagination from './components/Pagination'
+import DailyPick from './components/DailyPick'
 import TimelineView from './components/TimelineView'
 import PaperComparison from './components/PaperComparison'
 const KnowledgeGraph = lazy(() => import('./components/KnowledgeGraph'))
@@ -396,6 +397,9 @@ function App() {
                 <SearchBar query={searchInput} onChange={setSearchInput} resultCount={filtered.length} totalCount={papers.length} papers={papers} searchHistory={searchHistory.history} onHistoryRemove={searchHistory.remove} onHistoryClear={searchHistory.clear} />
                 <QuickFilters onSearch={(q: string) => { setSearchInput(q); setQuery(q) }} currentQuery={query} />
               </div>
+
+              {/* Daily pick */}
+              <DailyPick papers={papers} lang={lang} onPaperClick={setSelectedPaper} />
 
               {/* Recently viewed */}
               <RecentlyViewed papers={papers} recentIds={recentlyViewed.ids} onPaperClick={setSelectedPaper} />
