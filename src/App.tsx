@@ -362,7 +362,7 @@ function App() {
       {/* Scroll progress bar */}
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
 
-      <MatrixRain />
+      {theme === 'dark' && <MatrixRain />}
 
       <div className="relative z-10">
         <Header paperCount={papers.length} categoryCount={headerStats.categoryCount} venueCount={headerStats.venueCount} yearRange={headerStats.yearRange} lang={lang} onLangChange={setLang} theme={theme} onThemeToggle={toggleTheme} />
