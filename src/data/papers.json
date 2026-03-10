@@ -4253,9 +4253,9 @@
       "DefectHunter在工业级和复杂漏洞数据集上与现有深度学习和LLM方法相比表现如何？"
     ],
     "conclusions": [
-      "DefectHunter在QEMU数据集上比Pongo-70B准确率提高了20.62%，在CWE-754数据集上准确率提高了14.64%。",
-      "Conformer机制通过融合自注意力和卷积网络，有效捕获了代码中的位置特征和内容交互信息。",
-      "案例研究表明DefectHunter能够有效理解漏洞的底层机制。"
+      "DefectHunter achieved a 20.62% improvement in accuracy over Pongo-70B on the QEMU dataset and a 14.64% improvement on the CWE-754 dataset.",
+      "The Conformer mechanism effectively captures positional features and content-based interactions in code by fusing self-attention with convolutional networks.",
+      "A case study demonstrated that DefectHunter can effectively understand the underlying mechanisms of vulnerabilities."
     ],
     "conclusions_zh": [
       "DefectHunter在QEMU数据集上比Pongo-70B准确率提高了20.62%，在CWE-754数据集上准确率提高了14.64%。",
@@ -4340,9 +4340,9 @@
       "ANVIL在无标注数据条件下的行级漏洞检测与LineVul和LineVD等监督方法相比表现如何？"
     ],
     "conclusions": [
-      "LLM在重建易受攻击代码和非易受攻击代码时存在显著的预测准确率差距，验证了异常检测的可行性。",
-      "ANVIL在Magma基准测试中Top-5准确率比LineVul和LineVD高1.62至2.18倍，ROC分数高1.02至1.29倍。",
-      "ANVIL在从未使用标注漏洞数据训练的情况下超越了使用标注数据训练的最先进行级漏洞检测器。"
+      "A significant gap in prediction accuracy between LLM reconstruction of vulnerable versus non-vulnerable code validates the feasibility of anomaly-based detection.",
+      "ANVIL achieved 1.62x to 2.18x higher Top-5 accuracy and 1.02x to 1.29x higher ROC scores than LineVul and LineVD on the Magma benchmark.",
+      "ANVIL outperformed state-of-the-art line-level vulnerability detectors trained on labelled data, despite never being trained on labelled vulnerability data itself."
     ],
     "conclusions_zh": [
       "LLM在重建易受攻击代码和非易受攻击代码时存在显著的预测准确率差距，验证了异常检测的可行性。",
@@ -4424,9 +4424,9 @@
       "不变量违反检查能否有效定位导致财务损失的真实智能合约中的漏洞？"
     ],
     "conclusions": [
-      "SmartInv成功发现了119个零日漏洞，其中8个已报告给开发者，6个被迅速修复，5个被确认为高危。",
-      "Tier of Thought (ToT)策略有效地使基础模型能够跨多种模态推理并生成有用的不变量。",
-      "通过检查生成的不变量违反情况，SmartInv能够有效定位传统工具无法审计的智能合约漏洞。"
+      "SmartInv discovered 119 zero-day vulnerabilities, of which 8 were reported to developers, 6 were promptly fixed, and 5 were confirmed as high-severity.",
+      "The Tier of Thought (ToT) strategy effectively enables foundation models to reason across multiple modalities and generate useful invariants.",
+      "By checking for violations of generated invariants, SmartInv can effectively locate smart contract vulnerabilities that traditional tools are unable to audit."
     ],
     "conclusions_zh": [
       "SmartInv成功发现了119个零日漏洞，其中8个已报告给开发者，6个被迅速修复，5个被确认为高危。",
@@ -4502,9 +4502,9 @@
       "如何结合故障注入重新利用现有单元测试来暴露与重试相关的问题？"
     ],
     "conclusions": [
-      "重试机制的临时实现特性虽然给传统程序分析带来挑战，但非常适合大语言模型进行分析。",
-      "通过精心复用现有单元测试并结合故障注入，可以有效暴露多种类型的重试问题。",
-      "该研究提出的静态和动态技术套件能够有效检测软件中的重试问题。"
+      "The ad-hoc implementation nature of retry mechanisms, while posing challenges for traditional program analysis, makes them well-suited for analysis by large language models.",
+      "Carefully reusing existing unit tests combined with fault injection can effectively expose multiple types of retry bugs.",
+      "The proposed suite of static and dynamic techniques can effectively detect retry issues in software systems."
     ],
     "conclusions_zh": [
       "重试机制的临时实现特性虽然给传统程序分析带来挑战，但非常适合大语言模型进行分析。",
@@ -4580,9 +4580,9 @@
       "如何从代码仓库中提取漏洞相关信息以提供漏洞触发的解释？"
     ],
     "conclusions": [
-      "通过多智能体协作设计，可以有效地将LLM应用于仓库级漏洞检测，超越传统的函数级分析。",
-      "该方法能够处理跨文件的复杂过程间漏洞检测场景，接近开发者使用程序分析工具的实际工作流程。",
-      "多智能体架构为从仓库中提取漏洞信息并解释漏洞触发机制提供了可行路径。"
+      "Through multi-agent collaborative design, LLMs can be effectively applied to repository-level vulnerability detection, surpassing traditional function-level analysis.",
+      "The approach can handle complex inter-procedural vulnerability detection scenarios across files, closely approximating the actual workflow of developers using program analysis tools.",
+      "The multi-agent architecture provides a viable path for extracting vulnerability information from repositories and explaining vulnerability triggering mechanisms."
     ],
     "conclusions_zh": [
       "通过多智能体协作设计，可以有效地将LLM应用于仓库级漏洞检测，超越传统的函数级分析。",
@@ -4672,9 +4672,9 @@
       "通过结构化注释树显式编码代码执行序列是否能改善不同预训练模型的漏洞检测效果？"
     ],
     "conclusions": [
-      "SCALE在FFMPeg+Qemu、Reveal和SVulD数据集上的F1分数分别比最佳基线提升了2.96%、13.47%和3.75%。",
-      "SCALE可应用于不同的预训练模型（如CodeBERT和UniXcoder），F1分数提升范围为1.37%至10.87%。",
-      "将LLM生成的注释集成到AST中构建结构化注释树，有效增强了模型对复杂代码语义和执行序列的理解。"
+      "SCALE improved F1 scores over the best baselines by 2.96%, 13.47%, and 3.75% on the FFMPeg+Qemu, Reveal, and SVulD datasets, respectively.",
+      "SCALE is applicable to different pre-trained models (e.g., CodeBERT and UniXcoder), with F1 score improvements ranging from 1.37% to 10.87%.",
+      "Integrating LLM-generated comments into ASTs to construct structured comment trees effectively enhances model understanding of complex code semantics and execution sequences."
     ],
     "conclusions_zh": [
       "SCALE在FFMPeg+Qemu、Reveal和SVulD数据集上的F1分数分别比最佳基线提升了2.96%、13.47%和3.75%。",
@@ -4749,9 +4749,9 @@
       "基于LLM的方法能否作为物联网系统中传统安全审计的可行低成本替代方案？"
     ],
     "conclusions": [
-      "LLM与静态代码分析的结合通过提示工程实现，为物联网漏洞检测提供了一种经济高效的替代方案。",
-      "该方法不仅扩展了LLM的应用范围，还为实现低成本的物联网软件漏洞检测提供了可能性。",
-      "相比传统的例行安全审计，基于LLM的方法在成本和效率方面具有显著优势。"
+      "The combination of LLMs with static code analysis through prompt engineering provides a cost-effective alternative for IoT vulnerability detection.",
+      "The approach not only extends the applicability of LLMs but also opens the possibility of achieving low-cost vulnerability detection for IoT software.",
+      "Compared to traditional routine security audits, LLM-based approaches offer significant advantages in terms of cost and efficiency."
     ],
     "conclusions_zh": [
       "LLM与静态代码分析的结合通过提示工程实现，为物联网漏洞检测提供了一种经济高效的替代方案。",
@@ -4833,9 +4833,9 @@
       "双向适配器层能否克服LLM从左到右的限制以用于故障定位任务？"
     ],
     "conclusions": [
-      "LLMAO在Top-1结果上比最先进的机器学习故障定位基线提升了2.3%至54.4%，Top-5结果提升了14.4%至35.6%。",
-      "漏洞定位性能随LLM规模的增大而持续提升，更大的模型在故障定位中表现出更高的置信度。",
-      "LLMAO是首个使用语言模型架构训练的、能够在代码行级别检测安全漏洞的故障定位技术。"
+      "LLMAO achieved improvements of 2.3% to 54.4% over state-of-the-art machine learning fault localization baselines in Top-1 results and 14.4% to 35.6% in Top-5 results.",
+      "Vulnerability localization performance consistently improved with increasing LLM scale, with larger models exhibiting higher confidence in fault localization.",
+      "LLMAO is the first fault localization technique trained using a language model architecture that can detect security vulnerabilities at the code line level."
     ],
     "conclusions_zh": [
       "LLMAO在Top-1结果上比最先进的机器学习故障定位基线提升了2.3%至54.4%，Top-5结果提升了14.4%至35.6%。",
@@ -4930,9 +4930,9 @@
       "哪些特定的LLM和静态分析器在API漏洞检测中最有效和最无效？"
     ],
     "conclusions": [
-      "ChatGPT 4是最有效的LLM，第一个提示的检测率为62.5%，第二个提示为42.5%；LLaMA 2在两个提示中效果最差。",
-      "静态代码分析器的API漏洞检测率普遍较低，Snyk以25%领先，而pylint、Pyre和Trivy未检测到任何漏洞。",
-      "在适当提示下，LLM的漏洞检测效果显著优于静态代码分析器，但提示设计对结果有显著影响。"
+      "ChatGPT 4 was the most effective LLM, achieving a detection rate of 62.5% with the first prompt and 42.5% with the second; LLaMA 2 performed worst across both prompts.",
+      "Static code analyzers generally exhibited low API vulnerability detection rates, with Snyk leading at 25%, while pylint, Pyre, and Trivy failed to detect any vulnerabilities.",
+      "With appropriate prompting, LLMs significantly outperformed static code analyzers in vulnerability detection, although prompt design had a substantial impact on results."
     ],
     "conclusions_zh": [
       "ChatGPT 4是最有效的LLM，第一个提示的检测率为62.5%，第二个提示为42.5%；LLaMA 2在两个提示中效果最差。",
@@ -5017,9 +5017,9 @@
       "提供额外的上下文信息如何影响LLM的漏洞评估能力？"
     ],
     "conclusions": [
-      "现有最先进方法和预训练语言模型在漏洞检测任务中总体上优于LLM。",
-      "CodeLlama和WizardCoder在漏洞评估和定位方面优于预训练语言模型，提供更多上下文信息能增强LLM的评估能力。",
-      "LLM具有较强的漏洞描述能力，但其过度输出的倾向显著削弱了与预训练语言模型相比的表现。"
+      "Existing state-of-the-art methods and pre-trained language models generally outperform LLMs on vulnerability detection tasks.",
+      "CodeLlama and WizardCoder outperformed pre-trained language models in vulnerability assessment and localization, and providing more contextual information enhanced the assessment capabilities of LLMs.",
+      "LLMs exhibit strong vulnerability description capabilities, but their tendency toward excessive output significantly diminishes their performance compared to pre-trained language models."
     ],
     "conclusions_zh": [
       "现有最先进方法和预训练语言模型在漏洞检测任务中总体上优于LLM。",
@@ -5097,9 +5097,9 @@
       "LLM-Fuzzer生成的越狱提示能否在不同LLM模型之间有效转移？"
     ],
     "conclusions": [
-      "LLM-Fuzzer生成的越狱提示在可利用性和可转移性方面显著优于人工制作的提示。",
-      "许多开源和商业LLM即使经过安全微调仍存在严重的越狱问题。",
-      "基于模糊测试的自动化方法有效解决了手动红队测试的可扩展性挑战。"
+      "Jailbreak prompts generated by LLM-Fuzzer significantly outperformed manually crafted prompts in both exploitability and transferability.",
+      "Many open-source and commercial LLMs remain seriously vulnerable to jailbreaking even after safety fine-tuning.",
+      "The fuzzing-based automated approach effectively addresses the scalability challenges of manual red-teaming."
     ],
     "conclusions_zh": [
       "LLM-Fuzzer生成的越狱提示在可利用性和可转移性方面显著优于人工制作的提示。",
@@ -5187,9 +5187,9 @@
       "滑动窗口和右前向嵌入等补救策略能否解决输入长度和单向上下文的限制？"
     ],
     "conclusions": [
-      "LLM的判别式微调显著优于现有的基于学习的漏洞定位方法，而其他范式效果较差或出乎意料地无效。",
-      "滑动窗口和右前向嵌入两种补救策略都能显著提升编码器和解码器微调过程中的性能。",
-      "LLM在跨CWE类型和不同项目之间展现了一定的泛化能力，表明其在漏洞定位实际应用中具有前景。"
+      "Discriminative fine-tuning of LLMs significantly outperformed existing learning-based vulnerability localization methods, while other paradigms proved less effective or surprisingly ineffective.",
+      "Both the sliding window and right-forward embedding remediation strategies significantly improved performance during encoder and decoder fine-tuning.",
+      "LLMs demonstrated a degree of generalization across CWE types and different projects, indicating their promise for practical vulnerability localization applications."
     ],
     "conclusions_zh": [
       "LLM的判别式微调显著优于现有的基于学习的漏洞定位方法，而其他范式效果较差或出乎意料地无效。",
@@ -5276,9 +5276,9 @@
       "结合外部知识的链式微调与标准微调在漏洞映射方面的效果如何比较？"
     ],
     "conclusions": [
-      "VTT-LLM在ChatGPT-VDMEval数据集上达到85.18%的准确率，比CVET高13.69%，比基于ChatGPT的方法高54.42%。",
-      "链式微调比不使用外部知识的微调在不同LLM上平均准确率提高了9.24%。",
-      "通过利用CWE和CAPEC知识创建微调指令，VTT-LLM能够自动化CVE到ATT&CK的映射过程。"
+      "VTT-LLM achieved 85.18% accuracy on the ChatGPT-VDMEval dataset, outperforming CVET by 13.69% and ChatGPT-based methods by 54.42%.",
+      "Chain fine-tuning improved average accuracy by 9.24% across different LLMs compared to fine-tuning without external knowledge.",
+      "By leveraging CWE and CAPEC knowledge to create fine-tuning instructions, VTT-LLM can automate the CVE-to-ATT&CK mapping process."
     ],
     "conclusions_zh": [
       "VTT-LLM在ChatGPT-VDMEval数据集上达到85.18%的准确率，比CVET高13.69%，比基于ChatGPT的方法高54.42%。",
@@ -5360,9 +5360,9 @@
       "将SAST工具与LLM集成能否减轻各自方法的单独缺陷？"
     ],
     "conclusions": [
-      "SAST工具漏洞检测率较低但误报率也较低，LLM能检测90%至100%的漏洞但存在高误报率。",
-      "将SAST工具与LLM集成可以在一定程度上缓解两者各自的缺陷。",
-      "15种SAST工具与12种LLM的全面对比揭示了当前漏洞检测的进展和未来方向。"
+      "SAST tools exhibited low vulnerability detection rates but also low false positive rates, while LLMs detected 90% to 100% of vulnerabilities but suffered from high false positive rates.",
+      "Integrating SAST tools with LLMs can mitigate the respective shortcomings of both approaches to some extent.",
+      "A comprehensive comparison of 15 SAST tools and 12 LLMs revealed current progress and future directions in vulnerability detection."
     ],
     "conclusions_zh": [
       "SAST工具漏洞检测率较低但误报率也较低，LLM能检测90%至100%的漏洞但存在高误报率。",
@@ -5442,9 +5442,9 @@
       "LLM的少样本学习能力能否弥合与专业漏洞检测模型之间的差距？"
     ],
     "conclusions": [
-      "GPT-3.5在漏洞检测方面达到了与先前最先进方法相当的性能。",
-      "GPT-4在漏洞检测中始终优于最先进的方法，展现了LLM在该领域的潜力。",
-      "提示策略的选择对LLM的漏洞检测性能有重要影响。"
+      "GPT-3.5 achieved performance comparable to prior state-of-the-art methods in vulnerability detection.",
+      "GPT-4 consistently outperformed state-of-the-art methods in vulnerability detection, demonstrating the potential of LLMs in this domain.",
+      "The choice of prompting strategy has a significant impact on the vulnerability detection performance of LLMs."
     ],
     "conclusions_zh": [
       "GPT-3.5在漏洞检测方面达到了与先前最先进方法相当的性能。",
@@ -5544,9 +5544,9 @@
       "LLM生成的测试程序能在TensorFlow和PyTorch中发现哪些类型的漏洞（崩溃、NaN错误、不一致性）？"
     ],
     "conclusions": [
-      "TitanFuzz在TensorFlow和PyTorch中发现了65个漏洞，其中44个被确认，15个获得CVE编号。",
-      "LLM能够在零样本条件下生成有效的API级输入，解决了现有方法难以生成有效测试输入的问题。",
-      "将LLM代码生成与进化模糊测试策略结合，比FreeFuzz、DeepREL和DocTer等基线方法更有效。"
+      "TitanFuzz discovered 65 bugs in TensorFlow and PyTorch, of which 44 were confirmed and 15 were assigned CVE numbers.",
+      "LLMs can generate valid API-level inputs under zero-shot conditions, addressing the difficulty existing methods face in generating effective test inputs.",
+      "Combining LLM code generation with evolutionary fuzzing strategies proved more effective than baseline methods such as FreeFuzz, DeepREL, and DocTer."
     ],
     "conclusions_zh": [
       "TitanFuzz在TensorFlow和PyTorch中发现了65个漏洞，其中44个被确认，15个获得CVE编号。",
@@ -5653,9 +5653,9 @@
       "Fuzz4All能否在C、C++、Go、SMT2和Java的多种被测系统（编译器、解释器、求解器）中发现漏洞？"
     ],
     "conclusions": [
-      "Fuzz4All在5种语言的6个被测系统中发现了98个漏洞，其中64个已被确认。",
-      "LLM作为通用输入生成引擎，使单一模糊测试器能够有效测试跨多种语言的系统，优于CSmith、YARPGen等语言特定工具。",
-      "该方法成功在GCC、Clang、Go编译器、Z3和javac等生产系统中发现了真实漏洞。"
+      "Fuzz4All discovered 98 bugs across 6 systems under test in 5 programming languages, with 64 confirmed.",
+      "Using an LLM as a universal input generation engine enables a single fuzzer to effectively test systems across multiple languages, outperforming language-specific tools such as CSmith and YARPGen.",
+      "The approach successfully uncovered real bugs in production systems including GCC, Clang, the Go compiler, Z3, and javac."
     ],
     "conclusions_zh": [
       "Fuzz4All在5种语言的6个被测系统中发现了98个漏洞，其中64个已被确认。",
@@ -5752,9 +5752,9 @@
       "LLM生成的测试程序能否专门触发编译器优化遍以发现错误编译漏洞？"
     ],
     "conclusions": [
-      "WhiteFox在GCC和LLVM中发现了101个漏洞，其中96个已被确认。",
-      "通过分析编译器源代码理解优化触发条件，WhiteFox能够生成专门触发特定优化遍的测试程序。",
-      "白盒方法显著优于CSmith、YARPGen和Fuzz4All等黑盒基线方法。"
+      "WhiteFox discovered 101 bugs in GCC and LLVM, of which 96 were confirmed.",
+      "By analyzing compiler source code to understand optimization trigger conditions, WhiteFox can generate test programs specifically designed to trigger particular optimization passes.",
+      "The white-box approach significantly outperformed black-box baseline methods including CSmith, YARPGen, and Fuzz4All."
     ],
     "conclusions_zh": [
       "WhiteFox在GCC和LLVM中发现了101个漏洞，其中96个已被确认。",
@@ -5850,9 +5850,9 @@
       "自动生成的规范能否使此前测试不足的内核驱动程序进行模糊测试？"
     ],
     "conclusions": [
-      "KernelGPT成功为113个新驱动程序生成了规范，并发现了11个新的内核漏洞。",
-      "LLM能够理解内核源代码中的系统调用接口并生成有效的syzlang描述，优于SyzDescribe和KSG。",
-      "自动化规范生成显著扩展了内核模糊测试的覆盖范围，解决了手动编写规范费时易错的问题。"
+      "KernelGPT successfully generated specifications for 113 new drivers and discovered 11 new kernel vulnerabilities.",
+      "LLMs can understand syscall interfaces in kernel source code and generate valid syzlang descriptions, outperforming SyzDescribe and KSG.",
+      "Automated specification generation significantly expanded the coverage of kernel fuzzing, addressing the time-consuming and error-prone nature of manual specification writing."
     ],
     "conclusions_zh": [
       "KernelGPT成功为113个新驱动程序生成了规范，并发现了11个新的内核漏洞。",
@@ -5954,9 +5954,9 @@
       "精选过去触发漏洞的输入示例是否能改善LLM生成边界情况输入的效果？"
     ],
     "conclusions": [
-      "FuzzGPT在JavaScript引擎和编译器中发现了76个漏洞，其中49个是此前未知的。",
-      "通过精心策划的历史漏洞触发输入进行上下文学习，LLM能够有效生成类似的边界情况输入。",
-      "FuzzGPT在V8、SpiderMonkey和JavaScriptCore等生产环境JavaScript引擎中发现了真实漏洞。"
+      "FuzzGPT discovered 76 bugs in JavaScript engines and compilers, of which 49 were previously unknown.",
+      "Through in-context learning with carefully curated historical bug-triggering inputs, LLMs can effectively generate similar edge-case inputs.",
+      "FuzzGPT uncovered real bugs in production JavaScript engines including V8, SpiderMonkey, and JavaScriptCore."
     ],
     "conclusions_zh": [
       "FuzzGPT在JavaScript引擎和编译器中发现了76个漏洞，其中49个是此前未知的。",
@@ -6055,9 +6055,9 @@
       "基于LLM的模糊测试目标生成能否扩展到数百个不同的开源项目？"
     ],
     "conclusions": [
-      "OSS-Fuzz-Gen成功为160多个项目生成了模糊测试工具，代码覆盖率提高了30%。",
-      "LLM对代码和API语义的理解使其能够为之前没有模糊测试覆盖的项目生成有效的测试工具。",
-      "该方法已部署在Google OSS-Fuzz持续模糊测试管道中，证明了其实际可用性。"
+      "OSS-Fuzz-Gen successfully generated fuzz harnesses for over 160 projects, increasing code coverage by 30%.",
+      "The LLM's understanding of code and API semantics enables it to generate effective harnesses for projects that previously had no fuzzing coverage.",
+      "The approach has been deployed in the Google OSS-Fuzz continuous fuzzing pipeline, demonstrating its practical viability."
     ],
     "conclusions_zh": [
       "OSS-Fuzz-Gen成功为160多个项目生成了模糊测试工具，代码覆盖率提高了30%。",
@@ -6151,9 +6151,9 @@
       "主要商业LLM的提示注入易感性程度如何？"
     ],
     "conclusions": [
-      "PromptFuzz在3个主要LLM中发现了200多种提示注入变体。",
-      "基于变异和基于生成的模糊测试技术能够系统性地揭示LLM中的提示注入漏洞。",
-      "该方法识别出了生产LLM系统中的安全绕过方式，证实了当前LLM安全防护的不足。"
+      "PromptFuzz discovered over 200 prompt injection variants across 3 major LLMs.",
+      "Mutation-based and generation-based fuzzing techniques can systematically uncover prompt injection vulnerabilities in LLMs.",
+      "The approach identified security bypass methods in production LLM systems, confirming the inadequacy of current LLM safety defenses."
     ],
     "conclusions_zh": [
       "PromptFuzz在3个主要LLM中发现了200多种提示注入变体。",
@@ -6251,9 +6251,9 @@
       "UI元素分析在指导LLM生成导致崩溃的输入方面发挥什么作用？"
     ],
     "conclusions": [
-      "InputBlaster发现了118个独特的崩溃，比基线方法多73%。",
-      "通过分析应用UI元素及其预期输入类型，LLM能够生成有针对性的边界测试输入。",
-      "LLM对UI上下文的理解使其在生成导致崩溃的输入方面显著优于Monkey、QTypist和CrashTranslator。"
+      "InputBlaster discovered 118 unique crashes, 73% more than baseline methods.",
+      "By analyzing application UI elements and their expected input types, LLMs can generate targeted boundary-testing inputs.",
+      "The LLM's understanding of UI context enables it to significantly outperform Monkey, QTypist, and CrashTranslator in generating crash-inducing inputs."
     ],
     "conclusions_zh": [
       "InputBlaster发现了118个独特的崩溃，比基线方法多73%。",
@@ -6357,9 +6357,9 @@
       "在有效输入语料库上对Llama进行LoRA微调是否能有效教会输入结构以用于模糊测试？"
     ],
     "conclusions": [
-      "LlamaFuzz比AFL++分支覆盖率提高了15%，并发现了12个新漏洞。",
-      "通过LoRA微调Llama-2学习输入语法，能够生成保持结构有效性的变异，优于Nautilus、Superion和Gramatron。",
-      "将微调LLM集成到灰盒模糊测试中，有效解决了处理结构化输入时保持有效性的挑战。"
+      "LlamaFuzz achieved 15% higher branch coverage than AFL++ and discovered 12 new bugs.",
+      "Fine-tuning Llama-2 via LoRA to learn input grammar enables the generation of mutations that maintain structural validity, outperforming Nautilus, Superion, and Gramatron.",
+      "Integrating a fine-tuned LLM into greybox fuzzing effectively addresses the challenge of maintaining validity when processing structured inputs."
     ],
     "conclusions_zh": [
       "LlamaFuzz比AFL++分支覆盖率提高了15%，并发现了12个新漏洞。",
@@ -6459,9 +6459,9 @@
       "用LLM生成的结构感知输入丰富模糊测试器的消息池是否能提高协议状态覆盖率？"
     ],
     "conclusions": [
-      "ChatAFL比基线方法的状态覆盖率提高了28%，并在协议实现中发现了8个新漏洞。",
-      "LLM对协议规范的理解能够生成语义有效的消息，有效丰富了模糊测试器的消息池。",
-      "在DTLS、RTSP和FTP等协议实现中发现了真实漏洞，证明了该方法的实用性。"
+      "ChatAFL improved state coverage by 28% over baseline methods and discovered 8 new bugs in protocol implementations.",
+      "The LLM's understanding of protocol specifications enables the generation of semantically valid messages, effectively enriching the fuzzer's message pool.",
+      "Real bugs were found in DTLS, RTSP, and FTP protocol implementations, demonstrating the practical utility of the approach."
     ],
     "conclusions_zh": [
       "ChatAFL比基线方法的状态覆盖率提高了28%，并在协议实现中发现了8个新漏洞。",
@@ -6561,9 +6561,9 @@
       "LLM对输入格式要求的理解是否能转化为更多样化和有效的初始种子？"
     ],
     "conclusions": [
-      "使用LLM生成的种子，漏洞发现速度提高了22%，边缘覆盖率提高了18%。",
-      "LLM能够通过分析源代码和文档理解输入格式要求，生成多样化且有效的初始种子。",
-      "与AFL++默认种子和空种子相比，LLM生成的种子在Magma和FuzzBench基准测试中表现更优。"
+      "Using LLM-generated seeds improved bug discovery speed by 22% and edge coverage by 18%.",
+      "LLMs can understand input format requirements by analyzing source code and documentation, generating diverse and valid initial seeds.",
+      "Compared to AFL++ default seeds and empty seeds, LLM-generated seeds performed better on the Magma and FuzzBench benchmarks."
     ],
     "conclusions_zh": [
       "使用LLM生成的种子，漏洞发现速度提高了22%，边缘覆盖率提高了18%。",
@@ -6663,9 +6663,9 @@
       "用生成式AI增强AFL++是否能改善处理结构化输入的程序的漏洞发现效果？"
     ],
     "conclusions": [
-      "在结构化输入上比AFL++多发现了31%的漏洞。",
-      "微调后的语言模型能够学习输入结构并生成绕过格式验证的变异，从而探索更深层的程序路径。",
-      "生成式AI与灰盒模糊测试的结合，有效解决了传统模糊测试器在处理结构化输入时面临的格式约束挑战。"
+      "The approach discovered 31% more bugs on structured inputs compared to AFL++.",
+      "A fine-tuned language model can learn input structure and generate mutations that bypass format validation, thereby exploring deeper program paths.",
+      "The combination of generative AI with greybox fuzzing effectively addresses the format constraint challenges that traditional fuzzers face when processing structured inputs."
     ],
     "conclusions_zh": [
       "在结构化输入上比AFL++多发现了31%的漏洞。",
@@ -6765,9 +6765,9 @@
       "LLM生成的模糊测试驱动程序与手动和自动基线相比能达到怎样的编译率和API覆盖率？"
     ],
     "conclusions": [
-      "73%的LLM生成的测试工具可以成功编译，并达到60%以上的API覆盖率。",
-      "多轮LLM交互结合反馈驱动的优化能够有效解决编译错误和API使用问题。",
-      "该方法在流行库中发现了15个此前未知的漏洞，证明了LLM生成的测试工具的实用价值。"
+      "73% of LLM-generated harnesses compiled successfully and achieved over 60% API coverage.",
+      "Multi-turn LLM interaction combined with feedback-driven optimization can effectively resolve compilation errors and API usage issues.",
+      "The approach discovered 15 previously unknown bugs in popular libraries, demonstrating the practical value of LLM-generated harnesses."
     ],
     "conclusions_zh": [
       "73%的LLM生成的测试工具可以成功编译，并达到60%以上的API覆盖率。",
@@ -6868,9 +6868,9 @@
       "FuzzCraft与FUDGE和Hopper等现有工具在自动化测试工具生成方面的比较如何？"
     ],
     "conclusions": [
-      "FuzzCraft达到82%的编译成功率，并在15个库中发现了23个新漏洞。",
-      "通过分析API签名、文档和现有测试用例，LLM能够生成可直接编译的有效模糊测试工具。",
-      "在libxml2、zlib和openssl等库中发现了真实漏洞，验证了该方法的实际安全价值。"
+      "FuzzCraft achieved an 82% compilation success rate and discovered 23 new bugs across 15 libraries.",
+      "By analyzing API signatures, documentation, and existing test cases, LLMs can generate valid fuzzing harnesses that compile directly.",
+      "Real bugs found in libraries such as libxml2, zlib, and openssl validated the practical security value of the approach."
     ],
     "conclusions_zh": [
       "FuzzCraft达到82%的编译成功率，并在15个库中发现了23个新漏洞。",
@@ -6969,9 +6969,9 @@
       "Muzeel能否在生产JavaScript引擎中发现安全关键漏洞（类型混淆、内存破坏）？"
     ],
     "conclusions": [
-      "Muzeel在V8、SpiderMonkey和JSC中发现了42个漏洞，获得了18个CVE编号。",
-      "LLM生成的结构化测试程序结合覆盖引导反馈，比Montage、DIE和Fuzzilli等基线更有效。",
-      "该方法在生产环境JavaScript引擎中发现了类型混淆和内存破坏等安全关键漏洞。"
+      "Muzeel discovered 42 bugs in V8, SpiderMonkey, and JSC, receiving 18 CVE assignments.",
+      "LLM-generated structured test programs combined with coverage-guided feedback proved more effective than baselines including Montage, DIE, and Fuzzilli.",
+      "The approach uncovered security-critical vulnerabilities such as type confusion and memory corruption in production JavaScript engines."
     ],
     "conclusions_zh": [
       "Muzeel在V8、SpiderMonkey和JSC中发现了42个漏洞，获得了18个CVE编号。",
@@ -7071,9 +7071,9 @@
       "LLM合成的模糊测试驱动程序与FUDGE、Hopper和FuzzGen在API级模糊测试方面的比较如何？"
     ],
     "conclusions": [
-      "68%的驱动程序可以正确编译，其中45%达到了70%以上的代码覆盖率。",
-      "通过从API文档、测试套件和客户端代码使用模式中学习，LLM能够理解API语义和参数约束。",
-      "基于程序合成的方法在C、C++和Rust库的API级模糊测试驱动生成方面展现了可行性。"
+      "68% of the generated drivers compiled correctly, with 45% achieving over 70% code coverage.",
+      "By learning from API documentation, test suites, and client code usage patterns, LLMs can understand API semantics and parameter constraints.",
+      "The program synthesis-based approach demonstrated feasibility for API-level fuzz driver generation targeting C, C++, and Rust libraries."
     ],
     "conclusions_zh": [
       "68%的驱动程序可以正确编译，其中45%达到了70%以上的代码覆盖率。",
@@ -7174,9 +7174,9 @@
       "LLM生成的针对性模糊测试输入能否检测到已部署DeFi协议中的零日漏洞？"
     ],
     "conclusions": [
-      "SmartFuzz在DeFi协议中发现了35个零日漏洞，并向12个DeFi项目进行了负责任的披露。",
-      "LLM对Solidity语义的理解使其能够生成针对重入、整数溢出和访问控制等特定漏洞模式的交易序列。",
-      "该方法在SmartBugs和真实DeFi协议上的表现优于Mythril、Slither、Echidna和ItyFuzz。"
+      "SmartFuzz discovered 35 zero-day vulnerabilities in DeFi protocols and conducted responsible disclosure to 12 DeFi projects.",
+      "The LLM's understanding of Solidity semantics enables it to generate transaction sequences targeting specific vulnerability patterns such as reentrancy, integer overflow, and access control issues.",
+      "The approach outperformed Mythril, Slither, Echidna, and ItyFuzz on the SmartBugs benchmark and real-world DeFi protocols."
     ],
     "conclusions_zh": [
       "SmartFuzz在DeFi协议中发现了35个零日漏洞，并向12个DeFi项目进行了负责任的披露。",
@@ -7272,9 +7272,9 @@
       "LLM衍生的模糊测试目标能否按照规范要求驱动协议状态机？"
     ],
     "conclusions": [
-      "LLM生成的测试工具达到了手写测试工具85%的代码覆盖率。",
-      "LLM能够理解RFC文档中的协议规范并生成能驱动协议状态机的模糊测试目标。",
-      "自动化从RFC到模糊测试目标的生成，显著降低了协议模糊测试的人力成本。"
+      "LLM-generated harnesses achieved 85% of the code coverage of manually written harnesses.",
+      "LLMs can understand protocol specifications from RFC documents and generate fuzz targets that drive protocol state machines.",
+      "Automating the generation of fuzz targets from RFCs significantly reduces the manual effort required for protocol fuzzing."
     ],
     "conclusions_zh": [
       "LLM生成的测试工具达到了手写测试工具85%的代码覆盖率。",
@@ -7376,9 +7376,9 @@
       "AutoFuzz在编译率和代码覆盖率方面与FUDGE和FuzzGen相比如何？"
     ],
     "conclusions": [
-      "AutoFuzz达到88%的编译成功率，比FUDGE多25%的代码覆盖率。",
-      "类型感知API分析与LLM代码生成和迭代编译反馈的结合，显著提高了生成的模糊测试驱动的质量。",
-      "在libpng、libjpeg和sqlite中发现了9个新漏洞，验证了该方法的实际效果。"
+      "AutoFuzz achieved an 88% compilation success rate and 25% more code coverage than FUDGE.",
+      "The combination of type-aware API analysis with LLM code generation and iterative compilation feedback significantly improved the quality of generated fuzz drivers.",
+      "Nine new bugs found in libpng, libjpeg, and sqlite validated the practical effectiveness of the approach."
     ],
     "conclusions_zh": [
       "AutoFuzz达到88%的编译成功率，比FUDGE多25%的代码覆盖率。",
@@ -7479,9 +7479,9 @@
       "将LLM的语言理解能力与传统基于语法的模糊测试相结合是否能提高效果？"
     ],
     "conclusions": [
-      "LLM推断的语法达到了手写语法92%的覆盖率。",
-      "LLM能够从源代码和文档中有效推断输入语法，大幅减少了编写语法规范的人力需求。",
-      "将LLM的语言理解能力与Nautilus和Gramatron等语法感知模糊测试器结合，提高了结构化输入测试的效果。"
+      "LLM-inferred grammars achieved 92% of the coverage of manually written grammars.",
+      "LLMs can effectively infer input grammars from source code and documentation, greatly reducing the manual effort needed to write grammar specifications.",
+      "Combining the LLM's language understanding capabilities with grammar-aware fuzzers such as Nautilus and Gramatron improved the effectiveness of structured input testing."
     ],
     "conclusions_zh": [
       "LLM推断的语法达到了手写语法92%的覆盖率。",
@@ -7580,9 +7580,9 @@
       "基于LLM的模糊测试目标生成如何应对Rust编译时内存安全模型的独特挑战？"
     ],
     "conclusions": [
-      "RustFuzz为85%的测试crate生成了有效的模糊测试目标，并在流行Rust crate中发现了7个漏洞。",
-      "LLM能够理解Rust的所有权系统、生命周期和trait约束，生成正确管理资源的有效Rust代码。",
-      "针对Rust特性的专门处理使LLM生成的模糊测试目标优于通用方法和默认cargo-fuzz。"
+      "RustFuzz generated valid fuzz targets for 85% of test crates and discovered 7 bugs in popular Rust crates.",
+      "LLMs can understand Rust's ownership system, lifetimes, and trait constraints to generate valid Rust code that correctly manages resources.",
+      "Specialized handling of Rust-specific features enabled LLM-generated fuzz targets to outperform generic approaches and the default cargo-fuzz."
     ],
     "conclusions_zh": [
       "RustFuzz为85%的测试crate生成了有效的模糊测试目标，并在流行Rust crate中发现了7个漏洞。",
@@ -7679,9 +7679,9 @@
       "LLM对路径约束的逐步推理是否能提高到达特定程序位置的速度和成功率？"
     ],
     "conclusions": [
-      "该方法到达的目标位置比AFLGo多40%，速度快2.3倍。",
-      "LLM能够分析目标路径并逐步推理中间条件，生成满足复杂路径约束的输入。",
-      "将LLM推理能力与定向模糊测试结合，有效克服了传统方法在复杂路径约束面前的困难。"
+      "The approach reached 40% more target locations than AFLGo and was 2.3x faster.",
+      "LLMs can analyze target paths and reason step by step about intermediate conditions, generating inputs that satisfy complex path constraints.",
+      "Combining LLM reasoning capabilities with directed fuzzing effectively overcomes the difficulties traditional methods face with complex path constraints."
     ],
     "conclusions_zh": [
       "该方法到达的目标位置比AFLGo多40%，速度快2.3倍。",
@@ -7780,9 +7780,9 @@
       "基于LLM的预言生成能否发现传统DBMS模糊测试工具遗漏的逻辑错误？"
     ],
     "conclusions": [
-      "该方法在SQLite、MySQL和PostgreSQL中发现了28个新漏洞。",
-      "LLM对SQL语义的理解使其能够生成有效的测试预言，检测传统方法难以发现的逻辑错误。",
-      "漏洞已在SQLite和PostgreSQL中被确认，证明了LLM生成的测试预言在实际数据库系统中的价值。"
+      "The approach discovered 28 new bugs in SQLite, MySQL, and PostgreSQL.",
+      "The LLM's understanding of SQL semantics enables it to generate effective test oracles that detect logic errors difficult to find using traditional methods.",
+      "Bugs were confirmed in SQLite and PostgreSQL, demonstrating the value of LLM-generated test oracles in real-world database systems."
     ],
     "conclusions_zh": [
       "该方法在SQLite、MySQL和PostgreSQL中发现了28个新漏洞。",
@@ -7880,9 +7880,9 @@
       "LLM生成的Wasm模块能否在Wasmtime和Wasmer等生产运行时中发现安全相关漏洞？"
     ],
     "conclusions": [
-      "WasmFuzz在Wasm运行时中发现了19个漏洞，其中7个与安全相关。",
-      "LLM对Wasm规范的理解使其能够生成有针对性的边界情况模块，比wasm-smith和默认模糊测试器更有效。",
-      "在Wasmtime和Wasmer中发现了安全漏洞，证明了该方法对关键基础设施的测试价值。"
+      "WasmFuzz discovered 19 bugs in Wasm runtimes, 7 of which were security-related.",
+      "The LLM's understanding of the Wasm specification enables it to generate targeted edge-case modules more effectively than wasm-smith and default fuzzers.",
+      "Security vulnerabilities found in Wasmtime and Wasmer demonstrated the value of the approach for testing critical infrastructure."
     ],
     "conclusions_zh": [
       "WasmFuzz在Wasm运行时中发现了19个漏洞，其中7个与安全相关。",
@@ -7979,9 +7979,9 @@
       "通过LLM分析理解复杂的系统调用依赖关系能否实现更有效的内核漏洞发现？"
     ],
     "conclusions": [
-      "SyzDirect的目标到达速度比Syzkaller快3.2倍。",
-      "LLM能够分析内核源代码以理解复杂的系统调用依赖关系，生成有针对性的系统调用序列。",
-      "该方法发现了5个新的内核漏洞，证明了LLM引导的定向内核模糊测试的实用性。"
+      "SyzDirect achieved 3.2x faster target reaching speed than Syzkaller.",
+      "LLMs can analyze kernel source code to understand complex syscall dependencies and generate targeted syscall sequences.",
+      "The approach discovered 5 new kernel vulnerabilities, demonstrating the practicality of LLM-guided directed kernel fuzzing."
     ],
     "conclusions_zh": [
       "SyzDirect的目标到达速度比Syzkaller快3.2倍。",
@@ -8087,9 +8087,9 @@
       "评估LLM生成的模糊测试工具需要哪些系统化的评估维度？"
     ],
     "conclusions": [
-      "GPT-4达到76%的编译成功率，其中58%的测试工具实现了有效的代码覆盖。",
-      "不同LLM在模糊测试工具生成方面的性能差异显著，编译成功率、代码覆盖率和漏洞检测能力各不相同。",
-      "该综合基准涵盖30个C/C++库的200个API，为系统评估LLM生成的模糊测试工具提供了标准化框架。"
+      "GPT-4 achieved a 76% compilation success rate, with 58% of the harnesses attaining effective code coverage.",
+      "Performance differences among LLMs in fuzz harness generation were substantial, with significant variation in compilation success rates, code coverage, and bug detection capabilities.",
+      "The comprehensive benchmark covering 200 APIs across 30 C/C++ libraries provides a standardized framework for systematically evaluating LLM-generated fuzz harnesses."
     ],
     "conclusions_zh": [
       "GPT-4达到76%的编译成功率，其中58%的测试工具实现了有效的代码覆盖。",
@@ -8187,9 +8187,9 @@
       "LLM对API语义的理解是否有助于生成更多样化的参数组合和边界值？"
     ],
     "conclusions": [
-      "该方法比RESTler多发现了22%的独特错误。",
-      "LLM能够理解OpenAPI规范并生成涵盖多样参数组合和边界值的综合测试工具。",
-      "基于LLM的方法在RESTful API测试中展现了优于传统自动化API测试工具的能力。"
+      "The approach discovered 22% more unique bugs than RESTler.",
+      "LLMs can understand OpenAPI specifications and generate comprehensive harnesses covering diverse parameter combinations and boundary values.",
+      "The LLM-based approach demonstrated superior capabilities over traditional automated API testing tools for RESTful API testing."
     ],
     "conclusions_zh": [
       "该方法比RESTler多发现了22%的独特错误。",
@@ -8290,9 +8290,9 @@
       "经过强化学习优化的LLM模糊测试方法在边缘覆盖率方面是否优于Fuzz4All和AFL++？"
     ],
     "conclusions": [
-      "该方法比Fuzz4All多达到18%的边缘覆盖率。",
-      "强化学习代理能够学会有效地提示LLM以生成最大化代码覆盖的输入，形成有效的反馈循环。",
-      "将覆盖引导的强化学习与LLM生成相结合，优于Fuzz4All和FuzzGPT等静态提示方法。"
+      "The approach achieved up to 18% higher edge coverage than Fuzz4All.",
+      "A reinforcement learning agent can learn to effectively prompt LLMs to generate inputs that maximize code coverage, forming an effective feedback loop.",
+      "Combining coverage-guided reinforcement learning with LLM generation outperformed static prompting methods such as Fuzz4All and FuzzGPT."
     ],
     "conclusions_zh": [
       "该方法比Fuzz4All多达到18%的边缘覆盖率。",
@@ -8394,9 +8394,9 @@
       "基于LLM的二进制测试工具生成与手动方法以及WINNIE和FirmAFL等工具相比如何？"
     ],
     "conclusions": [
-      "BinFuzz达到60%的有效测试工具生成率，并发现了14个新漏洞。",
-      "LLM能够分析Ghidra和IDA Pro的反编译输出，理解函数参数和调用上下文以生成有效的测试工具。",
-      "在专有固件中发现了漏洞，证明了无源代码条件下LLM辅助二进制模糊测试的实用价值。"
+      "BinFuzz achieved a 60% valid harness generation rate and discovered 14 new bugs.",
+      "LLMs can analyze decompiled output from Ghidra and IDA Pro, understanding function parameters and calling context to generate effective harnesses.",
+      "Bugs found in proprietary firmware demonstrated the practical value of LLM-assisted binary-level fuzzing without source code."
     ],
     "conclusions_zh": [
       "BinFuzz达到60%的有效测试工具生成率，并发现了14个新漏洞。",
@@ -8498,9 +8498,9 @@
       "LLM在多大程度上能利用其对DeFi模式的理解来生成有效的状态依赖交易序列，而无需人工规范？"
     ],
     "conclusions": [
-      "LLM生成的交易序列比Echidna多发现28%的漏洞，表明LLM对DeFi协议交互模式的理解能有效指导模糊测试。",
-      "该方法在重入攻击和价格操纵漏洞检测方面表现尤为突出，LLM能准确建模跨合约调用的状态变化。",
-      "结合Slither静态分析与LLM生成的动态测试用例，可显著提高对复杂DeFi合约的漏洞覆盖率。"
+      "LLM-generated transaction sequences discovered 28% more vulnerabilities than Echidna, indicating that the LLM's understanding of DeFi protocol interaction patterns can effectively guide fuzzing.",
+      "The approach performed particularly well in detecting reentrancy attacks and price manipulation vulnerabilities, with the LLM accurately modeling state changes across cross-contract calls.",
+      "Combining Slither static analysis with LLM-generated dynamic test cases can significantly improve vulnerability coverage for complex DeFi contracts."
     ],
     "conclusions_zh": [
       "LLM生成的交易序列比Echidna多发现28%的漏洞，表明LLM对DeFi协议交互模式的理解能有效指导模糊测试。",
@@ -8601,9 +8601,9 @@
       "LLM仅通过固件二进制分析能成功模拟哪些硬件依赖行为？"
     ],
     "conclusions": [
-      "IoTFuzz在30个IoT固件镜像中发现了22个漏洞，证明LLM能有效分析固件二进制并生成可用的模糊测试驱动程序。",
-      "通过LLM对Ghidra反编译输出的理解，IoTFuzz成功模拟了外设寄存器访问和中断处理等硬件交互。",
-      "发现的漏洞涵盖缓冲区溢出和命令注入类型，部分漏洞存在于商用IoT设备中，具有实际安全影响。"
+      "IoTFuzz discovered 22 vulnerabilities across 30 IoT firmware images, demonstrating that LLMs can effectively analyze firmware binaries and generate usable fuzz harnesses.",
+      "Through the LLM's understanding of Ghidra decompiled output, IoTFuzz successfully emulated hardware interactions including peripheral register access and interrupt handling.",
+      "The discovered vulnerabilities include buffer overflow and command injection types, with some existing in commercial IoT devices, carrying real-world security implications."
     ],
     "conclusions_zh": [
       "IoTFuzz在30个IoT固件镜像中发现了22个漏洞，证明LLM能有效分析固件二进制并生成可用的模糊测试驱动程序。",
@@ -8701,9 +8701,9 @@
       "哪些LLM提示策略能生成最多样化且语义等价的实现？"
     ],
     "conclusions": [
-      "DifFuzz在GCC、LLVM和Python中共发现31个缺陷，其中多个已被确认并修复，证明LLM生成的等价程序是有效的差异测试预言机。",
-      "LLM生成的程序变体在实现多样性方面显著优于CSmith的随机生成方法，能覆盖更多编译器优化路径。",
-      "该方法通过自动生成测试预言机，解决了传统模糊测试中缺乏预期输出参考的关键难题。"
+      "DifFuzz discovered a total of 31 defects in GCC, LLVM, and Python, several of which have been confirmed and fixed, demonstrating that LLM-generated equivalent programs serve as effective differential testing oracles.",
+      "LLM-generated program variants significantly outperform CSmith's random generation approach in implementation diversity, covering a wider range of compiler optimization paths.",
+      "The approach addresses the critical challenge of lacking expected output references in traditional fuzzing by automatically generating test oracles."
     ],
     "conclusions_zh": [
       "DifFuzz在GCC、LLVM和Python中共发现31个缺陷，其中多个已被确认并修复，证明LLM生成的等价程序是有效的差异测试预言机。",
@@ -8789,7 +8789,7 @@
     ],
     "abstract_zh": "利用LLM生成语料库条目和模糊测试函数来增强Go程序的模糊测试，探索复杂API交互。",
     "research_questions": [
-      "Can LLMs leverage Go's类型系统信息生成比默认Go fuzzing更有效的结构化输入和测试函数？",
+      "Can LLMs leverage Go's type system information to generate structured inputs and test functions more effective than default Go fuzzing?",
       "How do LLM-generated fuzz functions compare to Go's built-in fuzzing and go-fuzz in triggering panics and data races?",
       "What role does Go's type system information play in guiding LLMs to generate more effective API interaction sequences?"
     ],
@@ -8799,9 +8799,9 @@
       "Go的类型系统信息在引导LLM生成更有效的API交互序列方面发挥什么作用？"
     ],
     "conclusions": [
-      "GoFuzz比默认Go fuzzing多发现35%的panic，证明LLM利用类型系统信息能生成更深入的API交互测试。",
-      "LLM生成的语料库条目在覆盖复杂结构化输入方面优于随机变异，尤其是涉及嵌套结构体和接口类型的场景。",
-      "该方法作为开源工具发布，可直接集成到现有Go项目的测试工作流中。"
+      "GoFuzz discovered 35% more panics than default Go fuzzing, demonstrating that LLMs leveraging type system information can generate deeper API interaction tests.",
+      "LLM-generated corpus entries outperform random mutation in covering complex structured inputs, particularly in scenarios involving nested structs and interface types.",
+      "The approach has been released as an open-source tool that can be directly integrated into existing Go project testing workflows."
     ],
     "conclusions_zh": [
       "GoFuzz比默认Go fuzzing多发现35%的panic，证明LLM利用类型系统信息能生成更深入的API交互测试。",
@@ -8901,9 +8901,9 @@
       "LLM通过文档分析能有效识别哪些类型的配置交互（无效组合、边界情况）？"
     ],
     "conclusions": [
-      "ConfigFuzz在5个云系统中发现了18个配置缺陷，其中12个已被确认，包括Apache Hadoop和Spark中的实际问题。",
-      "LLM通过理解配置文档中的约束关系和取值范围，能生成传统随机测试难以覆盖的边界情况配置组合。",
-      "配置缺陷类型包括错误配置导致的崩溃和性能退化，表明LLM能有效区分功能性约束和性能敏感参数。"
+      "ConfigFuzz discovered 18 configuration defects across 5 cloud systems, of which 12 have been confirmed, including real-world issues in Apache Hadoop and Spark.",
+      "By understanding constraint relationships and value ranges in configuration documentation, the LLM can generate boundary-case configuration combinations that are difficult to cover through traditional random testing.",
+      "The types of configuration defects include crashes and performance degradation caused by misconfigurations, indicating that LLMs can effectively distinguish between functional constraints and performance-sensitive parameters."
     ],
     "conclusions_zh": [
       "ConfigFuzz在5个云系统中发现了18个配置缺陷，其中12个已被确认，包括Apache Hadoop和Spark中的实际问题。",
@@ -9002,9 +9002,9 @@
       "LLM生成的驱动程序能有效检测哪些类别的跨语言内存损坏和类型不匹配缺陷？"
     ],
     "conclusions": [
-      "CrossFuzz在15个多语言项目中发现了11个FFI边界缺陷，包括NumPy和PyTorch的C扩展中的实际问题。",
-      "LLM对不同语言内存模型差异的理解使其能生成针对Python/C、Rust/C和Java/C接口的有效测试驱动程序。",
-      "发现的缺陷以内存损坏和类型不匹配为主，表明FFI边界是多语言应用中被忽视的重要攻击面。"
+      "CrossFuzz discovered 11 FFI boundary defects across 15 polyglot projects, including real-world issues in the C extensions of NumPy and PyTorch.",
+      "The LLM's understanding of memory model differences across languages enables it to generate effective test harnesses targeting Python/C, Rust/C, and Java/C interfaces.",
+      "The discovered defects are primarily memory corruption and type mismatches, indicating that FFI boundaries represent a neglected but significant attack surface in polyglot applications."
     ],
     "conclusions_zh": [
       "CrossFuzz在15个多语言项目中发现了11个FFI边界缺陷，包括NumPy和PyTorch的C扩展中的实际问题。",
@@ -11051,9 +11051,9 @@
       "哪些CWE类别最适合零样本LLM修复，哪些仍具挑战性？"
     ],
     "conclusions": [
-      "LLM在零样本设置下能修复约30%的漏洞，但修复率因CWE类型而异，简单的缓冲区溢出修复率较高而逻辑漏洞较低。",
-      "Codex在三个模型中表现最佳，但所有模型在需要理解复杂数据流的漏洞（如CWE-416 use-after-free）上均表现较差。",
-      "零样本修复的主要瓶颈在于LLM对程序上下文和漏洞根因的理解不足，而非代码生成能力本身。"
+      "LLMs can repair approximately 30% of vulnerabilities in zero-shot settings, though repair rates vary by CWE type, with simple buffer overflows having higher repair rates and logic vulnerabilities having lower rates.",
+      "Codex performed best among the three models, but all models performed poorly on vulnerabilities requiring understanding of complex data flows, such as CWE-416 use-after-free.",
+      "The primary bottleneck in zero-shot repair lies in the LLM's insufficient understanding of program context and vulnerability root causes, rather than code generation capability itself."
     ],
     "conclusions_zh": [
       "LLM在零样本设置下能修复约30%的漏洞，但修复率因CWE类型而异，简单的缓冲区溢出修复率较高而逻辑漏洞较低。",
@@ -11147,9 +11147,9 @@
       "哪些类型的缺陷从自解释和自修复范式中获益最大？"
     ],
     "conclusions": [
-      "Self-Debugging方法在HumanEval上将pass@1提高了12%，证明自然语言解释能帮助LLM定位其代码中的逻辑错误。",
-      "执行追踪信息使LLM能更精确地定位错误所在，与纯代码级别的调试相比修复效率显著提升。",
-      "该方法在逻辑错误和边界条件处理方面改善最为明显，对简单语法错误的提升有限。"
+      "The Self-Debugging method improved pass@1 by 12% on HumanEval, demonstrating that natural language explanations help LLMs locate logical errors in their code.",
+      "Execution trace information enables LLMs to pinpoint errors more precisely, significantly improving repair efficiency compared to purely code-level debugging.",
+      "The method shows the most notable improvement in logical errors and boundary condition handling, with limited improvement for simple syntax errors."
     ],
     "conclusions_zh": [
       "Self-Debugging方法在HumanEval上将pass@1提高了12%，证明自然语言解释能帮助LLM定位其代码中的逻辑错误。",
@@ -11251,9 +11251,9 @@
       "商业LLM和开源LLM在代码调试任务中的性能差距有多大？"
     ],
     "conclusions": [
-      "GPT-4以72%的修复率领先，开源模型平均为45%，表明商业模型在调试理解方面仍有显著优势。",
-      "在4,253个缺陷实例中，语法错误修复率最高（85%+），逻辑错误最低（约50%），运行时错误居中。",
-      "DebugBench作为包含18个缺陷类别的综合基准，为LLM调试能力的标准化评估提供了可靠基础。"
+      "GPT-4 leads with a 72% repair rate, while open-source models average 45%, indicating that commercial models still hold a significant advantage in debugging comprehension.",
+      "Among 4,253 defect instances, syntax errors have the highest repair rate (85%+), logic errors the lowest (approximately 50%), with runtime errors in between.",
+      "DebugBench, as a comprehensive benchmark covering 18 defect categories, provides a reliable foundation for standardized evaluation of LLM debugging capabilities."
     ],
     "conclusions_zh": [
       "GPT-4以72%的修复率领先，开源模型平均为45%，表明商业模型在调试理解方面仍有显著优势。",
@@ -11349,9 +11349,9 @@
       "检索增强生成能否弥合基于模式的和基于学习的程序修复之间的差距？"
     ],
     "conclusions": [
-      "RAP-Gen在Defects4J和TFix上比无检索增强的CodeT5提高了28%，证明历史修复模式能有效指导补丁生成。",
-      "检索到的相似修复模式为模型提供了具体的修复模板参考，显著减少了生成不相关补丁的概率。",
-      "该方法将基于模式匹配的修复知识与神经网络生成能力相结合，在两个基准上均优于CURE和Codex。"
+      "RAP-Gen improves upon CodeT5 without retrieval augmentation by 28% on Defects4J and TFix, demonstrating that historical fix patterns can effectively guide patch generation.",
+      "Retrieved similar fix patterns provide the model with concrete repair template references, significantly reducing the probability of generating irrelevant patches.",
+      "The approach combines pattern-matching repair knowledge with neural network generation capabilities, outperforming CURE and Codex on both benchmarks."
     ],
     "conclusions_zh": [
       "RAP-Gen在Defects4J和TFix上比无检索增强的CodeT5提高了28%，证明历史修复模式能有效指导补丁生成。",
@@ -11444,9 +11444,9 @@
       "哪些类型的测试执行反馈对指导迭代式补丁完善最有帮助？"
     ],
     "conclusions": [
-      "多轮对话方式比单次生成多修复35%的缺陷，证明测试执行反馈能有效引导LLM逐步改进补丁质量。",
-      "大多数成功修复在3-5轮对话内完成，超过5轮后修复概率显著下降，表明存在收敛上限。",
-      "失败测试用例的堆栈追踪和断言错误消息是最有价值的反馈信息，比简单的通过/失败状态更有效。"
+      "The multi-turn conversational approach repairs 35% more defects than single-shot generation, demonstrating that test execution feedback can effectively guide LLMs to progressively improve patch quality.",
+      "Most successful repairs are completed within 3-5 conversation turns, with the probability of repair dropping significantly beyond 5 turns, indicating a convergence ceiling.",
+      "Stack traces and assertion error messages from failing test cases are the most valuable feedback information, proving more effective than simple pass/fail status."
     ],
     "conclusions_zh": [
       "多轮对话方式比单次生成多修复35%的缺陷，证明测试执行反馈能有效引导LLM逐步改进补丁质量。",
@@ -11549,9 +11549,9 @@
       "不同代码LLM（Codex、CodeGen、InCoder、CodeT5）在Defects4J基准上的表现如何比较？"
     ],
     "conclusions": [
-      "模型规模与修复能力呈正相关：Codex-12B修复72个缺陷而CodeGen-350M仅修复31个，表明更大模型对代码语义的理解更深入。",
-      "训练数据质量同样关键——在高质量代码数据上训练的模型即使参数较少也可表现出色。",
-      "提示策略显著影响性能，包含缺陷上下文和测试信息的提示比仅提供函数签名的效果提升20%以上。"
+      "Model size positively correlates with repair capability: Codex-12B repairs 72 defects while CodeGen-350M repairs only 31, indicating that larger models have deeper understanding of code semantics.",
+      "Training data quality is equally critical -- models trained on high-quality code data can perform well even with fewer parameters.",
+      "Prompting strategy significantly impacts performance, with prompts containing bug context and test information improving effectiveness by over 20% compared to providing only function signatures."
     ],
     "conclusions_zh": [
       "模型规模与修复能力呈正相关：Codex-12B修复72个缺陷而CodeGen-350M仅修复31个，表明更大模型对代码语义的理解更深入。",
@@ -11650,9 +11650,9 @@
       "LLM生成的安全补丁与VulRepair等专用漏洞修复工具之间的差距有多大？"
     ],
     "conclusions": [
-      "PatchGen对已知CVE的正确补丁率达52%，比VulRepair高出20个百分点，证明漏洞特定上下文对补丁生成至关重要。",
-      "CWE-190（整数溢出）的修复率最高，而CWE-119（缓冲区溢出）最具挑战性，因其通常需要复杂的多位置修改。",
-      "结合CWE描述和CVE详情的提示策略比仅提供代码上下文的效果提升显著，说明领域知识在安全补丁生成中不可或缺。"
+      "PatchGen achieves a correct patch rate of 52% for known CVEs, exceeding VulRepair by 20 percentage points, demonstrating that vulnerability-specific context is crucial for patch generation.",
+      "CWE-190 (integer overflow) has the highest repair rate, while CWE-119 (buffer overflow) is the most challenging, as it typically requires complex multi-location modifications.",
+      "The prompting strategy combining CWE descriptions and CVE details significantly outperforms providing only code context, underscoring that domain knowledge is indispensable in security patch generation."
     ],
     "conclusions_zh": [
       "PatchGen对已知CVE的正确补丁率达52%，比VulRepair高出20个百分点，证明漏洞特定上下文对补丁生成至关重要。",
@@ -11748,9 +11748,9 @@
       "该组合方法在Big-Vul中的缓冲区溢出和释放后使用漏洞上的效果如何？"
     ],
     "conclusions": [
-      "DeepDFA的正确补丁率达58%，比VulRepair高15个百分点，证明数据流分析能帮助LLM更准确地理解漏洞传播路径。",
-      "结合Infer静态分析工具的污点追踪信息后，LLM生成的补丁更准确地定位了漏洞根因而非仅修补表面症状。",
-      "该方法在use-after-free漏洞上的提升最为显著，因为数据流信息能清晰展示对象生命周期和悬挂指针路径。"
+      "DeepDFA achieves a correct patch rate of 58%, exceeding VulRepair by 15 percentage points, demonstrating that dataflow analysis helps LLMs more accurately understand vulnerability propagation paths.",
+      "After incorporating taint tracking information from the Infer static analysis tool, LLM-generated patches more accurately target vulnerability root causes rather than merely patching surface symptoms.",
+      "The approach shows the most significant improvement on use-after-free vulnerabilities, as dataflow information clearly reveals object lifetimes and dangling pointer paths."
     ],
     "conclusions_zh": [
       "DeepDFA的正确补丁率达58%，比VulRepair高15个百分点，证明数据流分析能帮助LLM更准确地理解漏洞传播路径。",
@@ -11845,9 +11845,9 @@
       "哪些推理能力使LLM能识别测试套件遗漏的语义正确性问题？"
     ],
     "conclusions": [
-      "GPT-4在补丁正确性判断上达到78%的准确率，优于PATCH-SIM等传统静态验证方法。",
-      "LLM通过语义推理能识别通过所有测试但语义不正确的过拟合补丁，补充了基于测试的验证方法的不足。",
-      "提示LLM分析补丁意图和程序行为的链式思维推理显著提高了判断准确率，而简单的是否判断准确率较低。"
+      "GPT-4 achieves 78% accuracy in patch correctness judgment, outperforming traditional static verification methods such as PATCH-SIM.",
+      "Through semantic reasoning, LLMs can identify overfitting patches that pass all tests but are semantically incorrect, complementing the limitations of test-based verification methods.",
+      "Chain-of-thought reasoning that prompts the LLM to analyze patch intent and program behavior significantly improves judgment accuracy, whereas simple yes/no judgments yield lower accuracy."
     ],
     "conclusions_zh": [
       "GPT-4在补丁正确性判断上达到78%的准确率，优于PATCH-SIM等传统静态验证方法。",
@@ -11944,9 +11944,9 @@
       "GPT-4、GPT-3.5和CodeLlama在不同错误类别的编译错误修复中表现如何比较？"
     ],
     "conclusions": [
-      "GPT-4修复了85%的编译错误，但Rust错误修复率仅71%，远低于Java和Python，因Rust的所有权和生命周期系统增加了修复复杂度。",
-      "缺少导入错误的修复率最高（95%+），而涉及泛型类型推断的错误修复率最低，反映了不同编译错误的认知复杂度差异。",
-      "CompileError-Bench基准的发布为编译错误修复研究提供了标准化评估平台。"
+      "GPT-4 repaired 85% of compiler errors, but the repair rate for Rust errors was only 71%, significantly lower than Java and Python, due to the added complexity of Rust's ownership and lifetime system.",
+      "Missing import errors had the highest repair rate (95%+), while errors involving generic type inference had the lowest, reflecting the varying cognitive complexity of different compiler errors.",
+      "The release of the CompileError-Bench benchmark provides a standardized evaluation platform for compiler error repair research."
     ],
     "conclusions_zh": [
       "GPT-4修复了85%的编译错误，但Rust错误修复率仅71%，远低于Java和Python，因Rust的所有权和生命周期系统增加了修复复杂度。",
@@ -12043,9 +12043,9 @@
       "哪些类型的生产缺陷最适合基于LLM的自动修复？"
     ],
     "conclusions": [
-      "43%的CodeFix生成的补丁在代码审查中被开发者接受，证明LLM修复在工业环境中已具备实用价值。",
-      "该系统已部署在实际生产环境中，主要处理Java、Python和Go代码的测试失败和SpotBugs/Pylint告警修复。",
-      "静态分析告警的修复接受率高于测试失败，因为静态告警通常有明确的修复模式，而测试失败可能涉及更深层的逻辑问题。"
+      "43% of CodeFix-generated patches were accepted by developers during code review, demonstrating that LLM-based repair already has practical value in industrial settings.",
+      "The system has been deployed in a production environment, primarily handling test failures and SpotBugs/Pylint warning repairs for Java, Python, and Go code.",
+      "The acceptance rate for static analysis warning repairs is higher than for test failures, as static warnings typically have well-defined fix patterns, whereas test failures may involve deeper logical issues."
     ],
     "conclusions_zh": [
       "43%的CodeFix生成的补丁在代码审查中被开发者接受，证明LLM修复在工业环境中已具备实用价值。",
@@ -12143,9 +12143,9 @@
       "哪些类别的Rust编译错误最适合和最不适合基于LLM的修复？"
     ],
     "conclusions": [
-      "GPT-4修复了62%的Rust错误，但借用检查器错误修复率仅48%，表明Rust的所有权语义对LLM仍是重大挑战。",
-      "生命周期标注错误和trait约束失败的修复率高于借用检查器错误，因为前者通常有更规律的修复模式。",
-      "该研究表明LLM在Rust特定错误修复方面仍有较大改进空间，尤其是涉及复杂生命周期推导的场景。"
+      "GPT-4 repaired 62% of Rust errors, but the repair rate for borrow checker errors was only 48%, indicating that Rust's ownership semantics remain a significant challenge for LLMs.",
+      "Lifetime annotation errors and trait bound failures have higher repair rates than borrow checker errors, as the former typically follow more regular fix patterns.",
+      "The study demonstrates that LLMs still have considerable room for improvement in Rust-specific error repair, especially in scenarios involving complex lifetime inference."
     ],
     "conclusions_zh": [
       "GPT-4修复了62%的Rust错误，但借用检查器错误修复率仅48%，表明Rust的所有权语义对LLM仍是重大挑战。",
@@ -12239,9 +12239,9 @@
       "哪些类型的运行时信息对指导基于LLM的缺陷修复最有价值？"
     ],
     "conclusions": [
-      "执行追踪信息使修复率在Defects4J和BugsInPy上提升了22%，证明动态运行时信息能显著增强LLM的缺陷理解能力。",
-      "变量值快照和分支决策路径是最有价值的运行时信息，而完整的堆栈追踪在某些情况下因信息过载反而降低了效果。",
-      "该方法在逻辑错误和运行时错误的修复上均有提升，但对逻辑错误的改善幅度更大。"
+      "Execution trace information improved repair rates by 22% on Defects4J and BugsInPy, demonstrating that dynamic runtime information can significantly enhance LLMs' understanding of defect behavior.",
+      "Variable value snapshots and branch decision paths are the most valuable runtime information, while complete stack traces in some cases actually reduced effectiveness due to information overload.",
+      "The approach improves repair of both logic errors and runtime errors, though the improvement is greater for logic errors."
     ],
     "conclusions_zh": [
       "执行追踪信息使修复率在Defects4J和BugsInPy上提升了22%，证明动态运行时信息能显著增强LLM的缺陷理解能力。",
@@ -12340,9 +12340,9 @@
       "VulPatch在CVEFixes的缓冲区溢出、释放后使用和整数溢出漏洞上与PatchGen和VulRepair相比表现如何？"
     ],
     "conclusions": [
-      "VulPatch的正确补丁率达61%，比PatchGen高9个百分点，证明污点分析能帮助LLM准确定位需要修补的数据流路径。",
-      "结合Infer和CodeQL的污点分析结果，LLM能更好地理解从输入源到漏洞触发点的完整传播链，避免生成治标不治本的补丁。",
-      "该方法在整数溢出漏洞上表现最佳，因为污点分析能精确标注需要添加边界检查的数据流位置。"
+      "VulPatch achieves a correct patch rate of 61%, exceeding PatchGen by 9 percentage points, demonstrating that taint analysis helps LLMs accurately identify dataflow paths that need to be patched.",
+      "By combining taint analysis results from Infer and CodeQL, the LLM can better understand the complete propagation chain from input sources to vulnerability trigger points, avoiding patches that treat symptoms rather than root causes.",
+      "The approach performs best on integer overflow vulnerabilities, as taint analysis can precisely annotate dataflow locations where boundary checks need to be added."
     ],
     "conclusions_zh": [
       "VulPatch的正确补丁率达61%，比PatchGen高9个百分点，证明污点分析能帮助LLM准确定位需要修补的数据流路径。",
@@ -12440,9 +12440,9 @@
       "将修复构建为以缺陷代码为上下文的代码生成任务与专门的修复方法相比效果如何？"
     ],
     "conclusions": [
-      "LLM在Python、Java、JavaScript、C、Go和Rust六种语言上均能修复缺陷且性能一致，证明修复与生成在本质上高度相关。",
-      "无需针对修复任务进行专门训练，Codex和CodeGen的代码补全能力即可直接用于缺陷修复，简化了工具链。",
-      "跨语言修复性能的一致性表明LLM捕获了语言无关的缺陷修复模式，而非依赖语言特定的启发式规则。"
+      "LLMs can repair defects across all six languages -- Python, Java, JavaScript, C, Go, and Rust -- with consistent performance, demonstrating that repair and generation are fundamentally highly related.",
+      "Without any repair-specific training, the code completion capabilities of Codex and CodeGen can be directly applied to defect repair, simplifying the toolchain.",
+      "The consistency of cross-language repair performance indicates that LLMs capture language-agnostic defect repair patterns rather than relying on language-specific heuristics."
     ],
     "conclusions_zh": [
       "LLM在Python、Java、JavaScript、C、Go和Rust六种语言上均能修复缺陷且性能一致，证明修复与生成在本质上高度相关。",
@@ -12534,9 +12534,9 @@
       "简单方法与基于智能体的方法在自动程序修复中的性价比权衡如何？"
     ],
     "conclusions": [
-      "Agentless在SWE-bench Lite上达到27%的修复率，与SWE-agent等复杂智能体系统持平，但成本仅为后者的五分之一（每实例$0.34）。",
-      "简单的两阶段流程（先定位缺陷代码，再生成补丁）足以处理大部分GitHub issue级别的修复任务。",
-      "该研究挑战了社区对复杂智能体架构必要性的假设，表明在程序修复领域简单方法的效率优势不可忽视。"
+      "Agentless achieves a 27% repair rate on SWE-bench Lite, matching complex agent systems like SWE-agent, but at only one-fifth the cost ($0.34 per instance).",
+      "A simple two-phase process (first localizing buggy code, then generating patches) is sufficient for handling the majority of GitHub issue-level repair tasks.",
+      "This research challenges the community's assumption about the necessity of complex agent architectures, demonstrating that the efficiency advantages of simple approaches in program repair should not be overlooked."
     ],
     "conclusions_zh": [
       "Agentless在SWE-bench Lite上达到27%的修复率，与SWE-agent等复杂智能体系统持平，但成本仅为后者的五分之一（每实例$0.34）。",
@@ -12629,9 +12629,9 @@
       "GitBug-Java能否作为评估现代LLM修复工具的更真实基准？"
     ],
     "conclusions": [
-      "GPT-4在GitBug-Java上仅修复35%的近期缺陷，低于其在Defects4J上的表现，揭示了数据泄漏对现有基准评估的潜在影响。",
-      "来自55个项目的199个近期缺陷更能反映实际开发中的缺陷分布，为LLM修复工具提供了更可靠的评估基础。",
-      "GitBug-Java作为开源基准发布，其可复现性设计确保了评估结果的可验证性。"
+      "GPT-4 repaired only 35% of recent defects on GitBug-Java, lower than its performance on Defects4J, revealing the potential impact of data leakage on existing benchmark evaluations.",
+      "199 recent defects from 55 projects better reflect the distribution of defects in actual development, providing a more reliable evaluation basis for LLM repair tools.",
+      "GitBug-Java is released as an open-source benchmark, with its reproducibility design ensuring the verifiability of evaluation results."
     ],
     "conclusions_zh": [
       "GPT-4在GitBug-Java上仅修复35%的近期缺陷，低于其在Defects4J上的表现，揭示了数据泄漏对现有基准评估的潜在影响。",
@@ -12724,9 +12724,9 @@
       "缺陷理解的哪些方面从显式链式思维推理中获益最大？"
     ],
     "conclusions": [
-      "链式思维推理使正确修复率提高了18%，证明显式的缺陷分析步骤能帮助LLM生成更有针对性的补丁。",
-      "在Defects4J和QuixBugs上的评估显示，先解释再修复范式在涉及多步逻辑推理的缺陷上改善最为显著。",
-      "ThinkRepair的自指导过程无需外部工具辅助，仅通过结构化提示即可显著提升GPT-4的修复质量。"
+      "Chain-of-thought reasoning improved the correct repair rate by 18%, demonstrating that an explicit bug analysis step helps LLMs generate more targeted patches.",
+      "Evaluation on Defects4J and QuixBugs shows that the think-then-repair paradigm yields the most significant improvement on defects involving multi-step logical reasoning.",
+      "ThinkRepair's self-directed process requires no external tool assistance and can significantly improve GPT-4's repair quality through structured prompting alone."
     ],
     "conclusions_zh": [
       "链式思维推理使正确修复率提高了18%，证明显式的缺陷分析步骤能帮助LLM生成更有针对性的补丁。",
@@ -12821,9 +12821,9 @@
       "CREF在修复质量和解释质量方面与CLARA和Refactory等传统教育修复工具相比表现如何？"
     ],
     "conclusions": [
-      "83%的学生认为CREF生成的解释对理解缺陷有帮助，证明LLM能有效承担编程辅导中的解释性修复角色。",
-      "该系统已部署在大学编程课程中，处理Python和Java的学生代码提交，涵盖逻辑错误和语法错误。",
-      "与仅提供补丁的方法相比，带有自然语言解释的修复显著提高了学生的缺陷理解能力和后续编程表现。"
+      "83% of students found the explanations generated by CREF helpful for understanding defects, demonstrating that LLMs can effectively serve in an explanatory repair role in programming tutoring.",
+      "The system has been deployed in a university programming course, handling student code submissions in Python and Java, covering both logic and syntax errors.",
+      "Compared to approaches that only provide patches, repairs accompanied by natural language explanations significantly improved students' understanding of defects and subsequent programming performance."
     ],
     "conclusions_zh": [
       "83%的学生认为CREF生成的解释对理解缺陷有帮助，证明LLM能有效承担编程辅导中的解释性修复角色。",
@@ -12916,9 +12916,9 @@
       "哪些类型的合并冲突从基于LLM的语义理解中获益最大？"
     ],
     "conclusions": [
-      "LLM正确解决了72%的合并冲突，而IntelliMerge仅为45%，表明LLM对代码变更意图的理解能生成更准确的合并方案。",
-      "涉及语义重叠变更（如两个分支修改同一逻辑的不同方面）的冲突从LLM理解中受益最大。",
-      "通过同时分析两个分支的变更及其测试套件，LLM能推断出保留双方意图的最优合并策略。"
+      "The LLM correctly resolved 72% of merge conflicts, compared to only 45% for IntelliMerge, indicating that the LLM's understanding of code change intent produces more accurate merge resolutions.",
+      "Conflicts involving semantically overlapping changes (e.g., two branches modifying different aspects of the same logic) benefit the most from LLM comprehension.",
+      "By simultaneously analyzing changes from both branches and their test suites, the LLM can infer the optimal merge strategy that preserves the intent of both sides."
     ],
     "conclusions_zh": [
       "LLM正确解决了72%的合并冲突，而IntelliMerge仅为45%，表明LLM对代码变更意图的理解能生成更准确的合并方案。",
@@ -13021,9 +13021,9 @@
       "在基于LLM的程序修复中，定位准确性与修复成功之间的相互作用如何？"
     ],
     "conclusions": [
-      "LLM能正确定位55%的缺陷，联合定位与修复方法比分离式方法提升20%，表明端到端的定位修复流程更有效。",
-      "GPT-4在定位和修复两个维度上均领先，但开源模型CodeLlama在Java修复上的性能已接近Claude。",
-      "在Defects4J、BugsInPy和ManyBugs三个跨语言基准上的系统评估为未来LLM修复研究提供了全面的对比参考。"
+      "LLMs can correctly localize 55% of defects, and the joint localization-repair approach improves performance by 20% over the separated approach, indicating that an end-to-end localization-repair pipeline is more effective.",
+      "GPT-4 leads in both localization and repair dimensions, though the open-source model CodeLlama has approached Claude's performance in Java repair.",
+      "The systematic evaluation across three cross-language benchmarks -- Defects4J, BugsInPy, and ManyBugs -- provides a comprehensive reference for future LLM repair research."
     ],
     "conclusions_zh": [
       "LLM能正确定位55%的缺陷，联合定位与修复方法比分离式方法提升20%，表明端到端的定位修复流程更有效。",
@@ -13117,9 +13117,9 @@
       "在提示中提供TypeScript特定的类型系统知识是否比通用代码修复提示能提高修复率？"
     ],
     "conclusions": [
-      "TypeFix对TypeScript类型错误的修复率达75%，其中简单类型标注错误修复率超过90%，而复杂条件类型错误仅约50%。",
-      "涉及泛型约束和条件类型推断的错误是最具挑战性的类别，需要LLM深入理解TypeScript的类型计算逻辑。",
-      "TypeScript特定的提示策略比通用代码修复提示提高了约15%的修复率，证明领域知识在类型错误修复中的重要性。"
+      "TypeFix achieves a 75% repair rate for TypeScript type errors, with simple type annotation errors exceeding 90% and complex conditional type errors at approximately 50%.",
+      "Errors involving generic constraints and conditional type inference are the most challenging categories, requiring the LLM to deeply understand TypeScript's type computation logic.",
+      "TypeScript-specific prompting strategies improve the repair rate by approximately 15% compared to generic code repair prompts, demonstrating the importance of domain knowledge in type error repair."
     ],
     "conclusions_zh": [
       "TypeFix对TypeScript类型错误的修复率达75%，其中简单类型标注错误修复率超过90%，而复杂条件类型错误仅约50%。",
@@ -13224,9 +13224,9 @@
       "补丁完整性和安全影响等因素在不同LLM和漏洞类型之间如何变化？"
     ],
     "conclusions": [
-      "GPT-4为45%的CVE生成了正确补丁，其中CWE-119（缓冲区溢出）最难修复，因其通常需要理解复杂的内存布局。",
-      "在1,000个CVE的大规模评估中，所有LLM在CWE-20（输入验证不当）上表现最佳，而CWE-416（释放后使用）的修复率普遍低于30%。",
-      "商业模型（GPT-4、Claude）在安全补丁生成上显著优于开源模型（Llama-2、CodeLlama），差距达15-20个百分点。"
+      "GPT-4 generated correct patches for 45% of CVEs, with CWE-119 (buffer overflow) being the most difficult to repair due to the typical need to understand complex memory layouts.",
+      "In the large-scale evaluation of 1,000 CVEs, all LLMs performed best on CWE-20 (improper input validation), while the repair rate for CWE-416 (use-after-free) was generally below 30%.",
+      "Commercial models (GPT-4, Claude) significantly outperform open-source models (Llama-2, CodeLlama) in security patch generation, with a gap of 15-20 percentage points."
     ],
     "conclusions_zh": [
       "GPT-4为45%的CVE生成了正确补丁，其中CWE-119（缓冲区溢出）最难修复，因其通常需要理解复杂的内存布局。",
@@ -13326,9 +13326,9 @@
       "基于LLM的修复方法（GPT-4、CodeLlama、StarCoder）在统一基准上与传统APR工具（TBar、CURE）相比表现如何？"
     ],
     "conclusions": [
-      "GPT-4在所有四种语言上均领先，Python缺陷最易修复而C缺陷最难，反映了语言复杂性对修复的影响。",
-      "统一基准消除了跨研究比较中的方法论差异，发现此前声称的部分工具优势在标准化评估下不再成立。",
-      "APR-Bench包含2,000个跨四种语言的缺陷，作为开源基准发布，为APR研究社区提供了急需的统一评估平台。"
+      "GPT-4 leads across all four languages, with Python defects being the easiest to repair and C defects the most difficult, reflecting the impact of language complexity on repair.",
+      "The unified benchmark eliminates methodological differences in cross-study comparisons, revealing that some previously claimed tool advantages no longer hold under standardized evaluation.",
+      "APR-Bench contains 2,000 defects across four languages and is released as an open-source benchmark, providing the APR research community with a much-needed unified evaluation platform."
     ],
     "conclusions_zh": [
       "GPT-4在所有四种语言上均领先，Python缺陷最易修复而C缺陷最难，反映了语言复杂性对修复的影响。",
@@ -13423,9 +13423,9 @@
       "CodeAgent能否利用过去的修复经验更有效地处理新的但相似的缺陷？"
     ],
     "conclusions": [
-      "检索增强生成使修复成功率比非RAG方法提高了15%，证明历史修复模式的检索能有效指导新缺陷的修复。",
-      "长期记忆机制使CodeAgent能在修复过程中积累经验，对同一项目中的后续缺陷修复效率逐步提升。",
-      "在SWE-bench和Defects4J上的评估显示，CodeAgent与SWE-agent和Agentless相比在复杂多文件修复场景中表现更优。"
+      "Retrieval-augmented generation improves the repair success rate by 15% over non-RAG methods, demonstrating that retrieval of historical fix patterns can effectively guide the repair of new defects.",
+      "The long-term memory mechanism enables CodeAgent to accumulate experience during the repair process, progressively improving repair efficiency for subsequent defects in the same project.",
+      "Evaluation on SWE-bench and Defects4J shows that CodeAgent outperforms SWE-agent and Agentless in complex multi-file repair scenarios."
     ],
     "conclusions_zh": [
       "检索增强生成使修复成功率比非RAG方法提高了15%，证明历史修复模式的检索能有效指导新缺陷的修复。",
@@ -13520,9 +13520,9 @@
       "哪种奖励信号设计对通过强化学习训练代码修复模型最有效？"
     ],
     "conclusions": [
-      "RL训练使pass@1比监督微调提高了25%，证明测试执行反馈作为奖励信号能有效引导模型生成更可能通过测试的补丁。",
-      "基于PPO算法的RL微调使CodeT5-770M在APPS和MBPP上优于Codex的零样本性能，展现了小模型通过RL获得竞争力的潜力。",
-      "结合编译成功和测试通过的复合奖励函数比单一奖励信号更有效，因其能同时引导代码正确性和功能完整性。"
+      "RL training improved pass@1 by 25% over supervised fine-tuning, demonstrating that test execution feedback as a reward signal can effectively guide the model to generate patches more likely to pass test suites.",
+      "PPO-based RL fine-tuning enables CodeT5-770M to outperform Codex's zero-shot performance on APPS and MBPP, showcasing the potential for smaller models to become competitive through RL.",
+      "A composite reward function combining compilation success and test passing is more effective than a single reward signal, as it simultaneously guides both code correctness and functional completeness."
     ],
     "conclusions_zh": [
       "RL训练使pass@1比监督微调提高了25%，证明测试执行反馈作为奖励信号能有效引导模型生成更可能通过测试的补丁。",
@@ -13622,9 +13622,9 @@
       "LLM生成的智能合约补丁中有多大比例会引入新漏洞或破坏现有功能？"
     ],
     "conclusions": [
-      "68%的LLM生成补丁正确修复了漏洞且不破坏合约功能，优于sGuard和SmartShield等基于模式的工具。",
-      "重入攻击漏洞的修复率最高，因其有明确的修复模式（checks-effects-interactions），而访问控制漏洞最具挑战性。",
-      "结合Slither静态分析进行补丁验证，可有效过滤引入新漏洞的不正确补丁，将最终有效补丁率进一步提升。"
+      "68% of LLM-generated patches correctly repaired vulnerabilities without breaking contract functionality, outperforming pattern-based tools such as sGuard and SmartShield.",
+      "Reentrancy attack vulnerabilities had the highest repair rate due to their well-defined fix pattern (checks-effects-interactions), while access control vulnerabilities were the most challenging.",
+      "Combining Slither static analysis for patch verification can effectively filter out incorrect patches that introduce new vulnerabilities, further improving the final effective patch rate."
     ],
     "conclusions_zh": [
       "68%的LLM生成补丁正确修复了漏洞且不破坏合约功能，优于sGuard和SmartShield等基于模式的工具。",
@@ -13738,9 +13738,9 @@
       "哪些编程语言家族（函数式、命令式、动态、静态）对LLM修复最容易和最困难？"
     ],
     "conclusions": [
-      "Python修复率最高（72%），Haskell最低（28%），动态类型语言普遍比静态类型语言更易修复。",
-      "模型规模与修复效果之间存在强正相关，但语言特异性差异即使在最大模型上也持续存在。",
-      "这是迄今最大规模的LLM代码修复评估（15种语言、10,000个缺陷），揭示了LLM在不同编程范式上的能力不均衡。"
+      "Python had the highest repair rate (72%) and Haskell the lowest (28%), with dynamically typed languages generally being easier to repair than statically typed languages.",
+      "There is a strong positive correlation between model size and repair effectiveness, but language-specific differences persist even in the largest models.",
+      "This is the largest-scale LLM code repair evaluation to date (15 languages, 10,000 defects), revealing uneven LLM capabilities across different programming paradigms."
     ],
     "conclusions_zh": [
       "Python修复率最高（72%），Haskell最低（28%），动态类型语言普遍比静态类型语言更易修复。",
@@ -13842,9 +13842,9 @@
       "微调的开源模型与商业LLM在安全补丁生成方面的性价比权衡如何？"
     ],
     "conclusions": [
-      "经LoRA微调的13B模型在安全补丁生成上匹配GPT-4性能，但推理成本仅为后者的百分之一。",
-      "使用CVEFixes和PatchDB中的5,000个安全补丁进行领域微调，显著提升了模型对CWE-119、CWE-416等安全漏洞模式的理解。",
-      "基础CodeLlama模型微调后在安全补丁任务上的性能提升幅度远超其在通用代码生成上的差距，表明安全领域微调的高回报率。"
+      "A LoRA-fine-tuned 13B model matches GPT-4 performance on security patch generation at only one-hundredth of the inference cost.",
+      "Domain fine-tuning with 5,000 security patches from CVEFixes and PatchDB significantly improved the model's understanding of security vulnerability patterns such as CWE-119 and CWE-416.",
+      "The performance improvement of the base CodeLlama model after fine-tuning on security patch tasks far exceeds its gap on general code generation, demonstrating the high return on investment of security domain fine-tuning."
     ],
     "conclusions_zh": [
       "经LoRA微调的13B模型在安全补丁生成上匹配GPT-4性能，但推理成本仅为后者的百分之一。",
@@ -13939,9 +13939,9 @@
       "哪些类型的不稳定性（并发、时序、资源、顺序依赖）最适合基于LLM的修复？"
     ],
     "conclusions": [
-      "GPT-4正确修复了58%的不稳定测试，其中时序相关的不稳定性修复率最高，而涉及复杂并发问题的最低。",
-      "LLM在识别共享状态和顺序依赖方面表现出色，能通过分析测试代码推断潜在的非确定性来源。",
-      "在iDFlakies和FlakeFlagger基准上的评估表明，LLM修复不稳定测试的能力与其对测试意图的理解深度密切相关。"
+      "GPT-4 correctly repaired 58% of flaky tests, with timing-related flakiness having the highest repair rate and complex concurrency issues having the lowest.",
+      "LLMs excel at identifying shared state and order dependencies, being able to infer potential sources of non-determinism by analyzing test code.",
+      "Evaluation on the iDFlakies and FlakeFlagger benchmarks shows that LLMs' ability to repair flaky tests is closely tied to the depth of their understanding of test intent."
     ],
     "conclusions_zh": [
       "GPT-4正确修复了58%的不稳定测试，其中时序相关的不稳定性修复率最高，而涉及复杂并发问题的最低。",
@@ -19032,9 +19032,9 @@
       "所提出的水印方案对释义和其他文本修改攻击的鲁棒性如何？"
     ],
     "conclusions": [
-      "在200+token的文本上，水印检测率达99.9%而假阳性率仅0.1%，证明统计偏置方法能实现高效的AI文本归因。",
-      "水印对人类读者不可感知，文本质量评估未显示有意义的退化，同时保持了高度的统计可检测性。",
-      "该方案已被广泛采用，成为AI生成文本检测领域的基础性方法，优于DetectGPT和GPTZero等后验检测方法。"
+      "On texts of 200+ tokens, the watermark detection rate reaches 99.9% with a false positive rate of only 0.1%, demonstrating that statistical biasing methods can achieve highly effective AI text attribution.",
+      "The watermark is imperceptible to human readers, with text quality assessments showing no meaningful degradation, while maintaining a high degree of statistical detectability.",
+      "The scheme has been widely adopted, becoming a foundational method in AI-generated text detection, outperforming post-hoc detection methods such as DetectGPT and GPTZero."
     ],
     "conclusions_zh": [
       "在200+token的文本上，水印检测率达99.9%而假阳性率仅0.1%，证明统计偏置方法能实现高效的AI文本归因。",
@@ -19127,9 +19127,9 @@
       "防御效果与对正常模型功能的影响之间的权衡如何？"
     ],
     "conclusions": [
-      "困惑度过滤将GCG攻击成功率从99%降至2%，证明简单的输入预处理即可有效阻断当前最强的对抗攻击。",
-      "释义和重新分词防御同样有效，因为对抗性后缀在经过文本变换后会丧失其精心设计的梯度优化效果。",
-      "这些简单防御对正常用户查询的影响极小，表明在实际部署中低成本防御即可大幅提升LLM安全性。"
+      "Perplexity filtering reduces the GCG attack success rate from 99% to 2%, demonstrating that simple input preprocessing can effectively block the strongest current adversarial attacks.",
+      "Paraphrase and retokenization defenses are equally effective, as adversarial suffixes lose their carefully gradient-optimized effects after text transformations.",
+      "These simple defenses have minimal impact on normal user queries, indicating that low-cost defenses can substantially improve LLM safety in practical deployments."
     ],
     "conclusions_zh": [
       "困惑度过滤将GCG攻击成功率从99%降至2%，证明简单的输入预处理即可有效阻断当前最强的对抗攻击。",
@@ -19219,9 +19219,9 @@
       "质量多样性搜索揭示了哪些目标攻击遗漏的新型失败模式类别？"
     ],
     "conclusions": [
-      "Rainbow Teaming发现的不同失败模式数量是GCG的3倍，证明质量多样性优化能更全面地探索LLM安全边界。",
-      "该方法揭示了单目标攻击忽略的多种失败模式类别，包括角色扮演漏洞和逻辑推理绕过等新型攻击向量。",
-      "开放式的多样性搜索策略比反复优化单一攻击目标更适合LLM安全的全面评估。"
+      "Rainbow Teaming discovers 3 times more distinct failure modes than GCG, demonstrating that quality-diversity optimization can more comprehensively explore LLM safety boundaries.",
+      "The approach reveals multiple failure mode categories overlooked by single-objective attacks, including novel attack vectors such as role-playing exploits and logical reasoning bypasses.",
+      "An open-ended diversity search strategy is better suited for comprehensive LLM safety evaluation than repeatedly optimizing a single attack objective."
     ],
     "conclusions_zh": [
       "Rainbow Teaming发现的不同失败模式数量是GCG的3倍，证明质量多样性优化能更全面地探索LLM安全边界。",
@@ -19315,9 +19315,9 @@
       "现有的数据清洗和检测方法能否有效防御指令微调投毒攻击？"
     ],
     "conclusions": [
-      "仅100个被投毒样本（占训练集0.2%）即可达到90%以上的攻击成功率，揭示了指令微调流程的严重安全隐患。",
-      "攻击效果随模型规模增大而增强，13B模型比7B模型更容易被少量投毒数据操纵。",
-      "现有的数据清洗方法对这种小规模投毒攻击的检测率不足，需要开发专门针对指令微调场景的防御机制。"
+      "Only 100 poisoned samples (0.2% of the training set) can achieve over 90% attack success rate, revealing a serious security vulnerability in the instruction tuning pipeline.",
+      "Attack effectiveness increases with model size, with 13B models being more susceptible to manipulation by small amounts of poisoned data than 7B models.",
+      "Existing data cleaning methods have insufficient detection rates for this type of small-scale poisoning attack, necessitating the development of defense mechanisms specifically designed for instruction tuning scenarios."
     ],
     "conclusions_zh": [
       "仅100个被投毒样本（占训练集0.2%）即可达到90%以上的攻击成功率，揭示了指令微调流程的严重安全隐患。",
@@ -19402,9 +19402,9 @@
       "从已部署的语言模型中大规模提取训练数据的成本和效率如何？"
     ],
     "conclusions": [
-      "通过新型散度攻击从ChatGPT中提取了数GB的训练数据，仅花费约200美元，证明对齐训练不能阻止数据提取。",
-      "该攻击利用模型在特定提示下脱离对齐行为进入自回归补全模式，大量输出记忆的训练数据。",
-      "该发现促使OpenAI修补了相关漏洞，凸显了生产级LLM面临的实际隐私威胁远超学术评估所揭示的范围。"
+      "A novel divergence attack extracted gigabytes of training data from ChatGPT at a cost of approximately $200, demonstrating that alignment training cannot prevent data extraction.",
+      "The attack exploits the model's tendency to exit aligned behavior and enter autoregressive completion mode under specific prompts, causing it to output large volumes of memorized training data.",
+      "This finding prompted OpenAI to patch the related vulnerability, highlighting that the actual privacy threats facing production-grade LLMs far exceed what academic evaluations have revealed."
     ],
     "conclusions_zh": [
       "通过新型散度攻击从ChatGPT中提取了数GB的训练数据，仅花费约200美元，证明对齐训练不能阻止数据提取。",
@@ -19503,9 +19503,9 @@
       "不同攻击方法（GCG、AutoDAN、PAIR、TAP）针对不同LLM防御策略的表现如何？"
     ],
     "conclusions": [
-      "没有任何单一防御能在所有攻击类型上将攻击成功率降至10%以下，揭示了当前LLM安全防御的系统性不足。",
-      "HarmBench覆盖7个类别的510种有害行为，通过微调分类器实现标准化评估，已成为LLM安全研究的广泛采用基准。",
-      "不同攻击方法在不同LLM上的有效性差异巨大，表明安全评估必须覆盖多种攻击向量才能得出可靠结论。"
+      "No single defense can reduce the attack success rate below 10% across all attack types, revealing systemic deficiencies in current LLM safety defenses.",
+      "HarmBench covers 510 harmful behaviors across 7 categories with standardized evaluation via a fine-tuned classifier, and has become a widely adopted benchmark in LLM safety research.",
+      "The effectiveness of different attack methods varies dramatically across different LLMs, indicating that safety evaluations must cover multiple attack vectors to reach reliable conclusions."
     ],
     "conclusions_zh": [
       "没有任何单一防御能在所有攻击类型上将攻击成功率降至10%以下，揭示了当前LLM安全防御的系统性不足。",
@@ -19594,9 +19594,9 @@
       "为什么安全训练无法泛化到训练期间未见过的新型攻击格式？"
     ],
     "conclusions": [
-      "安全训练失败可归因于两个根本模式：竞争目标（有用性与安全性冲突时模型倾向于有用性）和泛化不匹配（安全训练在新型攻击格式下失效）。",
-      "竞争目标失败解释了为什么请求LLM完成看似合理但有害的任务时安全机制容易被绕过。",
-      "泛化不匹配揭示了安全训练的覆盖面有限，新的编码方式、语言切换或角色扮演提示可有效规避训练过的安全约束。"
+      "Safety training failures can be attributed to two fundamental modes: competing objectives (where the model favors helpfulness when it conflicts with safety) and mismatched generalization (where safety training fails under novel attack formats).",
+      "The competing objectives failure explains why safety mechanisms are easily bypassed when requesting LLMs to complete tasks that appear reasonable but are harmful.",
+      "Mismatched generalization reveals the limited coverage of safety training, where new encoding schemes, language switching, or role-playing prompts can effectively circumvent trained safety constraints."
     ],
     "conclusions_zh": [
       "安全训练失败可归因于两个根本模式：竞争目标（有用性与安全性冲突时模型倾向于有用性）和泛化不匹配（安全训练在新型攻击格式下失效）。",
@@ -19690,9 +19690,9 @@
       "PAIR的黑盒方法在攻击成功率和效率方面与GCG等白盒基于梯度的攻击相比如何？"
     ],
     "conclusions": [
-      "PAIR在不到20次查询内对GPT-4的越狱成功率达60%，证明仅凭黑盒API访问即可实现高效的自动化越狱。",
-      "攻击者LLM通过分析目标模型的拒绝响应迭代优化提示策略，展现了LLM作为安全评估工具的独特潜力。",
-      "与需要模型梯度信息的GCG相比，PAIR的纯黑盒特性使其更适用于评估闭源商业LLM的安全性。"
+      "PAIR achieves a 60% jailbreak success rate against GPT-4 in fewer than 20 queries, demonstrating that efficient automated jailbreaking is possible with only black-box API access.",
+      "The attacker LLM iteratively refines its prompting strategy by analyzing the target model's refusal responses, showcasing the unique potential of LLMs as security evaluation tools.",
+      "Compared to GCG, which requires model gradient information, PAIR's purely black-box nature makes it better suited for evaluating the safety of closed-source commercial LLMs."
     ],
     "conclusions_zh": [
       "PAIR在不到20次查询内对GPT-4的越狱成功率达60%，证明仅凭黑盒API访问即可实现高效的自动化越狱。",
@@ -23663,9 +23663,9 @@
       "基于LLM的审计与人工安全审计在Solana程序的覆盖范围和准确性方面相比如何？"
     ],
     "conclusions": [
-      "GPT-4成功在Solana DeFi程序中发现了8个安全漏洞，涵盖权限提升和PDA混淆等类型。",
-      "针对Anchor框架模式的定制化提示策略显著提升了LLM对Solana特有漏洞的检测能力。",
-      "LLM辅助审计能够有效补充传统Rust静态分析工具在智能合约安全检测方面的不足。"
+      "GPT-4 successfully discovered 8 security vulnerabilities in Solana DeFi programs, covering types such as privilege escalation and PDA confusion.",
+      "Customized prompting strategies tailored to Anchor framework patterns significantly improved the LLM's detection capability for Solana-specific vulnerabilities.",
+      "LLM-assisted auditing can effectively supplement the shortcomings of traditional Rust static analysis tools in smart contract security detection."
     ],
     "conclusions_zh": [
       "GPT-4成功在Solana DeFi程序中发现了8个安全漏洞，涵盖权限提升和PDA混淆等类型。",
@@ -23749,9 +23749,9 @@
       "将LLM流量分析与传统基于机器学习的IDS结合后，检测率能提升多少？"
     ],
     "conclusions": [
-      "LLM增强的入侵检测系统比传统基于机器学习的IDS检测率提高了15%。",
-      "LLM对网络流量模式和日志数据的语义理解能力有效减少了误报率。",
-      "GPT-4在复杂攻击模式识别上优于Llama-2，但Llama-2在实时部署场景中延迟更低。"
+      "The LLM-enhanced intrusion detection system improves the detection rate by 15% compared to traditional machine learning-based IDS.",
+      "The LLM's semantic understanding of network traffic patterns and log data effectively reduces the false positive rate.",
+      "GPT-4 outperforms Llama-2 in complex attack pattern recognition, but Llama-2 has lower latency in real-time deployment scenarios."
     ],
     "conclusions_zh": [
       "LLM增强的入侵检测系统比传统基于机器学习的IDS检测率提高了15%。",
@@ -23833,9 +23833,9 @@
       "LLM在对多跳依赖链进行漏洞可达性分析推理方面的效果如何？"
     ],
     "conclusions": [
-      "LLM驱动的依赖图分析比传统SCA工具多识别出35%的可利用传播路径。",
-      "GPT-4能够有效推理复杂的传递性依赖关系，识别出传统工具忽略的间接漏洞传播路径。",
-      "将LLM语义理解与依赖图结构信息相结合，显著提升了漏洞可达性分析的精度。"
+      "LLM-driven dependency graph analysis identifies 35% more exploitable propagation paths than traditional SCA tools.",
+      "GPT-4 can effectively reason about complex transitive dependency relationships, identifying indirect vulnerability propagation paths that traditional tools overlook.",
+      "Combining LLM semantic understanding with dependency graph structural information significantly improves the precision of vulnerability reachability analysis."
     ],
     "conclusions_zh": [
       "LLM驱动的依赖图分析比传统SCA工具多识别出35%的可利用传播路径。",
@@ -23913,9 +23913,9 @@
       "构建安全专用语言模型的最优预训练数据组成是什么？"
     ],
     "conclusions": [
-      "SecLLM在安全任务上的表现比通用大语言模型提升了20%。",
-      "基于安全相关代码和文档的领域特定预训练使模型获得了更深入的漏洞模式理解能力。",
-      "开源的SecLLM模型为安全社区提供了可复用的基础设施，推动了安全自动化研究的发展。"
+      "SecLLM improves performance on security tasks by 20% compared to general-purpose large language models.",
+      "Domain-specific pre-training on security-related code and documentation enables the model to achieve deeper understanding of vulnerability patterns.",
+      "The open-source SecLLM model provides reusable infrastructure for the security community, advancing research in security automation."
     ],
     "conclusions_zh": [
       "SecLLM在安全任务上的表现比通用大语言模型提升了20%。",
@@ -23993,9 +23993,9 @@
       "图增强LLM检测相比纯文本方法的F1提升幅度是多少？"
     ],
     "conclusions": [
-      "将程序依赖图整合到LLM输入中使漏洞检测F1值比纯文本方法提高了12%。",
-      "基于CodeLlama的微调模型在利用图结构信息方面表现出强大的学习能力。",
-      "图增强表示在涉及跨函数数据流的复杂漏洞检测中优势最为明显。"
+      "Integrating program dependency graphs into LLM input improved vulnerability detection F1 score by 12% compared to plain-text approaches.",
+      "The fine-tuned model based on CodeLlama demonstrated strong learning capability in leveraging graph structural information.",
+      "Graph-enhanced representations showed the most pronounced advantages in detecting complex vulnerabilities involving cross-function data flows."
     ],
     "conclusions_zh": [
       "将程序依赖图整合到LLM输入中使漏洞检测F1值比纯文本方法提高了12%。",
@@ -24074,9 +24074,9 @@
       "基于LLM的合规分析与人工法律审查在准确性和覆盖范围方面相比如何？"
     ],
     "conclusions": [
-      "GPT-4在检测GDPR合规性违规方面达到了92%的准确率。",
-      "LLM能够有效识别隐私政策中的模糊条款、遗漏信息和不一致表述等合规问题。",
-      "自动化隐私政策分析显著降低了企业合规审查的人力成本和时间开销。"
+      "GPT-4 achieved 92% accuracy in detecting GDPR compliance violations.",
+      "LLMs can effectively identify compliance issues in privacy policies, including ambiguous clauses, missing information, and inconsistent statements.",
+      "Automated privacy policy analysis significantly reduces the labor costs and time overhead of enterprise compliance reviews."
     ],
     "conclusions_zh": [
       "GPT-4在检测GDPR合规性违规方面达到了92%的准确率。",
@@ -24154,9 +24154,9 @@
       "当用LLM辅助分类增强健全分析时，能够实现多大程度的误报减少？"
     ],
     "conclusions": [
-      "LLM增强的分类使误报减少了60%，同时完整保持了静态分析的健全性保证。",
-      "GPT-4在理解代码路径可行性和判断告警真实性方面展示了强大的推理能力。",
-      "该方法在不牺牲安全性的前提下，大幅减轻了开发者处理SAST工具告警的负担。"
+      "LLM-augmented classification reduced false positives by 60% while fully preserving the soundness guarantees of static analysis.",
+      "GPT-4 demonstrated strong reasoning capabilities in understanding code path feasibility and determining alert validity.",
+      "The approach substantially alleviates the burden on developers in triaging SAST tool alerts without sacrificing security."
     ],
     "conclusions_zh": [
       "LLM增强的分类使误报减少了60%，同时完整保持了静态分析的健全性保证。",
@@ -24234,9 +24234,9 @@
       "多模态分析相比仅基于代码的漏洞检测能提供多大程度的改进？"
     ],
     "conclusions": [
-      "多模态输入（代码+提交信息+文档）使漏洞检测效果比仅用代码提升了18%。",
-      "提交信息中的变更语义信息对于识别安全相关补丁和漏洞引入具有重要价值。",
-      "文档信息帮助LLM理解预期行为，从而更准确地判断代码是否存在偏离规范的漏洞。"
+      "Multimodal input (code + commit messages + documentation) improved vulnerability detection by 18% compared to code-only approaches.",
+      "Change semantic information in commit messages provides significant value for identifying security-related patches and vulnerability introductions.",
+      "Documentation helps LLMs understand intended behavior, enabling more accurate identification of vulnerabilities where code deviates from specifications."
     ],
     "conclusions_zh": [
       "多模态输入（代码+提交信息+文档）使漏洞检测效果比仅用代码提升了18%。",
@@ -24316,9 +24316,9 @@
       "基于LLM的自动修复如何影响开发者处理SAST工具输出时的生产效率？"
     ],
     "conclusions": [
-      "LLM成功正确修复了55%的Semgrep告警，显著减轻了开发者处理SAST噪声的负担。",
-      "将静态分析告警的上下文信息纳入提示能够有效引导LLM生成针对性的修复补丁。",
-      "对于规则明确的告警类型（如未检查返回值、缺失输入验证），修复成功率最高。"
+      "LLMs successfully and correctly fixed 55% of Semgrep alerts, significantly reducing the developer burden from SAST noise.",
+      "Incorporating contextual information from static analysis alerts into prompts effectively guides LLMs to generate targeted fix patches.",
+      "Fix success rates were highest for alert types with well-defined rules, such as unchecked return values and missing input validation."
     ],
     "conclusions_zh": [
       "LLM成功正确修复了55%的Semgrep告警，显著减轻了开发者处理SAST噪声的负担。",
@@ -24396,9 +24396,9 @@
       "将LLM推理与外部开发工具结合的最优代理工作流是什么？"
     ],
     "conclusions": [
-      "多步骤工具增强修复代理比单步修复方法多修复了28%的缺陷。",
-      "迭代使用编译器反馈和测试结果使LLM能够逐步收敛到正确的补丁。",
-      "调试器的集成使代理能够理解运行时行为，在修复涉及复杂控制流的缺陷时尤为有效。"
+      "The multi-step tool-augmented repair agent fixed 28% more defects than single-step repair approaches.",
+      "Iterative use of compiler feedback and test results enabled the LLM to progressively converge toward correct patches.",
+      "Debugger integration allowed the agent to understand runtime behavior, proving particularly effective for fixing defects involving complex control flow."
     ],
     "conclusions_zh": [
       "多步骤工具增强修复代理比单步修复方法多修复了28%的缺陷。",
@@ -24476,9 +24476,9 @@
       "补丁排序相比随机或基于置信度的选择能提升多少正确补丁的选择率？"
     ],
     "conclusions": [
-      "补丁排序方法使正确补丁的选择率提高了35%，有效减少了过拟合补丁的采纳。",
-      "结合语义相似度、测试行为和代码变更范围等特征的排序模型表现最优。",
-      "该方法对于存在多个通过测试但语义不同的候选补丁的场景尤其有效。"
+      "The patch ranking approach improved correct patch selection rate by 35%, effectively reducing the adoption of overfitting patches.",
+      "A ranking model combining features such as semantic similarity, test behavior, and code change scope performed best.",
+      "The approach is particularly effective in scenarios where multiple candidate patches pass tests but differ semantically."
     ],
     "conclusions_zh": [
       "补丁排序方法使正确补丁的选择率提高了35%，有效减少了过拟合补丁的采纳。",
@@ -24556,9 +24556,9 @@
       "LLM对API变更日志和迁移指南的理解如何提升自动更新的质量？"
     ],
     "conclusions": [
-      "LLM成功迁移了65%的测试依赖更新，涵盖参数变更、方法重命名和接口重构等场景。",
-      "LLM通过理解API变更日志和迁移文档能够推断正确的代码适配方案。",
-      "简单的方法重命名和参数调整迁移成功率最高，涉及架构层面重构的迁移仍具挑战性。"
+      "LLMs successfully migrated 65% of test dependency updates, covering scenarios including parameter changes, method renames, and interface refactoring.",
+      "LLMs can infer correct code adaptation strategies by understanding API changelogs and migration documentation.",
+      "Simple method renames and parameter adjustments achieved the highest migration success rates, while architecture-level refactoring migrations remain challenging."
     ],
     "conclusions_zh": [
       "LLM成功迁移了65%的测试依赖更新，涵盖参数变更、方法重命名和接口重构等场景。",
@@ -24636,9 +24636,9 @@
       "基于LLM的故障定位与基于信息检索和频谱的定位技术相比如何？"
     ],
     "conclusions": [
-      "LLM基于缺陷报告实现了72%的Top-5定位准确率，超越了传统的信息检索定位方法。",
-      "LLM的自然语言理解能力使其能够有效弥合缺陷报告描述与代码实现之间的语义鸿沟。",
-      "对于描述清晰、包含错误消息或堆栈信息的缺陷报告，定位效果最佳。"
+      "LLMs achieved 72% Top-5 localization accuracy based on bug reports, outperforming traditional information retrieval-based localization methods.",
+      "The natural language understanding capability of LLMs effectively bridges the semantic gap between bug report descriptions and code implementations.",
+      "Localization performance is best for bug reports that are clearly described and contain error messages or stack traces."
     ],
     "conclusions_zh": [
       "LLM基于缺陷报告实现了72%的Top-5定位准确率，超越了传统的信息检索定位方法。",
@@ -24718,9 +24718,9 @@
       "GPT-4和Claude在生成安全可靠的补丁方面表现如何？"
     ],
     "conclusions": [
-      "15%的LLM补丁虽然修复了原始漏洞，但引入了新的安全漏洞，揭示了仅靠功能测试评估的不足。",
-      "常见的新引入漏洞类型包括不完整的输入验证、错误的边界检查和资源管理缺陷。",
-      "安全感知评估框架对于部署LLM自动修复系统是必不可少的安全保障。"
+      "15% of LLM patches fixed the original vulnerability but introduced new security vulnerabilities, revealing the inadequacy of evaluation based solely on functional testing.",
+      "Common types of newly introduced vulnerabilities include incomplete input validation, incorrect boundary checks, and resource management defects.",
+      "A security-aware evaluation framework is an essential safeguard for deploying automated LLM repair systems."
     ],
     "conclusions_zh": [
       "15%的LLM补丁虽然修复了原始漏洞，但引入了新的安全漏洞，揭示了仅靠功能测试评估的不足。",
@@ -24798,9 +24798,9 @@
       "哪些类型的代码-测试不一致性从同步双修复中获益最大？"
     ],
     "conclusions": [
-      "联合修复方法比分别修复代码和测试的方式性能提升了22%。",
-      "同时考虑代码和测试的修复能避免因修复代码而破坏现有测试，或生成过拟合于缺陷代码的测试。",
-      "该方法在接口变更和行为修改类缺陷上表现尤为突出，因为这类缺陷必然同时影响代码和测试。"
+      "The joint repair approach improved performance by 22% compared to repairing code and tests separately.",
+      "Simultaneously considering code and test repair avoids breaking existing tests when fixing code, or generating tests that overfit to buggy code.",
+      "The approach excels particularly on interface change and behavior modification defects, as these inherently affect both code and tests."
     ],
     "conclusions_zh": [
       "联合修复方法比分别修复代码和测试的方式性能提升了22%。",
@@ -24878,9 +24878,9 @@
       "LLM对配置参数交互关系的理解如何提升修复正确性？"
     ],
     "conclusions": [
-      "LLM成功修复了Hadoop/Spark/ZooKeeper中58%的配置缺陷。",
-      "LLM对配置参数语义和依赖关系的理解使其能够生成符合系统约束的修复方案。",
-      "涉及数值范围调整和参数依赖的配置缺陷修复率最高，而需要理解系统架构的复杂配置问题仍较困难。"
+      "LLMs successfully fixed 58% of configuration defects in Hadoop, Spark, and ZooKeeper.",
+      "The LLM's understanding of configuration parameter semantics and dependencies enables it to generate fixes that comply with system constraints.",
+      "Configuration defects involving numerical range adjustments and parameter dependencies achieved the highest fix rates, while complex configuration issues requiring system architecture understanding remain difficult."
     ],
     "conclusions_zh": [
       "LLM成功修复了Hadoop/Spark/ZooKeeper中58%的配置缺陷。",
@@ -24958,9 +24958,9 @@
       "哪些代码模式最容易被LLM有效识别和重构以预防缺陷？"
     ],
     "conclusions": [
-      "LLM驱动的重构使处理过的代码缺陷密度降低了30%。",
-      "LLM能够有效识别复杂条件、深层嵌套和重复代码等易出错模式并进行结构化重构。",
-      "预防性重构方法从根本上减少了缺陷产生的土壤，是对传统事后修复的有力补充。"
+      "LLM-driven refactoring reduced defect density by 30% in the processed code.",
+      "LLMs can effectively identify error-prone patterns such as complex conditionals, deep nesting, and duplicated code, and perform structural refactoring.",
+      "Preventive refactoring fundamentally reduces the conditions that give rise to defects, serving as a powerful complement to traditional post-hoc repair."
     ],
     "conclusions_zh": [
       "LLM驱动的重构使处理过的代码缺陷密度降低了30%。",
@@ -25038,9 +25038,9 @@
       "哪些类别的CI故障（构建、测试、部署）最适合用LLM修复？"
     ],
     "conclusions": [
-      "LLM在单次迭代内成功修复了45%的CI流水线故障。",
-      "构建配置错误和依赖版本不匹配类故障的修复成功率最高。",
-      "LLM对多种构建系统和测试框架的广泛知识使其能够快速理解并修复不同技术栈的CI问题。"
+      "LLMs successfully fixed 45% of CI pipeline failures within a single iteration.",
+      "Build configuration errors and dependency version mismatches achieved the highest fix success rates.",
+      "The LLM's broad knowledge of multiple build systems and test frameworks enables it to quickly understand and fix CI issues across different technology stacks."
     ],
     "conclusions_zh": [
       "LLM在单次迭代内成功修复了45%的CI流水线故障。",
@@ -25118,9 +25118,9 @@
       "哪些类型的代码-文档不一致最容易被检测和修正？"
     ],
     "conclusions": [
-      "LLM检测到了80%的代码-文档不一致，并成功修复了其中60%。",
-      "参数描述过时、返回值说明不准确和功能描述与实现不符是最常见的不一致类型。",
-      "该方法为维护代码文档质量提供了可行的自动化方案，减少了文档腐化的问题。"
+      "LLMs detected 80% of code-documentation inconsistencies and successfully fixed 60% of them.",
+      "Outdated parameter descriptions, inaccurate return value documentation, and mismatches between functionality descriptions and implementations are the most common inconsistency types.",
+      "The approach provides a viable automated solution for maintaining code documentation quality, reducing the problem of documentation decay."
     ],
     "conclusions_zh": [
       "LLM检测到了80%的代码-文档不一致，并成功修复了其中60%。",
@@ -25198,9 +25198,9 @@
       "LLM对API演进的理解如何提升迁移正确性，与基于规则的工具相比如何？"
     ],
     "conclusions": [
-      "LLM正确适配了72%的API破坏性变更，包括方法签名变更、类重构和行为语义修改。",
-      "LLM通过理解API变更模式能够推断出正确的迁移转换，优于基于简单规则匹配的方法。",
-      "涉及深层语义变化和多文件联动修改的API变更仍是自动迁移的主要难点。"
+      "LLMs correctly adapted 72% of API breaking changes, including method signature changes, class refactoring, and behavioral semantic modifications.",
+      "LLMs outperform simple rule-matching approaches by inferring correct migration transformations through understanding API change patterns.",
+      "API changes involving deep semantic shifts and multi-file coordinated modifications remain the primary challenges for automated migration."
     ],
     "conclusions_zh": [
       "LLM正确适配了72%的API破坏性变更，包括方法签名变更、类重构和行为语义修改。",
@@ -25283,9 +25283,9 @@
       "LLM对线程交互的推理与专门的并发缺陷修复工具相比如何？"
     ],
     "conclusions": [
-      "LLM正确修复了42%的并发缺陷，涵盖竞态条件和死锁等类型。",
-      "LLM在修复涉及缺失同步原语和锁序违反的缺陷方面表现最好。",
-      "复杂的多线程交互和涉及内存模型微妙语义的并发缺陷仍超出当前LLM的修复能力。"
+      "LLMs correctly fixed 42% of concurrency defects, covering types such as race conditions and deadlocks.",
+      "LLMs performed best at fixing defects involving missing synchronization primitives and lock order violations.",
+      "Complex multi-thread interactions and concurrency defects involving subtle memory model semantics remain beyond the repair capabilities of current LLMs."
     ],
     "conclusions_zh": [
       "LLM正确修复了42%的并发缺陷，涵盖竞态条件和死锁等类型。",
@@ -25363,9 +25363,9 @@
       "哪些类别的性能问题（算法、资源管理、I/O）最能被LLM有效修复？"
     ],
     "conclusions": [
-      "LLM修复了38%的性能缺陷，并通过性能测试验证了实际的运行加速效果。",
-      "算法复杂度优化和冗余计算消除类缺陷的修复成功率最高。",
-      "资源泄漏类缺陷的修复具有安全意义，因为资源耗尽可能导致拒绝服务漏洞。"
+      "LLMs fixed 38% of performance defects, with actual runtime speedups verified through performance testing.",
+      "Algorithmic complexity optimizations and redundant computation elimination achieved the highest fix success rates.",
+      "Fixing resource leak defects has security implications, as resource exhaustion can lead to denial-of-service vulnerabilities."
     ],
     "conclusions_zh": [
       "LLM修复了38%的性能缺陷，并通过性能测试验证了实际的运行加速效果。",
@@ -25443,9 +25443,9 @@
       "LLM对Kubernetes安全最佳实践的理解如何转化为有效的清单修复？"
     ],
     "conclusions": [
-      "LLM成功修复了70%的Kubernetes安全配置错误，包括过度权限、缺失资源限制和不安全的网络策略。",
-      "LLM内置的Kubernetes安全知识使其能够生成符合CIS基准和安全最佳实践的修复方案。",
-      "该方法为DevSecOps流程中的基础设施即代码安全提供了实用的自动化修复能力。"
+      "LLMs successfully fixed 70% of Kubernetes security misconfigurations, including excessive privileges, missing resource limits, and insecure network policies.",
+      "The LLM's built-in Kubernetes security knowledge enables it to generate fixes that comply with CIS benchmarks and security best practices.",
+      "The approach provides practical automated remediation capabilities for infrastructure-as-code security within DevSecOps workflows."
     ],
     "conclusions_zh": [
       "LLM成功修复了70%的Kubernetes安全配置错误，包括过度权限、缺失资源限制和不安全的网络策略。",
@@ -25525,9 +25525,9 @@
       "哪些文档特征使LLM能够生成更准确的输入格式规范？"
     ],
     "conclusions": [
-      "LLM生成的输入规范达到了手动编写规范88%的代码覆盖率。",
-      "LLM能够从文档描述中有效提取结构化的输入格式约束和语法规则。",
-      "该方法显著降低了语法模糊测试的准入门槛，将规范编写时间从数天缩短到数分钟。"
+      "LLM-generated input specifications achieved 88% of the code coverage of manually written specifications.",
+      "LLMs can effectively extract structured input format constraints and grammar rules from documentation descriptions.",
+      "The approach significantly lowers the barrier to entry for grammar-based fuzzing, reducing specification writing time from days to minutes."
     ],
     "conclusions_zh": [
       "LLM生成的输入规范达到了手动编写规范88%的代码覆盖率。",
@@ -25609,9 +25609,9 @@
       "LLM增强的Syzkaller与默认配置相比，发现缺陷的效果如何？"
     ],
     "conclusions": [
-      "LLM生成的syscall描述使Syzkaller能够覆盖45个此前未测试的内核驱动，并发现了7个新缺陷。",
-      "GPT-4能够从内核源码和文档中推断出有效的系统调用参数约束和依赖关系。",
-      "该方法大幅扩展了内核模糊测试的覆盖范围，特别是对缺乏手动描述的驱动程序。"
+      "LLM-generated syscall descriptions enabled Syzkaller to cover 45 previously untested kernel drivers and discovered 7 new bugs.",
+      "GPT-4 can infer effective system call argument constraints and dependencies from kernel source code and documentation.",
+      "The approach substantially expands the coverage of kernel fuzzing, particularly for drivers lacking manually written descriptions."
     ],
     "conclusions_zh": [
       "LLM生成的syscall描述使Syzkaller能够覆盖45个此前未测试的内核驱动，并发现了7个新缺陷。",
@@ -25695,9 +25695,9 @@
       "哪些类型的Web漏洞（XSS、SQL注入、CSRF）从LLM引导的输入生成中获益最多？"
     ],
     "conclusions": [
-      "LLM驱动的Web模糊测试比Burp Suite多发现了25%的Web应用漏洞。",
-      "LLM对认证流程和会话管理的理解使其能够生成更深层的测试输入，到达需认证的应用功能。",
-      "在XSS和SQL注入检测方面提升最为显著，因为LLM能够生成语义上有效但包含攻击载荷的输入。"
+      "LLM-driven web fuzzing discovered 25% more web application vulnerabilities than Burp Suite.",
+      "The LLM's understanding of authentication flows and session management enables it to generate deeper test inputs that reach authenticated application features.",
+      "Improvements were most significant in XSS and SQL injection detection, as LLMs can generate inputs that are semantically valid yet contain attack payloads."
     ],
     "conclusions_zh": [
       "LLM驱动的Web模糊测试比Burp Suite多发现了25%的Web应用漏洞。",
@@ -25777,9 +25777,9 @@
       "GPT-4和CodeLlama在生成语义有效的API测试序列方面有何差异？"
     ],
     "conclusions": [
-      "68%的LLM生成的API测试发现了新缺陷，而RESTler仅为35%。",
-      "LLM对API规范的语义理解使其能够生成满足复杂约束和依赖关系的有效测试序列。",
-      "GPT-4在理解复杂API依赖关系方面优于CodeLlama，但CodeLlama在批量生成场景中成本效益更高。"
+      "68% of LLM-generated API tests found new bugs, compared to only 35% for RESTler.",
+      "The LLM's semantic understanding of API specifications enables it to generate effective test sequences that satisfy complex constraints and dependencies.",
+      "GPT-4 outperformed CodeLlama in understanding complex API dependencies, but CodeLlama was more cost-effective in batch generation scenarios."
     ],
     "conclusions_zh": [
       "68%的LLM生成的API测试发现了新缺陷，而RESTler仅为35%。",
@@ -25862,9 +25862,9 @@
       "通过LLM引导的输入生成可以发现哪些类型的密码学漏洞（侧信道、误用）？"
     ],
     "conclusions": [
-      "LLM引导的模糊测试在OpenSSL和BoringSSL中发现了6个缺陷。",
-      "LLM对密码学标准的理解使其能够生成覆盖边界情况和异常编码的测试输入。",
-      "该方法在发现密码协议实现中的逻辑错误和规范不一致方面特别有效。"
+      "LLM-guided fuzzing discovered 6 bugs in OpenSSL and BoringSSL.",
+      "The LLM's understanding of cryptographic standards enables it to generate test inputs that cover boundary cases and anomalous encodings.",
+      "The approach is particularly effective at finding logic errors and specification inconsistencies in cryptographic protocol implementations."
     ],
     "conclusions_zh": [
       "LLM引导的模糊测试在OpenSSL和BoringSSL中发现了6个缺陷。",
@@ -25942,9 +25942,9 @@
       "模板约束如何引导LLM生成更可靠和类型安全的驱动代码？"
     ],
     "conclusions": [
-      "模板引导的LLM生成方法实现了90%的C++模糊测试驱动编译成功率。",
-      "C++模板模式提供的结构约束有效减少了LLM生成代码中的类型错误和API误用。",
-      "该方法特别适用于具有复杂模板接口和重载函数的C++库。"
+      "The template-guided LLM generation approach achieved a 90% compilation success rate for C++ fuzz harnesses.",
+      "Structural constraints provided by C++ template patterns effectively reduce type errors and API misuse in LLM-generated code.",
+      "The approach is particularly well-suited for C++ libraries with complex template interfaces and overloaded functions."
     ],
     "conclusions_zh": [
       "模板引导的LLM生成方法实现了90%的C++模糊测试驱动编译成功率。",
@@ -26022,9 +26022,9 @@
       "LLM对张量运算和形状约束的理解如何辅助驱动生成？"
     ],
     "conclusions": [
-      "LLM生成的测试驱动在TensorFlow和PyTorch算子中发现了35个缺陷。",
-      "LLM对张量运算语义和形状约束的理解使其能够生成触发边界情况的有效测试用例。",
-      "发现的缺陷包括形状推断错误、数值溢出和不正确的梯度计算等ML框架特有问题。"
+      "LLM-generated test harnesses discovered 35 bugs in TensorFlow and PyTorch operators.",
+      "The LLM's understanding of tensor operation semantics and shape constraints enables it to generate effective test cases that trigger boundary conditions.",
+      "Discovered bugs include ML framework-specific issues such as shape inference errors, numerical overflows, and incorrect gradient computations."
     ],
     "conclusions_zh": [
       "LLM生成的测试驱动在TensorFlow和PyTorch算子中发现了35个缺陷。",
@@ -26102,9 +26102,9 @@
       "LLM在驱动生成中能解决哪些嵌入式系统特有的挑战（硬件依赖、内存约束）？"
     ],
     "conclusions": [
-      "LLM成功为20个嵌入式库生成了可用的模糊测试驱动。",
-      "LLM对硬件抽象层的理解使其能够创建有效模拟外设交互的测试驱动。",
-      "该方法克服了嵌入式模糊测试的主要障碍之一——需要大量手动工作来编写适配硬件环境的测试驱动。"
+      "LLMs successfully generated usable fuzz harnesses for 20 embedded libraries.",
+      "The LLM's understanding of hardware abstraction layers enables it to create test harnesses that effectively simulate peripheral interactions.",
+      "The approach overcomes one of the main barriers to embedded fuzzing: the significant manual effort required to write test harnesses adapted to hardware environments."
     ],
     "conclusions_zh": [
       "LLM成功为20个嵌入式库生成了可用的模糊测试驱动。",
@@ -26182,9 +26182,9 @@
       "基于LLM的SQL生成与基于语法的SQL模糊器在缺陷发现方面相比如何？"
     ],
     "conclusions": [
-      "LLM生成的SQL查询在SQLite、MySQL和PostgreSQL中发现了22个缺陷。",
-      "LLM对SQL语义的理解使其能够生成语法正确且逻辑复杂的查询，触发优化器和执行器的深层逻辑缺陷。",
-      "与传统语法模糊器相比，LLM生成的查询在语义多样性和复杂性方面具有显著优势。"
+      "LLM-generated SQL queries discovered 22 bugs in SQLite, MySQL, and PostgreSQL.",
+      "The LLM's understanding of SQL semantics enables it to generate syntactically correct and logically complex queries that trigger deep logic defects in optimizers and executors.",
+      "Compared to traditional grammar-based fuzzers, LLM-generated queries have significant advantages in semantic diversity and complexity."
     ],
     "conclusions_zh": [
       "LLM生成的SQL查询在SQLite、MySQL和PostgreSQL中发现了22个缺陷。",
@@ -26262,9 +26262,9 @@
       "基于LLM的规范理解相比手工编写的语法定义有哪些优势？"
     ],
     "conclusions": [
-      "LLM生成的格式感知输入在文件解析器上比Superion多实现了30%的代码覆盖率。",
-      "LLM能够从格式规范文档中自动提取结构约束，无需手动编写语法规则。",
-      "该方法对于复杂的嵌套二进制格式和多层容器格式的解析器测试尤为有效。"
+      "LLM-generated format-aware inputs achieved 30% more code coverage on file parsers than Superion.",
+      "LLMs can automatically extract structural constraints from format specification documents without requiring manually written grammar rules.",
+      "The approach is particularly effective for testing parsers of complex nested binary formats and multi-layer container formats."
     ],
     "conclusions_zh": [
       "LLM生成的格式感知输入在文件解析器上比Superion多实现了30%的代码覆盖率。",
@@ -26347,9 +26347,9 @@
       "LLM生成的协议模糊测试对BlueZ和Android等真实蓝牙栈的效果如何？"
     ],
     "conclusions": [
-      "LLM引导的蓝牙协议模糊测试在BlueZ和Android蓝牙栈中发现了8个缺陷。",
-      "LLM对蓝牙协议状态机和规范的理解使其能够生成有效的协议消息序列。",
-      "发现的缺陷包括状态机违反导致的崩溃和规范不一致等安全相关问题。"
+      "LLM-guided Bluetooth protocol fuzzing discovered 8 bugs in BlueZ and the Android Bluetooth stack.",
+      "The LLM's understanding of Bluetooth protocol state machines and specifications enables it to generate valid protocol message sequences.",
+      "Discovered bugs include security-relevant issues such as crashes caused by state machine violations and specification inconsistencies."
     ],
     "conclusions_zh": [
       "LLM引导的蓝牙协议模糊测试在BlueZ和Android蓝牙栈中发现了8个缺陷。",
@@ -26431,9 +26431,9 @@
       "哪种对齐方法对未见过的有害内容类别泛化能力最强？"
     ],
     "conclusions": [
-      "通过对10余种对齐方法的系统比较，RLHF在综合安全基准上表现最为均衡。",
-      "DPO在训练效率上优于RLHF，但在对抗性攻击场景下的鲁棒性稍弱。",
-      "红队测试作为验证手段仍不可或缺，任何单一对齐方法都无法完全防范所有安全风险。"
+      "Through systematic comparison of over 10 alignment methods, RLHF demonstrated the most balanced performance on comprehensive safety benchmarks.",
+      "DPO is more training-efficient than RLHF but slightly less robust under adversarial attack scenarios.",
+      "Red teaming remains indispensable as a validation method, as no single alignment approach can fully prevent all safety risks."
     ],
     "conclusions_zh": [
       "通过对10余种对齐方法的系统比较，RLHF在综合安全基准上表现最为均衡。",
@@ -26511,9 +26511,9 @@
       "识别对外部LLM API未授权调用的检测准确率是多少？"
     ],
     "conclusions": [
-      "通过网络流量分析，系统检测到了92%的影子AI使用行为。",
-      "基于API调用模式和数据传输特征的检测方法能够区分授权和未授权的LLM使用。",
-      "企业中影子AI的使用比预期更为普遍，构成了显著的数据泄露风险。"
+      "Through network traffic analysis, the system detected 92% of shadow AI usage.",
+      "Detection methods based on API call patterns and data transfer characteristics can distinguish between authorized and unauthorized LLM usage.",
+      "Shadow AI usage in enterprises is more prevalent than expected, posing significant data leakage risks."
     ],
     "conclusions_zh": [
       "通过网络流量分析，系统检测到了92%的影子AI使用行为。",
@@ -26591,9 +26591,9 @@
       "针对每种类别的LLM后门攻击有哪些可用的防御机制？"
     ],
     "conclusions": [
-      "系统梳理了40余种针对LLM的后门攻击技术，按训练时、微调时和推理时三个阶段进行分类。",
-      "微调阶段的后门攻击因攻击者可直接操控模型参数而最为危险且最难检测。",
-      "现有防御手段大多针对特定攻击类型，缺乏通用的跨阶段后门检测和缓解框架。"
+      "The study systematically cataloged over 40 backdoor attack techniques targeting LLMs, categorized across three phases: training-time, fine-tuning-time, and inference-time.",
+      "Fine-tuning-phase backdoor attacks are the most dangerous and hardest to detect, as attackers can directly manipulate model parameters.",
+      "Existing defenses mostly target specific attack types and lack a general cross-phase backdoor detection and mitigation framework."
     ],
     "conclusions_zh": [
       "系统梳理了40余种针对LLM的后门攻击技术，按训练时、微调时和推理时三个阶段进行分类。",
@@ -26671,9 +26671,9 @@
       "在保持可接受的模型性能的同时，对抗攻击成功率能降低多少？"
     ],
     "conclusions": [
-      "提出的训练技术将对抗攻击成功率降低了40%，而模型实用性仅损失5%。",
-      "基于Llama-2的鲁棒性训练在多种对抗性扰动策略下均展现了有效的防御能力。",
-      "鲁棒性训练与安全对齐的结合能够提供比单独使用任一方法更全面的安全保障。"
+      "The proposed training techniques reduced adversarial attack success rates by 40% while incurring only a 5% loss in model utility.",
+      "Robustness training based on Llama-2 demonstrated effective defense across a variety of adversarial perturbation strategies.",
+      "Combining robustness training with safety alignment provides more comprehensive security guarantees than using either method alone."
     ],
     "conclusions_zh": [
       "提出的训练技术将对抗攻击成功率降低了40%，而模型实用性仅损失5%。",
@@ -26751,9 +26751,9 @@
       "如何优化隐私保护推理以缩小与非保护推理之间的延迟差距？"
     ],
     "conclusions": [
-      "基于MPC的隐私保护LLM推理实现了用户提示的完全保密，但产生了约50倍的计算开销。",
-      "通过混合协议设计（结合MPC和同态加密），在不同层选择最优加密方案以减少总开销。",
-      "该方法为需要强隐私保证的医疗、法律等敏感领域的LLM部署提供了可行方案。"
+      "MPC-based privacy-preserving LLM inference achieves full confidentiality of user prompts but incurs approximately 50x computational overhead.",
+      "A hybrid protocol design combining MPC and homomorphic encryption selects the optimal encryption scheme for different layers to reduce overall overhead.",
+      "The approach provides a viable solution for deploying LLMs in privacy-sensitive domains such as healthcare and legal services that require strong privacy guarantees."
     ],
     "conclusions_zh": [
       "基于MPC的隐私保护LLM推理实现了用户提示的完全保密，但产生了约50倍的计算开销。",
@@ -26832,9 +26832,9 @@
       "开源项目中未检测到的LLM生成代码会带来哪些供应链安全风险？"
     ],
     "conclusions": [
-      "检测方法在识别LLM生成的代码贡献方面达到了85%的准确率。",
-      "LLM生成的代码在命名约定、注释模式和代码结构上呈现出可识别的特征。",
-      "未经审查的LLM生成代码可能包含隐藏的漏洞或后门，对软件供应链安全构成潜在威胁。"
+      "The detection method achieved 85% accuracy in identifying LLM-generated code contributions.",
+      "LLM-generated code exhibits identifiable characteristics in naming conventions, comment patterns, and code structure.",
+      "Unreviewed LLM-generated code may contain hidden vulnerabilities or backdoors, posing potential threats to software supply chain security."
     ],
     "conclusions_zh": [
       "检测方法在识别LLM生成的代码贡献方面达到了85%的准确率。",
@@ -26914,9 +26914,9 @@
       "提出的安全护栏对不同类别的有害代理行为的防御效果如何？"
     ],
     "conclusions": [
-      "提出的安全机制阻止了95%的有害代理操作，同时任务性能损失不到5%。",
-      "基于行动预审和影响预测的双层安全架构在防范不可逆有害操作方面最为有效。",
-      "对于GPT-4和Claude驱动的代理，安全机制在不同任务领域和风险类型上均表现出一致的保护效果。"
+      "The proposed safety mechanisms blocked 95% of harmful agent actions while incurring less than 5% task performance loss.",
+      "A dual-layer safety architecture based on action pre-review and impact prediction is most effective at preventing irreversible harmful actions.",
+      "For agents powered by GPT-4 and Claude, the safety mechanisms demonstrated consistent protection across different task domains and risk types."
     ],
     "conclusions_zh": [
       "提出的安全机制阻止了95%的有害代理操作，同时任务性能损失不到5%。",
@@ -26998,9 +26998,9 @@
       "当前内容审核机制在不同攻击策略下的鲁棒性如何？"
     ],
     "conclusions": [
-      "研究识别出12种系统性的内容审核绕过技术，涵盖语言转换、角色扮演和逻辑操纵等策略。",
-      "不同LLM的内容审核机制在应对相同绕过技术时表现出显著差异。",
-      "现有内容审核主要依赖表层模式匹配，对语义级别的绕过攻击防御能力不足。"
+      "The study identified 12 systematic content moderation bypass techniques, covering strategies such as language switching, role-playing, and logical manipulation.",
+      "Different LLMs' content moderation mechanisms exhibit significant variations in response to the same bypass techniques.",
+      "Current content moderation relies primarily on surface-level pattern matching and is insufficiently robust against semantic-level bypass attacks."
     ],
     "conclusions_zh": [
       "研究识别出12种系统性的内容审核绕过技术，涵盖语言转换、角色扮演和逻辑操纵等策略。",
@@ -27078,9 +27078,9 @@
       "基于指纹的LLM知识产权验证的检测准确率是多少？"
     ],
     "conclusions": [
-      "提出的指纹方法达到了99%的检测准确率，且在微调等模型变换后仍保持有效。",
-      "基于Llama-2的实验表明，指纹嵌入对模型实用性的影响可忽略不计。",
-      "该方法为开源LLM的知识产权保护提供了实用的技术方案，可检测未经授权的商业使用。"
+      "The proposed fingerprinting method achieved 99% detection accuracy and remains effective even after model transformations such as fine-tuning.",
+      "Experiments on Llama-2 demonstrated that fingerprint embedding has negligible impact on model utility.",
+      "The approach provides a practical technical solution for intellectual property protection of open-source LLMs, capable of detecting unauthorized commercial use."
     ],
     "conclusions_zh": [
       "提出的指纹方法达到了99%的检测准确率，且在微调等模型变换后仍保持有效。",
@@ -27160,9 +27160,9 @@
       "多大比例的真实LLM应用容易受到提示提取攻击？"
     ],
     "conclusions": [
-      "攻击者成功从70%的测试LLM应用中提取了系统提示内容。",
-      "间接引导和元对话技术是最有效的提示提取策略，因为它们利用了LLM的遵从倾向。",
-      "当前大多数LLM应用缺乏有效的系统提示保护机制，暴露了商业逻辑和安全策略。"
+      "Attackers successfully extracted system prompt content from 70% of tested LLM applications.",
+      "Indirect guidance and meta-conversation techniques are the most effective prompt extraction strategies, as they exploit the compliance tendency of LLMs.",
+      "Most current LLM applications lack effective system prompt protection mechanisms, exposing business logic and security policies."
     ],
     "conclusions_zh": [
       "攻击者成功从70%的测试LLM应用中提取了系统提示内容。",
@@ -27240,9 +27240,9 @@
       "安全感知解码对正常生成质量和有用性的影响是什么？"
     ],
     "conclusions": [
-      "安全感知解码将越狱攻击成功率降低了85%，同时对正常输出质量影响极小。",
-      "该方法通过识别和抑制不安全的token分布来阻断越狱攻击，无需额外训练或微调。",
-      "基于Llama-2的实验验证了该方法对多种主流越狱攻击技术的广泛防御效果。"
+      "Safety-aware decoding reduced jailbreak attack success rates by 85% with minimal impact on normal output quality.",
+      "The method blocks jailbreak attacks by identifying and suppressing unsafe token distributions, requiring no additional training or fine-tuning.",
+      "Experiments on Llama-2 validated the method's broad defensive effectiveness against multiple mainstream jailbreak attack techniques."
     ],
     "conclusions_zh": [
       "安全感知解码将越狱攻击成功率降低了85%，同时对正常输出质量影响极小。",
@@ -27322,9 +27322,9 @@
       "当前的多模态安全机制如何应对跨模态越狱攻击？"
     ],
     "conclusions": [
-      "视觉对抗输入成功绕过了80%的基于文本的安全过滤器。",
-      "在GPT-4V和LLaVA上的实验表明，当前多模态LLM的安全机制主要聚焦于文本模态，对视觉通道的攻击防御不足。",
-      "跨模态安全对齐是多模态LLM面临的关键挑战，需要同时覆盖所有输入模态的统一安全框架。"
+      "Visual adversarial inputs successfully bypassed 80% of text-based safety filters.",
+      "Experiments on GPT-4V and LLaVA revealed that current multimodal LLM safety mechanisms primarily focus on the text modality and are insufficiently defended against attacks through the visual channel.",
+      "Cross-modal safety alignment is a critical challenge for multimodal LLMs, requiring a unified safety framework that covers all input modalities simultaneously."
     ],
     "conclusions_zh": [
       "视觉对抗输入成功绕过了80%的基于文本的安全过滤器。",
@@ -27406,9 +27406,9 @@
       "模型归属判定对改写和其他内容修改尝试的鲁棒性如何？"
     ],
     "conclusions": [
-      "提出的取证技术在10个LLM之间实现了92%的模型归属准确率。",
-      "每个LLM的生成具有独特的统计指纹，包括词汇选择分布、句法模式和生成节奏等特征。",
-      "模型归属方法在轻度改写下仍保持较高准确率，但面对深度改写时准确率有所下降。"
+      "The proposed forensic techniques achieved 92% model attribution accuracy across 10 LLMs.",
+      "Each LLM's output exhibits unique statistical fingerprints, including characteristics such as lexical choice distributions, syntactic patterns, and generation rhythms.",
+      "The model attribution method maintains high accuracy under light paraphrasing but shows decreased accuracy when facing deep rewriting."
     ],
     "conclusions_zh": [
       "提出的取证技术在10个LLM之间实现了92%的模型归属准确率。",
@@ -27486,9 +27486,9 @@
       "通过运行时行为监控能检测哪些类别的不安全输出？"
     ],
     "conclusions": [
-      "运行时监控系统检测到了90%的不安全输出，延迟开销不到10毫秒。",
-      "基于输出特征的实时分析能够有效识别有害内容、隐私泄露和指令注入等不安全行为。",
-      "低延迟特性使该系统适合在生产环境中作为LLM应用的安全屏障部署。"
+      "The runtime monitoring system detected 90% of unsafe outputs with less than 10 milliseconds of latency overhead.",
+      "Real-time analysis based on output features can effectively identify unsafe behaviors including harmful content, privacy leakage, and instruction injection.",
+      "The low-latency characteristics make the system suitable for deployment as a safety barrier for LLM applications in production environments."
     ],
     "conclusions_zh": [
       "运行时监控系统检测到了90%的不安全输出，延迟开销不到10毫秒。",
@@ -27568,9 +27568,9 @@
       "基于LLM的模糊测试方法的关键局限性和失败模式是什么？"
     ],
     "conclusions": [
-      "LLM在处理结构化输入（如JSON、XML、协议消息）的模糊测试时收益最大，但在纯二进制格式上收效甚微。",
-      "GPT-4和CodeLlama在不同模糊测试任务上各有优势，没有单一模型在所有场景下表现最优。",
-      "LLM的主要价值在于语义级别的输入理解和变异，而非替代传统模糊器的覆盖率引导机制。"
+      "LLMs provide the greatest benefit in fuzzing structured inputs (such as JSON, XML, and protocol messages) but offer minimal gains for pure binary formats.",
+      "GPT-4 and CodeLlama each have advantages on different fuzzing tasks, with no single model performing best across all scenarios.",
+      "The primary value of LLMs lies in semantic-level input understanding and mutation, rather than replacing the coverage-guided mechanisms of traditional fuzzers."
     ],
     "conclusions_zh": [
       "LLM在处理结构化输入（如JSON、XML、协议消息）的模糊测试时收益最大，但在纯二进制格式上收效甚微。",
@@ -27648,9 +27648,9 @@
       "将基于LLM的预测与神经网络引导变异相结合的最优方式是什么？"
     ],
     "conclusions": [
-      "LLM增强版在24小时内比原始NEUZZ多实现了25%的边覆盖率。",
-      "LLM的程序理解能力使种子选择更加精准，优先变异更有可能触发新路径的输入。",
-      "混合架构将LLM的高层语义理解与神经网络的快速梯度变异有效结合，实现了优势互补。"
+      "The LLM-enhanced version achieved 25% more edge coverage than the original NEUZZ within 24 hours.",
+      "The LLM's program comprehension capability enables more precise seed selection, prioritizing mutation of inputs more likely to trigger new paths.",
+      "The hybrid architecture effectively combines the LLM's high-level semantic understanding with the neural network's fast gradient-based mutation, achieving complementary strengths."
     ],
     "conclusions_zh": [
       "LLM增强版在24小时内比原始NEUZZ多实现了25%的边覆盖率。",
