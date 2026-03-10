@@ -6,9 +6,9 @@ interface Props {
 const quickFilters = [
   { label: 'GPT-4', query: 'GPT-4' },
   { label: 'Smart Contract', query: 'smart contract' },
-  { label: 'Fine-tuning', query: 'fine-tuning' },
+  { label: 'Harness Gen', query: 'harness generation' },
+  { label: 'Patch', query: 'program repair' },
   { label: 'Fuzzing', query: 'fuzzing' },
-  { label: 'Static Analysis', query: 'static analysis' },
   { label: 'Privacy', query: 'privacy' },
 ]
 

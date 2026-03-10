@@ -21,6 +21,8 @@ const categoryOptions: { value: CategoryFilter; label: string; color: string; ic
   { value: 'all', label: 'All', color: 'var(--color-text-secondary)', icon: '📋' },
   { value: 'vulnerability-detection', label: 'Vulnerability', color: '#ff4444', icon: '🛡️' },
   { value: 'fuzzing', label: 'Fuzzing', color: '#44aaff', icon: '🔧' },
+  { value: 'fuzzing-harness', label: 'Harness Gen', color: '#ffaa44', icon: '🎯' },
+  { value: 'patching', label: 'Patching', color: '#aa66ff', icon: '🩹' },
   { value: 'privacy', label: 'Privacy', color: '#44ff88', icon: '🔒' },
 ]
 

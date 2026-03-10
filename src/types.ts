@@ -43,6 +43,6 @@ export interface Paper {
   bibtex?: string
 }
 
-export type CategoryFilter = 'all' | 'vulnerability-detection' | 'fuzzing' | 'privacy'
+export type CategoryFilter = 'all' | 'vulnerability-detection' | 'fuzzing' | 'fuzzing-harness' | 'patching' | 'privacy'
 export type SortBy = 'year-desc' | 'year-asc' | 'title' | 'recommendation'
 export type Language = 'en' | 'zh'
