@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://owensanzas.github.io/O2-CyberSecurity-Outpost/sitemap.xml
