@@ -23,9 +23,20 @@ export default function Header({ paperCount, categoryCount: _categoryCount, venu
               <span className="text-[var(--color-text-primary)]"> CyberSecurity </span>
               <span className="animated-gradient-title">Outpost</span>
             </h1>
-            <p className="text-xs text-[var(--color-text-muted)] mt-1">
+            <p className="text-xs text-[var(--color-text-muted)] mt-1 mb-2">
               LLM-powered security research &middot; {paperCount} papers &middot; {yearRange}
             </p>
+            <a
+              href="https://doi.org/10.1145/3769082"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10 hover:border-[var(--color-accent)]/50 transition-all"
+            >
+              <span className="font-semibold">ACM Computing Surveys 2025</span>
+              <span className="text-[var(--color-text-muted)]">·</span>
+              <span className="text-[var(--color-text-secondary)]">{lang === 'zh' ? 'LLM在软件安全中的应用：漏洞检测技术与洞察综述' : 'LLMs in Software Security: A Survey of Vulnerability Detection Techniques and Insights'}</span>
+              <span className="opacity-60">↗</span>
+            </a>
           </div>
           <div className="flex items-center gap-1.5 shrink-0 mt-1">
             {onThemeToggle && (

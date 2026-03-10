@@ -345,25 +345,25 @@ export default function PaperDetail({ paper, lang, onBack, relatedPapers, onPape
       <section className="mb-8 pt-6 border-t border-[var(--color-border)]">
         <div className="flex gap-2 flex-wrap">
           {paper.paperUrl && (
-            <a href={paper.paperUrl} target="_blank" rel="noopener"
+            <a href={paper.paperUrl} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 transition-all no-underline font-medium">
               Read Paper ↗
             </a>
           )}
           {paper.codeUrl && (
-            <a href={paper.codeUrl} target="_blank" rel="noopener"
+            <a href={paper.codeUrl} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)]/30 transition-all no-underline">
               Source Code ↗
             </a>
           )}
           {paper.slidesUrl && (
-            <a href={paper.slidesUrl} target="_blank" rel="noopener"
+            <a href={paper.slidesUrl} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)]/30 transition-all no-underline">
               Slides ↗
             </a>
           )}
           {paper.talkUrl && (
-            <a href={paper.talkUrl} target="_blank" rel="noopener"
+            <a href={paper.talkUrl} target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:border-[var(--color-accent)]/30 transition-all no-underline">
               Talk ↗
             </a>

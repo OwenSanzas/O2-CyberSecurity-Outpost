@@ -490,13 +490,16 @@ function App() {
                     {totalPages > 1 && <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={goToPage} totalItems={filtered.length} pageSize={PAGE_SIZE} />}
                   </>
                 ) : viewMode === 'timeline' ? (
-                  <TimelineView
-                    papers={filtered}
-                    lang={lang}
-                    onPaperClick={setSelectedPaper}
-                    isInReadingList={readingList.has}
-                    onToggleReadingList={readingList.toggle}
-                  />
+                  <>
+                    <TimelineView
+                      papers={visiblePapers}
+                      lang={lang}
+                      onPaperClick={setSelectedPaper}
+                      isInReadingList={readingList.has}
+                      onToggleReadingList={readingList.toggle}
+                    />
+                    {totalPages > 1 && <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={goToPage} totalItems={filtered.length} pageSize={PAGE_SIZE} />}
+                  </>
                 ) : (
                   <>
                     <div>
@@ -605,7 +608,7 @@ function App() {
         viewMode={viewMode}
         onViewChange={setViewMode}
         readingListCount={readingList.count}
-        onReadingListClick={() => { }}
+        onReadingListClick={() => { setSearchInput(''); setQuery(query === '__reading_list__' ? '' : '__reading_list__') }}
         onRandomClick={openRandomPaper}
         onSearchFocus={() => document.querySelector<HTMLInputElement>('#search-input')?.focus()}
         theme={theme}

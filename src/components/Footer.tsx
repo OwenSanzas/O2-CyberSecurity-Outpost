@@ -40,11 +40,11 @@ export default function Footer({ paperCount, readProgress }: Props) {
           </div>
 
           <div className="flex gap-6 text-sm">
-            <a href="https://github.com/OwenSanzas/O2-CyberSecurity-Outpost" target="_blank" rel="noopener"
+            <a href="https://github.com/OwenSanzas/O2-CyberSecurity-Outpost" target="_blank" rel="noopener noreferrer"
               className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors">
               GitHub
             </a>
-            <a href="https://github.com/OwenSanzas/LLM-For-Software-Security" target="_blank" rel="noopener"
+            <a href="https://github.com/OwenSanzas/LLM-For-Software-Security" target="_blank" rel="noopener noreferrer"
               className="text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors">
               Paper Source
             </a>

@@ -470,25 +470,25 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
           {/* Action links */}
           <div className="flex gap-2 flex-wrap pt-5 mt-5 border-t border-[var(--color-border)]">
             {paper.paperUrl && (
-              <a href={paper.paperUrl} target="_blank" rel="noopener"
+              <a href={paper.paperUrl} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-[var(--color-accent)]/10 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 transition-all no-underline font-medium">
                 Read Paper
               </a>
             )}
             {paper.codeUrl && (
-              <a href={paper.codeUrl} target="_blank" rel="noopener"
+              <a href={paper.codeUrl} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
                 Source Code
               </a>
             )}
             {paper.slidesUrl && (
-              <a href={paper.slidesUrl} target="_blank" rel="noopener"
+              <a href={paper.slidesUrl} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
                 Slides
               </a>
             )}
             {paper.talkUrl && (
-              <a href={paper.talkUrl} target="_blank" rel="noopener"
+              <a href={paper.talkUrl} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-white/5 text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-white/10 transition-all no-underline">
                 Talk
               </a>
@@ -514,7 +514,7 @@ export default function PaperModal({ paper, lang, onClose, relatedPapers, onPape
             <a
               href={`https://github.com/OwenSanzas/O2-CyberSecurity-Outpost/issues/new?title=${encodeURIComponent(`[Paper] ${paper.title}`)}&body=${encodeURIComponent(`Paper: ${paper.title}\nID: ${paper.id}\n\nIssue description:\n`)}`}
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm px-4 py-2 rounded-lg bg-white/5 text-[var(--color-text-muted)] hover:text-[var(--color-text-secondary)] hover:bg-white/10 transition-all no-underline"
             >
               Report Issue

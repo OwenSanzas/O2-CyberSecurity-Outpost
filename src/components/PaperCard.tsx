@@ -130,13 +130,13 @@ export default function PaperCard({ paper, lang, onClick, isInReadingList, onTog
           <span className="flex-1" />
 
           {paper.paperUrl && (
-            <a href={paper.paperUrl} target="_blank" rel="noopener" onClick={e => e.stopPropagation()}
+            <a href={paper.paperUrl} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline">
               PDF ↗
             </a>
           )}
           {paper.codeUrl && (
-            <a href={paper.codeUrl} target="_blank" rel="noopener" onClick={e => e.stopPropagation()}
+            <a href={paper.codeUrl} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()}
               className="text-xs text-[var(--color-text-muted)] hover:text-[var(--color-accent)] transition-colors no-underline">
               Code ↗
             </a>
