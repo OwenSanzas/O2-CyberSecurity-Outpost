@@ -31,6 +31,10 @@ export interface Paper {
   summary_zh?: string
   contributions?: string[]
   contributions_zh?: string[]
+  research_questions?: string[]
+  research_questions_zh?: string[]
+  conclusions?: string[]
+  conclusions_zh?: string[]
   system_name?: string
   paperUrl: string
   codeUrl: string

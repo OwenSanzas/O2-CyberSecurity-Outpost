@@ -85,6 +85,8 @@ export default function PaperDetail({ paper, lang, onBack, relatedPapers, onPape
   const summary = lang === 'zh' ? (paper.summary_zh || paper.summary) : paper.summary
   const contributions = lang === 'zh' ? (paper.contributions_zh || paper.contributions) : paper.contributions
   const abstract = lang === 'zh' ? (paper.abstract_zh || paper.abstract) : paper.abstract
+  const researchQuestions = lang === 'zh' ? (paper.research_questions_zh || paper.research_questions) : paper.research_questions
+  const conclusions = lang === 'zh' ? (paper.conclusions_zh || paper.conclusions) : paper.conclusions
   const exp = paper.experiment
   const rec = paper.recommendation ?? 1
   const recInfo = recLabel(rec)
@@ -210,12 +212,44 @@ export default function PaperDetail({ paper, lang, onBack, relatedPapers, onPape
         </section>
       )}
 
+      {/* Research Questions */}
+      {researchQuestions && researchQuestions.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider mb-3">Research Questions</h2>
+          <ul className="space-y-3">
+            {researchQuestions.map((rq, i) => (
+              <li key={i} className="text-sm text-[var(--color-text-secondary)] flex gap-3 leading-relaxed">
+                <span className="text-[var(--color-blue)] shrink-0 mt-0.5 font-bold">RQ{i + 1}.</span>
+                <span>{rq}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Key Results */}
       {exp?.key_results && (
         <section className="mb-8">
           <div className="bg-[var(--color-accent)]/5 px-5 py-4 rounded-xl border border-[var(--color-accent)]/10">
             <h2 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-2">Key Results</h2>
             <p className="text-sm text-[var(--color-text-primary)] leading-relaxed">{exp.key_results}</p>
+          </div>
+        </section>
+      )}
+
+      {/* Conclusions */}
+      {conclusions && conclusions.length > 0 && (
+        <section className="mb-8">
+          <div className="bg-[var(--color-purple)]/5 px-5 py-4 rounded-xl border border-[var(--color-purple)]/10">
+            <h2 className="text-xs font-semibold text-[var(--color-purple)] uppercase tracking-wider mb-3">Conclusions</h2>
+            <ul className="space-y-2">
+              {conclusions.map((c, i) => (
+                <li key={i} className="text-sm text-[var(--color-text-secondary)] leading-relaxed flex gap-2">
+                  <span className="text-[var(--color-purple)] shrink-0">•</span>
+                  <span>{c}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
       )}
