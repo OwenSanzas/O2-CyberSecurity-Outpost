@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect, useRef, lazy, Suspense } from 'react'
+import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react'
 import Header from './components/Header'
 import SearchBar from './components/SearchBar'
 import Filters from './components/Filters'
@@ -8,6 +8,7 @@ import MatrixRain from './components/MatrixRain'
 import ExportButton from './components/ExportButton'
 import QuickFilters from './components/QuickFilters'
 import PaperTable from './components/PaperTable'
+import Pagination from './components/Pagination'
 import TimelineView from './components/TimelineView'
 import PaperComparison from './components/PaperComparison'
 const KnowledgeGraph = lazy(() => import('./components/KnowledgeGraph'))
@@ -60,7 +61,7 @@ function App() {
   const [selectedPaper, setSelectedPaper] = useState<Paper | null>(null)
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [viewMode, setViewModeState] = useState<'card' | 'table' | 'timeline'>(prefs.viewMode)
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const [currentPage, setCurrentPage] = useState(1)
   const [compareIds, setCompareIds] = useState<string[]>([])
   const [showComparison, setShowComparison] = useState(false)
   const [showAnalytics, setShowAnalytics] = useState(false)
@@ -259,11 +260,7 @@ function App() {
 
   // Reset pagination when filters change
   useEffect(() => {
-    setVisibleCount(PAGE_SIZE)
-    const papersTop = document.getElementById('paper-list')?.offsetTop ?? 0
-    if (window.scrollY > papersTop) {
-      window.scrollTo({ top: papersTop, behavior: 'smooth' })
-    }
+    setCurrentPage(1)
   }, [query, category, yearFilter, sortBy, recommendationFilter, venueFilter, facetFilters])
 
   // j/k navigation when modal is open
@@ -289,8 +286,12 @@ function App() {
 
   const relatedPapers = useRelatedPapers(selectedPaper, papers)
 
-  const visiblePapers = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount])
-  const hasMore = visibleCount < filtered.length
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const safePage = Math.min(currentPage, totalPages)
+  const visiblePapers = useMemo(() => {
+    const start = (safePage - 1) * PAGE_SIZE
+    return filtered.slice(start, start + PAGE_SIZE)
+  }, [filtered, safePage])
 
   const toggleCompare = useCallback((id: string) => {
     setCompareIds(prev => {
@@ -305,19 +306,11 @@ function App() {
     [compareIds]
   )
 
-  // Infinite scroll
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const el = loadMoreRef.current
-    if (!el || !hasMore) return
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setVisibleCount(prev => prev + PAGE_SIZE)
-      }
-    }, { rootMargin: '200px' })
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [hasMore, visibleCount])
+  const goToPage = useCallback((page: number) => {
+    setCurrentPage(page)
+    const el = document.getElementById('paper-list')
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }, [])
 
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {}
@@ -484,15 +477,18 @@ function App() {
                     </button>
                   </div>
                 ) : viewMode === 'table' ? (
-                  <PaperTable
-                    papers={filtered}
-                    lang={lang}
-                    onPaperClick={setSelectedPaper}
-                    isInReadingList={readingList.has}
-                    onToggleReadingList={readingList.toggle}
-                    compareIds={compareIds}
-                    onToggleCompare={toggleCompare}
-                  />
+                  <>
+                    <PaperTable
+                      papers={visiblePapers}
+                      lang={lang}
+                      onPaperClick={setSelectedPaper}
+                      isInReadingList={readingList.has}
+                      onToggleReadingList={readingList.toggle}
+                      compareIds={compareIds}
+                      onToggleCompare={toggleCompare}
+                    />
+                    {totalPages > 1 && <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={goToPage} totalItems={filtered.length} pageSize={PAGE_SIZE} />}
+                  </>
                 ) : viewMode === 'timeline' ? (
                   <TimelineView
                     papers={filtered}
@@ -525,18 +521,7 @@ function App() {
                         </div>
                       ))}
                     </div>
-                    {hasMore ? (
-                      <div ref={loadMoreRef} className="text-center mt-6 py-4">
-                        <div className="inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
-                          <span className="w-4 h-4 border-2 border-[var(--color-accent)]/30 border-t-[var(--color-accent)] rounded-full animate-spin" />
-                          Loading more ({visibleCount} of {filtered.length})...
-                        </div>
-                      </div>
-                    ) : filtered.length > PAGE_SIZE && (
-                      <div className="text-center mt-6 py-4 text-xs text-[var(--color-text-muted)]">
-                        Showing all {filtered.length} papers
-                      </div>
-                    )}
+                    {totalPages > 1 && <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={goToPage} totalItems={filtered.length} pageSize={PAGE_SIZE} />}
                   </>
                 )}
               </div>
