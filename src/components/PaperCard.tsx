@@ -6,18 +6,24 @@ import ReadingListButton from './ReadingListButton'
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
   'fuzzing': '#44aaff',
+  'fuzzing-harness': '#ffaa44',
+  'patching': '#aa66ff',
   'privacy': '#44ff88',
 }
 
 const categoryLabels: Record<string, string> = {
   'vulnerability-detection': 'Vulnerability Detection',
   'fuzzing': 'Fuzzing',
+  'fuzzing-harness': 'Harness Gen',
+  'patching': 'Patching',
   'privacy': 'Privacy',
 }
 
 const categoryIcons: Record<string, string> = {
   'vulnerability-detection': '🛡️',
   'fuzzing': '🔧',
+  'fuzzing-harness': '🎯',
+  'patching': '🩹',
   'privacy': '🔒',
 }
 

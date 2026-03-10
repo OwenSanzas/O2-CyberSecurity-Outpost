@@ -180,7 +180,7 @@ export default function SearchBar({ query, onChange, resultCount, totalCount, pa
             <div className="px-4 py-3">
               <span className="text-xs text-[var(--color-text-muted)] font-mono">Search tips:</span>
               <div className="flex flex-wrap gap-2 mt-2">
-                {['GPT-4', 'fuzzing', 'smart contract', 'privacy', 'fine-tuning'].map(tip => (
+                {['GPT-4', 'fuzzing', 'harness', 'patch', 'smart contract', 'privacy'].map(tip => (
                   <button
                     key={tip}
                     onClick={() => { onChange(tip); setShowSuggestions(false) }}

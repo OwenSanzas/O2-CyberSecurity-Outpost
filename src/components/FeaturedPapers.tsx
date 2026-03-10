@@ -10,6 +10,8 @@ interface Props {
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
   'fuzzing': '#44aaff',
+  'fuzzing-harness': '#ffaa44',
+  'patching': '#aa66ff',
   'privacy': '#44ff88',
 }
 

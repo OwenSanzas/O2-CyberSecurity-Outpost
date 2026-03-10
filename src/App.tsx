@@ -434,6 +434,23 @@ function App() {
               <div className="flex justify-between items-center mb-3 text-xs text-[var(--color-text-muted)]">
                 <span>{filtered.length} paper{filtered.length !== 1 ? 's' : ''}</span>
                 <div className="flex items-center gap-2">
+                  {/* View mode toggle */}
+                  <div className="hidden md:flex items-center border border-[var(--color-border)] rounded-lg overflow-hidden">
+                    {(['card', 'table', 'timeline'] as const).map(mode => (
+                      <button
+                        key={mode}
+                        onClick={() => setViewMode(mode)}
+                        className="px-2 py-1 text-xs transition-colors cursor-pointer border-none"
+                        style={{
+                          background: viewMode === mode ? 'var(--color-accent)' : 'transparent',
+                          color: viewMode === mode ? 'var(--color-bg-primary)' : 'var(--color-text-muted)',
+                        }}
+                        title={`${mode.charAt(0).toUpperCase() + mode.slice(1)} view (${mode === 'card' ? '1' : mode === 'table' ? '2' : '3'})`}
+                      >
+                        {mode === 'card' ? '▦' : mode === 'table' ? '☰' : '⊡'}
+                      </button>
+                    ))}
+                  </div>
                   {readingList.count > 0 && (
                     <button
                       onClick={() => {

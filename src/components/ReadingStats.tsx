@@ -45,6 +45,8 @@ export default function ReadingStats({ papers, readingListIds, readProgress, not
   const categoryLabels: Record<string, string> = {
     'vulnerability-detection': 'Vuln Detection',
     'fuzzing': 'Fuzzing',
+    'fuzzing-harness': 'Harness Gen',
+    'patching': 'Patching',
     'privacy': 'Privacy',
   }
 

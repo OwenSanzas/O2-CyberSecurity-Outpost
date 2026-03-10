@@ -13,12 +13,16 @@ import { useSwipe } from '../hooks/useSwipe'
 const categoryColors: Record<string, string> = {
   'vulnerability-detection': '#ff4444',
   'fuzzing': '#44aaff',
+  'fuzzing-harness': '#ffaa44',
+  'patching': '#aa66ff',
   'privacy': '#44ff88',
 }
 
 const categoryLabels: Record<string, string> = {
   'vulnerability-detection': 'Vulnerability Detection',
   'fuzzing': 'LLM Fuzzing',
+  'fuzzing-harness': 'Harness Generation',
+  'patching': 'LLM Patching',
   'privacy': 'Data Privacy',
 }
 
