@@ -21,7 +21,7 @@ import MobileNav from './components/MobileNav'
 import CommandPalette from './components/CommandPalette'
 import Footer from './components/Footer'
 import { useSearch } from './hooks/useSearch'
-import { useAggregations } from './hooks/useAggregations'
+// import { useAggregations } from './hooks/useAggregations'
 import { useUrlState } from './hooks/useUrlState'
 import { useReadingList } from './hooks/useReadingList'
 import { useRelatedPapers } from './hooks/useRelatedPapers'
@@ -197,10 +197,6 @@ function App() {
       .map(([v]) => v)
   }, [])
 
-  const handleFacetChange = useCallback((key: string, values: string[]) => {
-    setFacetFilters(prev => ({ ...prev, [key]: values }))
-  }, [])
-
   const filtered = useMemo(() => {
     let result: Paper[]
     if (query === '__reading_list__') {
@@ -291,7 +287,6 @@ function App() {
     return () => window.removeEventListener('keydown', handler)
   }, [selectedPaper, filtered])
 
-  const aggregations = useAggregations(filtered)
   const relatedPapers = useRelatedPapers(selectedPaper, papers)
 
   const visiblePapers = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount])

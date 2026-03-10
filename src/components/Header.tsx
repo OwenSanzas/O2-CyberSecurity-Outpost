@@ -11,7 +11,7 @@ interface Props {
   onThemeToggle?: () => void
 }
 
-export default function Header({ paperCount, categoryCount, venueCount, yearRange, lang, onLangChange, theme, onThemeToggle }: Props) {
+export default function Header({ paperCount, categoryCount: _categoryCount, venueCount: _venueCount, yearRange, lang, onLangChange, theme, onThemeToggle }: Props) {
   return (
     <header className="relative px-4 md:px-6 pt-4 pb-6 md:pt-6 md:pb-8">
       <div className="max-w-5xl mx-auto">
